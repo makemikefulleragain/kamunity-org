@@ -1,0 +1,21 @@
+# Kamunity — Full Context
+> Community-owned digital infrastructure. Free tools communities actually own.
+
+## What is Kamunity?
+Kamunity is a platform that gives communities their own digital space — chat, events, files, tools — that belongs to them. Built in Perth, Western Australia.
+
+## Core Values
+- Sovereignty: Your data is yours. Portable. Deletable. Never sold.
+- Accessibility: If a teenager can't use it, it's not finished.
+- Joy: Community tools should feel good, not grey.
+- Sustainability: No single point of failure. Ever.
+- Agency: With you, not for you.
+
+## Live Tools
+- Grant Acquittal Helper: https://grants-hub.netlify.app
+- Nonna's Knitting Circle: https://nonnas-knitting-circle.netlify.app
+- Outcome Vine Coding: https://vine-o-coding.netlify.app
+
+## Contact
+hello@kamunity.org
+https://kamunity.org

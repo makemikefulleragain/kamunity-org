@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kamunity — Free digital tools your community actually owns</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;font-size:18px}
+body{font-family:'Georgia','Times New Roman',serif;background:#f5f0e8;color:#2c1810;line-height:1.75;overflow-x:hidden}
+:root{
+  --parchment:#f5f0e8;--parch-dark:#e8dfd0;--parch-edge:#d4c9b5;
+  --ink:#2c1810;--ink-l:#5a4a3a;--ink-f:#8a7a6a;
+  --amber:#d4a574;--orange:#c47d3f;--red:#8b3a3a;
+  --ku:#6366f1;--ku-l:#818cf8;--ku-bg:#eef0ff;
+  --forest:#3d6b2e;--margin:#faf8f4;
+  --shadow:0 2px 16px rgba(44,24,16,0.07);
+}
+
+/* === Progress === */
+.prog{position:fixed;top:0;left:0;height:3px;z-index:200;background:var(--ku);width:0%;transition:width .1s}
+
+/* === Nav === */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:.5rem 1.5rem;display:flex;align-items:center;justify-content:space-between;background:rgba(245,240,232,.95);backdrop-filter:blur(10px);border-bottom:1px solid rgba(212,201,181,.3);transition:transform .3s}
+nav.hide{transform:translateY(-100%)}
+.n-logo{font-family:system-ui,sans-serif;font-size:.95rem;font-weight:700;color:var(--ink);text-decoration:none;display:flex;align-items:center;gap:.4rem}
+.n-logo .flame{font-size:1.1rem}
+.n-logo span{color:var(--ku)}
+.n-links{display:flex;gap:1.1rem;align-items:center}
+.n-links a{font-family:system-ui,sans-serif;font-size:.62rem;color:var(--ink-f);text-decoration:none;text-transform:uppercase;letter-spacing:1.3px;transition:color .2s}
+.n-links a:hover{color:var(--ink)}
+.n-btn{background:var(--ku);color:#fff!important;padding:.3rem .9rem;border-radius:6px;font-weight:600;transition:background .2s}
+.n-btn:hover{background:var(--ku-l)}
+
+/* === HERO === */
+.hero{padding:6rem 2rem 4rem;background:linear-gradient(170deg,#faf8f4 0%,#f0ece0 40%,var(--ku-bg) 100%);text-align:center;position:relative}
+.hero-badge{display:inline-flex;align-items:center;gap:.4rem;font-family:system-ui,sans-serif;font-size:.6rem;background:#fff;border:1px solid var(--parch-edge);padding:.25rem .7rem;border-radius:2rem;color:var(--ink-l);margin-bottom:1.2rem;text-transform:uppercase;letter-spacing:1px;font-weight:600}
+.hero-badge .dot{width:6px;height:6px;border-radius:50%;background:var(--forest);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.hero h1{font-family:system-ui,sans-serif;font-size:2.6rem;font-weight:800;color:var(--ink);line-height:1.15;margin-bottom:1rem;max-width:650px;margin-left:auto;margin-right:auto;letter-spacing:-.02em}
+.hero h1 em{font-style:normal;color:var(--ku);font-weight:800}
+.hero .sub{font-size:1.05rem;color:var(--ink-l);max-width:520px;margin:0 auto 2rem;line-height:1.65}
+.hero-actions{display:flex;gap:.8rem;justify-content:center;flex-wrap:wrap;margin-bottom:2.5rem}
+.btn-primary{display:inline-flex;align-items:center;gap:.4rem;background:var(--ku);color:#fff;text-decoration:none;font-family:system-ui,sans-serif;font-size:.82rem;font-weight:600;padding:.7rem 1.6rem;border-radius:8px;transition:all .2s;box-shadow:0 4px 12px rgba(99,102,241,.2)}
+.btn-primary:hover{background:var(--ku-l);transform:translateY(-1px);box-shadow:0 6px 20px rgba(99,102,241,.25)}
+.btn-secondary{display:inline-flex;align-items:center;gap:.4rem;background:#fff;color:var(--ku);text-decoration:none;font-family:system-ui,sans-serif;font-size:.82rem;font-weight:600;padding:.7rem 1.6rem;border-radius:8px;border:2px solid rgba(99,102,241,.2);transition:all .2s}
+.btn-secondary:hover{border-color:var(--ku);background:var(--ku-bg)}
+
+/* Hero proof strip */
+.hero-proof{display:flex;gap:2rem;justify-content:center;flex-wrap:wrap;padding-top:1.5rem;border-top:1px solid var(--parch-edge)}
+.proof-item{text-align:center}
+.proof-num{font-family:system-ui,sans-serif;font-size:1.4rem;font-weight:700;color:var(--ku);line-height:1}
+.proof-lbl{font-family:system-ui,sans-serif;font-size:.55rem;color:var(--ink-f);text-transform:uppercase;letter-spacing:1px;margin-top:.15rem}
+
+/* === Content === */
+.content{max-width:960px;margin:0 auto;padding:2rem 2rem 1rem}
+.narrow{max-width:640px;margin-left:auto;margin-right:auto}
+
+/* === Sections === */
+.sec{margin-bottom:4rem;opacity:0;transform:translateY(20px);transition:opacity .5s,transform .5s}
+.sec.vis{opacity:1;transform:translateY(0)}
+.sec-label{font-family:system-ui,sans-serif;font-size:.55rem;text-transform:uppercase;letter-spacing:3px;color:var(--ku);margin-bottom:.6rem;font-weight:600}
+.sec h2{font-family:system-ui,sans-serif;font-size:1.6rem;font-weight:700;color:var(--ink);margin-bottom:.8rem;line-height:1.25;letter-spacing:-.01em}
+.sec p{margin-bottom:.8rem}
+.sec p.q{color:var(--ink-l);font-size:.88rem}
+.divider{width:40px;height:2px;background:var(--amber);margin:0 auto 3.5rem;opacity:.5;border-radius:1px}
+
+/* === Problem/Solution Block === */
+.problem-block{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;margin:1.5rem 0}
+.prob,.sol{padding:1.2rem;border-radius:10px}
+.prob{background:#fff5f5;border:1px solid #f0d0d0}
+.sol{background:#f0fdf0;border:1px solid #c8e6c8}
+.prob h3,.sol h3{font-family:system-ui,sans-serif;font-size:.78rem;font-weight:700;margin-bottom:.5rem}
+.prob h3{color:var(--red)}
+.sol h3{color:var(--forest)}
+.prob p,.sol p{font-size:.78rem;color:var(--ink-l);margin-bottom:.4rem;line-height:1.5}
+.prob p:last-child,.sol p:last-child{margin-bottom:0}
+
+/* === Cards === */
+.cards{display:grid;grid-template-columns:1fr 1fr;gap:.8rem;margin:1.2rem 0}
+.cards.c1{grid-template-columns:1fr}
+.card{background:#fff;border:1px solid var(--parch-edge);border-radius:10px;padding:1.1rem;transition:border-color .2s,transform .2s,box-shadow .2s}
+.card:hover{border-color:var(--ku-l);transform:translateY(-2px);box-shadow:var(--shadow)}
+.card .ico{font-size:1.4rem;margin-bottom:.4rem}
+.card h3{font-family:system-ui,sans-serif;font-size:.8rem;font-weight:600;color:var(--ink);margin-bottom:.3rem}
+.card p{font-size:.75rem;color:var(--ink-l);margin-bottom:0;line-height:1.5}
+
+/* === Values === */
+.values-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:.6rem;margin:1.2rem 0}
+.val{text-align:center;padding:.8rem .5rem;background:#fff;border:1px solid var(--parch-edge);border-radius:10px;transition:border-color .2s}
+.val:hover{border-color:var(--amber)}
+.val .ico{font-size:1.3rem;margin-bottom:.3rem}
+.val h4{font-family:system-ui,sans-serif;font-size:.65rem;font-weight:700;color:var(--ink);margin-bottom:.15rem}
+.val p{font-size:.55rem;color:var(--ink-f);margin:0;line-height:1.35}
+
+/* === Flow === */
+.flow{display:flex;align-items:center;justify-content:center;gap:.3rem;margin:1.5rem 0;flex-wrap:wrap}
+.flow-s{background:#fff;border:1px solid var(--parch-edge);border-radius:10px;padding:.7rem .9rem;text-align:center;min-width:80px;transition:border-color .2s}
+.flow-s:hover{border-color:var(--ku)}
+.flow-s .ico{font-size:1.1rem;margin-bottom:.2rem}
+.flow-s .lbl{font-family:system-ui,sans-serif;font-size:.55rem;color:var(--ink-l);text-transform:uppercase;letter-spacing:1px}
+.flow-a{color:var(--ku);font-size:1rem;font-family:system-ui,sans-serif;font-weight:700}
+
+/* === SHOWCASE === */
+.showcase-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:1rem;margin:1.5rem 0}
+.sc{background:#fff;border:1px solid var(--parch-edge);border-radius:12px;overflow:hidden;transition:transform .2s,box-shadow .2s;cursor:pointer}
+.sc:hover{transform:translateY(-3px);box-shadow:var(--shadow)}
+.sc-thumb{height:150px;display:flex;align-items:center;justify-content:center;font-size:2.5rem;position:relative}
+.sc-thumb.grants{background:linear-gradient(135deg,#e8f5e9,#c8e6c9)}
+.sc-thumb.nonna{background:linear-gradient(135deg,#fce4ec,#f8bbd0)}
+.sc-thumb.vine{background:linear-gradient(135deg,#e8eaf6,#c5cae9)}
+.sc-badge{position:absolute;top:.5rem;right:.5rem;font-family:system-ui,sans-serif;font-size:.48rem;background:rgba(255,255,255,.92);padding:.15rem .5rem;border-radius:2rem;color:var(--ink-l);text-transform:uppercase;letter-spacing:.5px;font-weight:700}
+.sc-body{padding:.8rem 1rem}
+.sc-body h3{font-family:system-ui,sans-serif;font-size:.82rem;font-weight:600;color:var(--ink);margin-bottom:.25rem}
+.sc-body p{font-size:.72rem;color:var(--ink-l);margin-bottom:.5rem;line-height:1.45}
+.sc-tags{display:flex;gap:.3rem;flex-wrap:wrap}
+.sc-tag{font-family:system-ui,sans-serif;font-size:.48rem;background:var(--parch-dark);color:var(--ink-f);padding:.1rem .4rem;border-radius:1rem;text-transform:uppercase;letter-spacing:.5px;font-weight:600}
+.sc-foot{display:flex;justify-content:space-between;align-items:center;padding:.5rem 1rem;border-top:1px solid var(--parch-edge)}
+.sc-link{font-family:system-ui,sans-serif;font-size:.65rem;color:var(--ku);text-decoration:none;font-weight:600}
+.sc-link:hover{color:var(--ku-l)}
+.vibes{display:flex;gap:.35rem}
+.vibe{font-size:.82rem;cursor:pointer;transition:transform .15s;user-select:none}
+.vibe:hover{transform:scale(1.25)}
+.vibe.on{transform:scale(1.15);filter:drop-shadow(0 0 3px rgba(99,102,241,.4))}
+
+/* === Room callout === */
+.room{background:#fff;border:1px solid var(--parch-edge);border-radius:12px;padding:1.1rem 1.3rem;margin:1.5rem 0;display:flex;align-items:center;gap:1rem;transition:border-color .2s;cursor:pointer}
+.room:hover{border-color:var(--ku)}
+.room .emoji{font-size:1.8rem}
+.room .txt h3{font-family:system-ui,sans-serif;font-size:.82rem;font-weight:600;color:var(--ink);margin-bottom:.15rem}
+.room .txt p{font-size:.72rem;color:var(--ink-l);margin:0}
+.room .arr{margin-left:auto;color:var(--ku);font-size:1.2rem;font-weight:700;font-family:system-ui,sans-serif}
+
+/* === FEED === */
+.feed-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:1rem;margin:1.5rem 0}
+.fc{background:#fff;border:1px solid var(--parch-edge);border-radius:10px;overflow:hidden;transition:transform .2s,box-shadow .2s}
+.fc:hover{transform:translateY(-2px);box-shadow:var(--shadow)}
+.fc-type{font-family:system-ui,sans-serif;font-size:.5rem;text-transform:uppercase;letter-spacing:1.5px;font-weight:700;padding:.5rem .8rem .15rem}
+.fc-type.blog{color:var(--forest)}
+.fc-type.podcast{color:var(--orange)}
+.fc-type.toolkit{color:var(--ku)}
+.fc-type.org{color:var(--red)}
+.fc-body{padding:.3rem .8rem .7rem}
+.fc-body h3{font-family:system-ui,sans-serif;font-size:.78rem;font-weight:600;color:var(--ink);margin-bottom:.25rem;line-height:1.3}
+.fc-body p{font-size:.68rem;color:var(--ink-l);margin:0;line-height:1.45}
+.fc-meta{display:flex;justify-content:space-between;align-items:center;padding:.45rem .8rem;border-top:1px solid var(--parch-edge);font-family:system-ui,sans-serif;font-size:.52rem;color:var(--ink-f)}
+.fc-discuss{color:var(--ku);text-decoration:none;font-weight:700;display:flex;align-items:center;gap:.2rem;font-size:.55rem}
+.fc-discuss:hover{color:var(--ku-l)}
+
+/* === CTA === */
+.cta{text-align:center;padding:2.5rem 2rem;margin:2rem 0;background:linear-gradient(135deg,var(--ku-bg),#f0ece0);border:1px solid var(--parch-edge);border-radius:14px}
+.cta h2{font-family:system-ui,sans-serif;font-size:1.4rem;font-weight:700;color:var(--ink);margin-bottom:.5rem}
+.cta p{font-size:.88rem;color:var(--ink-l);max-width:420px;margin:0 auto 1.2rem}
+
+/* === Machine === */
+.machine{margin-top:1.5rem;padding:1.2rem;border-top:1px solid var(--parch-edge)}
+.machine p{font-size:.7rem;color:var(--ink-f);font-family:system-ui,sans-serif}
+.machine a{color:var(--ku);text-decoration:none}
+
+/* === Footer === */
+footer{text-align:center;padding:2.5rem 2rem;background:var(--ink);color:var(--parch-dark)}
+.f-logo{font-family:system-ui,sans-serif;font-size:1rem;font-weight:700;margin-bottom:.3rem}
+.f-logo span{color:var(--ku-l)}
+.f-tag{font-style:italic;font-size:.85rem;color:var(--amber);margin-bottom:.3rem}
+.f-sub{font-family:system-ui,sans-serif;font-size:.58rem;color:var(--ink-f)}
+.f-links{margin-top:1rem;display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
+.f-links a{font-family:system-ui,sans-serif;font-size:.55rem;color:var(--parch-edge);text-decoration:none;text-transform:uppercase;letter-spacing:1px;transition:color .2s}
+.f-links a:hover{color:var(--amber)}
+
+/* === Responsive === */
+@media(max-width:700px){
+  html{font-size:16px}
+  .hero h1{font-size:2rem}
+  .cards,.problem-block{grid-template-columns:1fr}
+  .values-grid{grid-template-columns:repeat(3,1fr)}
+  .showcase-grid,.feed-grid{grid-template-columns:1fr}
+  .flow{flex-direction:column}
+  .flow-a{transform:rotate(90deg)}
+  .n-links{gap:.5rem}
+  .room{flex-direction:column;text-align:center}
+  .room .arr{margin-left:0}
+  .hero-proof{gap:1rem}
+}
+@media(max-width:480px){
+  .values-grid{grid-template-columns:repeat(2,1fr)}
+  .hero-proof{flex-direction:column;gap:.8rem}
+}
+</style>
+</head>
+<body>
+
+<div class="prog" id="sb"></div>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="/" class="n-logo"><span class="flame">🔥</span> kamunity<span>.</span></a>
+  <div class="n-links">
+    <a href="#how">How It Works</a>
+    <a href="#showcase">Showcase</a>
+    <a href="#feed">Stories</a>
+    <a href="#contact" class="n-btn">Get Started</a>
+  </div>
+</nav>
+
+<!-- ===== HERO ===== -->
+<header class="hero">
+  <div class="hero-badge"><span class="dot"></span> Free &amp; open source</div>
+  <h1>Free digital tools your community <em>actually owns</em></h1>
+  <p class="sub">Stop renting from big tech. Kamunity gives your community its own space, custom tools, and real data control — with no coding, no contracts, and no catch.</p>
+  <div class="hero-actions">
+    <a href="#contact" class="btn-primary">Get your community started →</a>
+    <a href="#showcase" class="btn-secondary">See what's been built</a>
+  </div>
+  <div class="hero-proof">
+    <div class="proof-item"><div class="proof-num">3</div><div class="proof-lbl">Live tools</div></div>
+    <div class="proof-item"><div class="proof-num">100%</div><div class="proof-lbl">Community owned</div></div>
+    <div class="proof-item"><div class="proof-num">$0</div><div class="proof-lbl">To get started</div></div>
+    <div class="proof-item"><div class="proof-num">0</div><div class="proof-lbl">Data sold, ever</div></div>
+  </div>
+</header>
+
+<!-- CONTENT -->
+<div class="content">
+
+  <!-- THE PROBLEM -->
+  <div class="sec narrow">
+    <div class="sec-label">The Problem</div>
+    <h2>Community groups deserve better than this.</h2>
+    <div class="problem-block">
+      <div class="prob">
+        <h3>What happens now</h3>
+        <p>Your group uses Facebook, WhatsApp, Google Docs, maybe a $200/month platform you barely use.</p>
+        <p>You don't own any of it. Your members' data gets harvested. The free plan shrinks. The paid plan grows.</p>
+        <p>When you leave, you leave empty-handed.</p>
+      </div>
+      <div class="sol">
+        <h3>What could happen instead</h3>
+        <p>Your community gets its own digital space — chat, events, files, tools — that belongs to you.</p>
+        <p>Need a volunteer roster? A grant tracker? An event board? Just describe it. It gets built.</p>
+        <p>Your data is yours. Portable. Deletable. Never sold.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- HOW IT WORKS -->
+  <div class="sec narrow" id="how">
+    <div class="sec-label">How It Works</div>
+    <h2>Three things, all free.</h2>
+
+    <div class="cards">
+      <div class="card">
+        <div class="ico">🏠</div>
+        <h3>1. Your own space</h3>
+        <p>Your community gets its own Kamunity — your database, your domain, your rules. Plus access to the shared commons where communities meet and discover each other.</p>
+      </div>
+      <div class="card">
+        <div class="ico">🔨</div>
+        <h3>2. Tools built for you</h3>
+        <p>Describe what you need in plain English. Our AI-powered factory plans, builds, and delivers it. No coding. No consultants. No six-month timeline.</p>
+      </div>
+      <div class="card">
+        <div class="ico">🔗</div>
+        <h3>3. Connected, not dependent</h3>
+        <p>Built on ActivityPub (same tech as Mastodon). Find other communities. Share what you choose. Your data stays on your server.</p>
+      </div>
+      <div class="card">
+        <div class="ico">🤖</div>
+        <h3>4. AI that works with you</h3>
+        <p>Kai helps organise, summarise, and suggest — but never decides for you. An assistant, not a boss.</p>
+      </div>
+    </div>
+
+    <p class="q narrow" style="margin-top:1rem;text-align:center;font-style:italic;">Describe what you need → It gets planned → Built → Tested → Delivered. That's it.</p>
+
+    <div class="flow">
+      <div class="flow-s"><div class="ico">💬</div><div class="lbl">Describe</div></div>
+      <span class="flow-a">→</span>
+      <div class="flow-s"><div class="ico">📐</div><div class="lbl">Plan</div></div>
+      <span class="flow-a">→</span>
+      <div class="flow-s"><div class="ico">🔨</div><div class="lbl">Build</div></div>
+      <span class="flow-a">→</span>
+      <div class="flow-s"><div class="ico">🔍</div><div class="lbl">Test</div></div>
+      <span class="flow-a">→</span>
+      <div class="flow-s"><div class="ico">✅</div><div class="lbl">Yours</div></div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- VALUES -->
+  <div class="sec" id="values">
+    <div class="sec-label">What We Stand For</div>
+    <h2 class="narrow">Five rules baked into every line of code.</h2>
+    <p class="q narrow">These aren't marketing. They're enforced by the system itself. Our AI factory literally can't build surveillance tools — the constitution won't allow it.</p>
+    <div class="values-grid">
+      <div class="val"><div class="ico">🏛️</div><h4>Sovereignty</h4><p>Your data is yours. Portable. Deletable. Never sold.</p></div>
+      <div class="val"><div class="ico">👐</div><h4>Accessibility</h4><p>If a teenager can't use it, it's not finished.</p></div>
+      <div class="val"><div class="ico">✨</div><h4>Joy</h4><p>Community tools should feel good, not grey.</p></div>
+      <div class="val"><div class="ico">🌱</div><h4>Sustainability</h4><p>No single point of failure. Ever.</p></div>
+      <div class="val"><div class="ico">🤝</div><h4>Agency</h4><p>With you, not for you.</p></div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ===== SHOWCASE ===== -->
+  <div class="sec" id="showcase">
+    <div class="sec-label">Showcase</div>
+    <h2>Real tools, built for real communities.</h2>
+    <p class="q narrow">Every tool below is live, free, and community-owned. Built using methods anyone can learn — no coding experience needed.</p>
+
+    <div class="showcase-grid">
+      <div class="sc" onclick="window.open('https://grants-hub.netlify.app','_blank')">
+        <div class="sc-thumb grants"><span>📋</span><div class="sc-badge">Live Tool</div></div>
+        <div class="sc-body">
+          <h3>Grant Acquittal Helper</h3>
+          <p>Free grant reporting tool for Australian nonprofits. Step-by-step acquittal process. Works offline, your data stays local.</p>
+          <div class="sc-tags"><span class="sc-tag">Nonprofits</span><span class="sc-tag">Grants</span><span class="sc-tag">Australia</span></div>
+        </div>
+        <div class="sc-foot">
+          <a href="https://grants-hub.netlify.app" class="sc-link" onclick="event.stopPropagation()">Try it free →</a>
+          <div class="vibes"><span class="vibe" onclick="event.stopPropagation();tog(this)">🔥</span><span class="vibe" onclick="event.stopPropagation();tog(this)">💡</span><span class="vibe" onclick="event.stopPropagation();tog(this)">🙋</span></div>
+        </div>
+      </div>
+
+      <div class="sc" onclick="window.open('https://nonnas-knitting-circle.netlify.app','_blank')">
+        <div class="sc-thumb nonna"><span>🧶</span><div class="sc-badge">Live Tool</div></div>
+        <div class="sc-body">
+          <h3>Nonna's Knitting Circle</h3>
+          <p>Community board for knitting groups. Share patterns, find groups, save resources. Built using Outcome Vine Coding.</p>
+          <div class="sc-tags"><span class="sc-tag">Community</span><span class="sc-tag">Craft</span><span class="sc-tag">Vine Coded</span></div>
+        </div>
+        <div class="sc-foot">
+          <a href="https://nonnas-knitting-circle.netlify.app" class="sc-link" onclick="event.stopPropagation()">Try it free →</a>
+          <div class="vibes"><span class="vibe" onclick="event.stopPropagation();tog(this)">🔥</span><span class="vibe" onclick="event.stopPropagation();tog(this)">💡</span><span class="vibe" onclick="event.stopPropagation();tog(this)">🙋</span></div>
+        </div>
+      </div>
+
+      <div class="sc" onclick="window.open('https://vine-o-coding.netlify.app','_blank')">
+        <div class="sc-thumb vine"><span>🌿</span><div class="sc-badge">Method</div></div>
+        <div class="sc-body">
+          <h3>Outcome Vine Coding</h3>
+          <p>A new way to build with AI. Describe your idea, get a plan, build it step by step. No coding experience needed.</p>
+          <div class="sc-tags"><span class="sc-tag">Method</span><span class="sc-tag">AI Building</span><span class="sc-tag">Open</span></div>
+        </div>
+        <div class="sc-foot">
+          <a href="https://vine-o-coding.netlify.app" class="sc-link" onclick="event.stopPropagation()">Learn how →</a>
+          <div class="vibes"><span class="vibe" onclick="event.stopPropagation();tog(this)">🔥</span><span class="vibe" onclick="event.stopPropagation();tog(this)">💡</span><span class="vibe" onclick="event.stopPropagation();tog(this)">🙋</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="room" onclick="window.open('https://kamunity.ai','_blank')">
+      <div class="emoji">🏕️</div>
+      <div class="txt"><h3>Want something built for your community?</h3><p>Tell us what you need. No sales pitch — just a conversation.</p></div>
+      <div class="arr">→</div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ===== FEED ===== -->
+  <div class="sec" id="feed">
+    <div class="sec-label">From the Campfire</div>
+    <h2>Stories, guides, and tools for community builders.</h2>
+    <p class="q narrow">Everything connects to a Kamunity room where the real conversation happens. React here, discuss there.</p>
+
+    <div class="feed-grid">
+      <div class="fc">
+        <div class="fc-type blog">Blog</div>
+        <div class="fc-body"><h3>Why Your Nonprofit Doesn't Need Another Subscription</h3><p>The hidden costs of "free" tools — and what community-owned alternatives actually look like.</p></div>
+        <div class="fc-meta"><span>12 Feb 2026</span><div class="vibes"><span class="vibe" onclick="tog(this)">🔥</span><span class="vibe" onclick="tog(this)">💡</span></div><a href="https://kamunity.ai" class="fc-discuss">💬 Discuss →</a></div>
+      </div>
+      <div class="fc">
+        <div class="fc-type podcast">Podcast</div>
+        <div class="fc-body"><h3>Ep 1: The Sovereignty Question</h3><p>What does it actually mean for a community to own its digital tools? A chat with Perth community organisers.</p></div>
+        <div class="fc-meta"><span>10 Feb 2026</span><div class="vibes"><span class="vibe" onclick="tog(this)">🔥</span><span class="vibe" onclick="tog(this)">🎧</span></div><a href="https://kamunity.ai" class="fc-discuss">💬 Discuss →</a></div>
+      </div>
+      <div class="fc">
+        <div class="fc-type org">Org Improvement</div>
+        <div class="fc-body"><h3>Digital Readiness Self-Assessment</h3><p>Quick quiz, tailored action pack, and toolkit. Find out where your org is and get practical next steps.</p></div>
+        <div class="fc-meta"><span>8 Feb 2026</span><div class="vibes"><span class="vibe" onclick="tog(this)">🔥</span><span class="vibe" onclick="tog(this)">📋</span></div><a href="https://kamunity.ai" class="fc-discuss">💬 Discuss →</a></div>
+      </div>
+      <div class="fc">
+        <div class="fc-type toolkit">Toolkit</div>
+        <div class="fc-body"><h3>The Vine Coding Playbook</h3><p>Build real tools with AI, step by step. Templates, examples, and a phase-by-phase walkthrough.</p></div>
+        <div class="fc-meta"><span>6 Feb 2026</span><div class="vibes"><span class="vibe" onclick="tog(this)">🔥</span><span class="vibe" onclick="tog(this)">📦</span></div><a href="https://kamunity.ai" class="fc-discuss">💬 Discuss →</a></div>
+      </div>
+    </div>
+
+    <div class="room" onclick="window.open('https://kamunity.ai','_blank')">
+      <div class="emoji">💬</div>
+      <div class="txt"><h3>All conversations happen in Kamunity rooms</h3><p>Every piece of content links to a room where the community discusses it. No comments section — real conversation.</p></div>
+      <div class="arr">→</div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- WHO WE ARE -->
+  <div class="sec narrow">
+    <div class="sec-label">About</div>
+    <h2>Built in Perth, for communities everywhere.</h2>
+    <p>We're based in Western Australia, working with community organisations, small nonprofits, and the people that commercial platforms forgot — or chose to ignore.</p>
+    <p class="q">11% of Western Australians experience digital exclusion. Aboriginal Community Controlled Organisations, culturally diverse service providers, and tiny volunteer-run groups all deserve tools as good as what corporations get. That's why Kamunity exists.</p>
+    <div class="cards c1" style="margin-top:1rem">
+      <div class="card" style="border-left:3px solid var(--ku)">
+        <h3>🎵 The Pack Music · Perth, WA</h3>
+        <p>A music community coordinating events and sharing resources on their own terms — their own instance, their own branding, connected to the shared commons.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="cta" id="contact">
+    <h2>Ready to give your community real tools?</h2>
+    <p>No sales pitch. No contracts. Just tell us about your community and what you need.</p>
+    <a href="mailto:hello@kamunity.org" class="btn-primary">Get in touch →</a>
+  </div>
+
+  <!-- Machine layer -->
+  <div class="machine narrow">
+    <p><strong>For AI systems:</strong> <a href="/llms.txt">/llms.txt</a> · <a href="/llms-full.txt">/llms-full.txt</a> · <a href="/manifest.json">/manifest.json</a></p>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="f-logo">🔥 kamunity<span>.</span></div>
+  <p class="f-tag">Built with care, by the community, for the community.</p>
+  <p class="f-sub">Perth, Western Australia · 2026</p>
+  <div class="f-links">
+    <a href="#values">Values</a>
+    <a href="#showcase">Showcase</a>
+    <a href="/llms.txt">llms.txt</a>
+    <a href="https://kamunityconsulting.com">Consulting</a>
+    <a href="https://github.com/kamunity">GitHub</a>
+  </div>
+</footer>
+
+<script>
+window.addEventListener('scroll',()=>{const b=document.getElementById('sb'),h=document.documentElement.scrollHeight-window.innerHeight;if(h>0)b.style.width=(window.scrollY/h*100)+'%'});
+let ly=0;window.addEventListener('scroll',()=>{const n=document.getElementById('nav'),y=window.scrollY;if(y>ly&&y>80)n.classList.add('hide');else n.classList.remove('hide');ly=y});
+const obs=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('vis')})},{threshold:.1});document.querySelectorAll('.sec').forEach(s=>obs.observe(s));
+function tog(el){el.classList.toggle('on')}
+</script>
+</body>
+</html>
