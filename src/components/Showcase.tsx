@@ -1,7 +1,7 @@
 import FadeIn from './FadeIn'
 import ShowcaseCard from './ShowcaseCard'
 import RoomCallout from './RoomCallout'
-import { showcaseItems } from '@/data/showcase'
+import { showcaseItems } from '../data/showcase'
 
 export default function Showcase() {
   return (

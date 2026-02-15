@@ -1,7 +1,7 @@
 import FadeIn from './FadeIn'
 import FeedCard from './FeedCard'
 import RoomCallout from './RoomCallout'
-import { feedItems } from '@/data/feed'
+import { feedItems } from '../data/feed'
 
 export default function Feed() {
   return (

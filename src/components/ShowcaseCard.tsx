@@ -1,6 +1,6 @@
 'use client'
 
-import { ShowcaseItem } from '@/data/showcase'
+import { ShowcaseItem } from '../data/showcase'
 import VibeButton from './VibeButton'
 
 export default function ShowcaseCard({ item }: { item: ShowcaseItem }) {

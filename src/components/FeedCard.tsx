@@ -1,6 +1,6 @@
 'use client'
 
-import { FeedItem } from '@/data/feed'
+import { FeedItem } from '../data/feed'
 import VibeButton from './VibeButton'
 
 const typeStyles: Record<FeedItem['type'], { color: string; label: string; vibes: string[] }> = {
