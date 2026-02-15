@@ -9,11 +9,11 @@ export default function RoomCallout({
   description: string
   url: string
 }) {
+  const isExternal = url.startsWith('http')
   return (
     <a
       href={url}
-      target="_blank"
-      rel="noopener noreferrer"
+      {...(isExternal ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
       className="bg-white border border-parchment-edge rounded-xl p-4 px-5 mt-6 flex items-center gap-4 hover:border-ku transition-colors cursor-pointer no-underline group"
     >
       <div className="text-[1.8rem]">{emoji}</div>

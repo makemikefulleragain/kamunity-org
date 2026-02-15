@@ -1,13 +1,17 @@
+import { showcaseItems } from '../data/showcase'
+
 export default function Hero() {
+  const liveCount = showcaseItems.filter((i) => i.badge === 'Live Tool').length
+
   return (
     <header className="pt-24 pb-16 px-8 bg-gradient-to-br from-[#faf8f4] via-[#f0ece0] to-ku-bg text-center relative">
       <div className="inline-flex items-center gap-1.5 font-sans text-[0.6rem] bg-white border border-parchment-edge px-3 py-1 rounded-full text-ink-light uppercase tracking-[1px] font-semibold mb-5">
         <span className="w-1.5 h-1.5 rounded-full bg-forest animate-pulse-dot" />
-        Free &amp; open source
+        Open source
       </div>
 
       <h1 className="font-sans text-[2.6rem] font-extrabold text-ink leading-[1.15] mb-4 max-w-[650px] mx-auto tracking-tight">
-        Free digital tools your community{' '}
+        Digital tools your community{' '}
         <span className="text-ku">actually owns</span>
       </h1>
 
@@ -18,7 +22,9 @@ export default function Hero() {
 
       <div className="flex gap-3 justify-center flex-wrap mb-10">
         <a
-          href="#contact"
+          href="https://kamunity.ai"
+          target="_blank"
+          rel="noopener noreferrer"
           className="inline-flex items-center gap-1.5 bg-ku text-white font-sans text-[0.82rem] font-semibold px-6 py-3 rounded-lg shadow-[0_4px_12px_rgba(99,102,241,0.2)] hover:bg-ku-light hover:-translate-y-px hover:shadow-[0_6px_20px_rgba(99,102,241,0.25)] transition-all no-underline"
         >
           Get your community started →
@@ -33,18 +39,28 @@ export default function Hero() {
 
       <div className="flex gap-8 justify-center flex-wrap pt-6 border-t border-parchment-edge">
         {[
-          { num: '3', label: 'Live tools' },
-          { num: '100%', label: 'Community owned' },
-          { num: '$0', label: 'To get started' },
-          { num: '0', label: 'Data sold, ever' },
-        ].map((item) => (
-          <div key={item.label} className="text-center">
-            <div className="font-sans text-[1.4rem] font-bold text-ku leading-none">{item.num}</div>
-            <div className="font-sans text-[0.55rem] text-ink-faint uppercase tracking-[1px] mt-0.5">
-              {item.label}
+          { num: String(liveCount), label: 'Live tools', href: '#showcase' },
+          { num: '100%', label: 'Community owned', href: undefined },
+          { num: '$0', label: 'To get started', href: undefined },
+          { num: '0', label: 'Data sold, ever', href: undefined },
+          { num: '0', label: 'Adverts, ever', href: undefined },
+        ].map((item) =>
+          item.href ? (
+            <a key={item.label} href={item.href} className="text-center no-underline group">
+              <div className="font-sans text-[1.4rem] font-bold text-ku leading-none group-hover:text-ku-light transition-colors">{item.num}</div>
+              <div className="font-sans text-[0.55rem] text-ink-faint uppercase tracking-[1px] mt-0.5 group-hover:text-ink transition-colors">
+                {item.label}
+              </div>
+            </a>
+          ) : (
+            <div key={item.label} className="text-center">
+              <div className="font-sans text-[1.4rem] font-bold text-ku leading-none">{item.num}</div>
+              <div className="font-sans text-[0.55rem] text-ink-faint uppercase tracking-[1px] mt-0.5">
+                {item.label}
+              </div>
             </div>
-          </div>
-        ))}
+          )
+        )}
       </div>
     </header>
   )

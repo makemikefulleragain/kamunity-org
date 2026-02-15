@@ -1,9 +1,36 @@
 'use client'
 
+import { useEffect, useState, useCallback } from 'react'
 import FadeIn from './FadeIn'
 import BuildLoop from './BuildLoop'
 
+const quotes = [
+  'I need a way to track our community garden \u2014 what\u2019s planted, when to water, what\u2019s ready to harvest.',
+  'Our local footy club runs off one person\u2019s phone. If they leave, we lose everything \u2014 the roster, the contacts, the finances.',
+  'I\u2019m a uni student trying to start a study group but there\u2019s no free tool that isn\u2019t harvesting our data or shoving ads at us.',
+  'I volunteer at a food bank. We coordinate with sticky notes and a whiteboard. There has to be a better way.',
+  'My school P&C needs a place parents can actually find \u2014 not buried in a Facebook group nobody checks.',
+]
+
 export default function SubHero() {
+  const [current, setCurrent] = useState(0)
+  const [visible, setVisible] = useState(true)
+  const [paused, setPaused] = useState(false)
+
+  const advance = useCallback(() => {
+    setVisible(false)
+    setTimeout(() => {
+      setCurrent((prev) => (prev + 1) % quotes.length)
+      setVisible(true)
+    }, 2000)
+  }, [])
+
+  useEffect(() => {
+    if (paused) return
+    const timer = setInterval(advance, 8000)
+    return () => clearInterval(timer)
+  }, [paused, advance])
+
   return (
     <section className="py-16">
       <FadeIn>
@@ -23,11 +50,28 @@ export default function SubHero() {
               Someone at the fire speaks.
             </h3>
 
-            <blockquote className="border-l-[3px] border-fire-amber pl-5 mb-6">
-              <p className="font-serif text-[1.05rem] italic text-ink-light leading-relaxed">
-                &ldquo;I need a way to track our community garden — what&apos;s planted, when to water, what&apos;s ready to harvest.&rdquo;
-              </p>
-            </blockquote>
+            <div
+              className="mb-6 min-h-[80px]"
+              onMouseEnter={() => setPaused(true)}
+              onMouseLeave={() => setPaused(false)}
+            >
+              <blockquote className="border-l-[3px] border-fire-amber pl-5">
+                <p
+                  className="font-serif text-[1.05rem] italic text-ink-light leading-relaxed transition-opacity duration-[2000ms] ease-in-out"
+                  style={{ opacity: visible ? 1 : 0 }}
+                >
+                  &ldquo;{quotes[current]}&rdquo;
+                </p>
+              </blockquote>
+              <div className="flex justify-center gap-1.5 mt-3">
+                {quotes.map((_, i) => (
+                  <span
+                    key={i}
+                    className={`block w-1.5 h-1.5 rounded-full transition-colors duration-500 ${i === current ? 'bg-ku' : 'bg-parchment-edge'}`}
+                  />
+                ))}
+              </div>
+            </div>
 
             <p className="text-[0.88rem] text-ink mb-4 leading-relaxed">
               In most communities, that idea stays an idea. There&apos;s no developer on call. No budget for software. No time to learn to code. The need is real but the tools aren&apos;t.
@@ -47,10 +91,10 @@ export default function SubHero() {
 
       {/* Campfire text below block 1 */}
       <FadeIn className="mb-16 max-w-[640px]">
-        <p className="text-[0.85rem] text-ink-light mb-3 leading-relaxed">
+        <p className="text-[0.88rem] text-ink mb-3 leading-relaxed">
           This is what <a href="https://kamunity.ai" target="_blank" rel="noopener noreferrer" className="text-ku font-semibold no-underline hover:text-ku-light">Kamunity</a> is — the campfire where communities gather. A place to speak your needs, share ideas, and find others who&apos;ve solved similar problems.
         </p>
-        <p className="text-[0.85rem] text-ink-light leading-relaxed">
+        <p className="text-[0.88rem] text-ink leading-relaxed">
           It&apos;s not a product pitch. It&apos;s a circle. You sit down, you say what you need, and the community responds — sometimes with advice, sometimes with a tool that already exists, and sometimes by building something new.
         </p>
       </FadeIn>

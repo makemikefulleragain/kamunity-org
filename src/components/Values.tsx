@@ -2,7 +2,7 @@ import FadeIn from './FadeIn'
 
 const values = [
   { ico: '🏛️', title: 'Sovereignty', desc: 'Your data is yours. Portable. Deletable. Never sold.' },
-  { ico: '👐', title: 'Accessibility', desc: "If a teenager can't use it, it's not finished." },
+  { ico: '👐', title: 'Accessibility', desc: "If someone can't use it, it's not finished." },
   { ico: '✨', title: 'Joy', desc: 'Community tools should feel good, not grey.' },
   { ico: '🌱', title: 'Sustainability', desc: 'No single point of failure. Ever.' },
   { ico: '🤝', title: 'Agency', desc: 'With you, not for you.' },

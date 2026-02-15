@@ -14,7 +14,7 @@ export const feedItems: FeedItem[] = [
     title: "Why Your Nonprofit Doesn't Need Another Subscription",
     description: 'The hidden costs of "free" tools — and what community-owned alternatives actually look like.',
     date: '12 Feb 2026',
-    roomUrl: 'https://kamunity.ai',
+    roomUrl: 'https://kamunity.ai/discover',
   },
   {
     slug: 'sovereignty-question',
@@ -22,7 +22,7 @@ export const feedItems: FeedItem[] = [
     title: 'Ep 1: The Sovereignty Question',
     description: 'What does it actually mean for a community to own its digital tools? A chat with Perth community organisers.',
     date: '10 Feb 2026',
-    roomUrl: 'https://kamunity.ai',
+    roomUrl: 'https://kamunity.ai/discover',
   },
   {
     slug: 'digital-readiness',
@@ -30,7 +30,7 @@ export const feedItems: FeedItem[] = [
     title: 'Digital Readiness Self-Assessment',
     description: 'Quick quiz, tailored action pack, and toolkit. Find out where your org is and get practical next steps.',
     date: '8 Feb 2026',
-    roomUrl: 'https://kamunity.ai',
+    roomUrl: 'https://kamunity.ai/discover',
   },
   {
     slug: 'vine-coding-playbook',
@@ -38,6 +38,6 @@ export const feedItems: FeedItem[] = [
     title: 'The Vine Coding Playbook',
     description: 'Build real tools with AI, step by step. Templates, examples, and a phase-by-phase walkthrough.',
     date: '6 Feb 2026',
-    roomUrl: 'https://kamunity.ai',
+    roomUrl: 'https://kamunity.ai/discover',
   },
 ]

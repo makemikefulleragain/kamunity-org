@@ -1,21 +1,54 @@
 # Kamunity — Full Context
-> Community-owned digital infrastructure. Free tools communities actually own.
+> Community-owned digital infrastructure. Digital tools communities actually own.
 
 ## What is Kamunity?
-Kamunity is a platform that gives communities their own digital space — chat, events, files, tools — that belongs to them. Built in Perth, Western Australia.
+Kamunity is a platform that gives communities their own digital space — chat rooms, events, files, and custom tools — that belongs to them. No ads, no data harvesting, no vendor lock-in. Built in Perth, Western Australia, for community organisations, nonprofits, students, and people doing it tough.
+
+## The Problem Kamunity Solves
+Community groups rely on Facebook, WhatsApp, Google Docs, and expensive SaaS platforms they don't own. Members' data gets harvested. Free plans shrink. Paid plans grow. When you leave, you leave empty-handed. Kamunity changes that — your community gets its own space, its own tools, and keeps its own data.
+
+## How It Works
+1. Your own space: Your community gets its own Kamunity instance — your database, your domain, your rules.
+2. Tools built for you: Describe what you need in plain English. An AI-powered factory (FactoryK) plans, builds, checks, and delivers working tools. No coding. No consultants.
+3. Connected, not dependent: Built on ActivityPub (same tech as Mastodon). Find other communities. Share what you choose. Your data stays on your server.
+4. AI that works with you: Kai helps organise, summarise, and suggest — but never decides for you. An assistant, not a boss.
+
+## The Factory (FactoryK)
+FactoryK is the community-owned build system. When someone speaks a need at the campfire (Kamunity.Ai), the factory listens, plans, builds, checks its own work, and delivers something that actually runs. It has constitutional guardrails — no surveillance, no dark patterns, no vendor lock-in, no extracting data without knowledge. The values are structural, not aspirational.
+Learn more: https://factoryk1.netlify.app
 
 ## Core Values
 - Sovereignty: Your data is yours. Portable. Deletable. Never sold.
-- Accessibility: If a teenager can't use it, it's not finished.
+- Accessibility: If someone can't use it, it's not finished.
 - Joy: Community tools should feel good, not grey.
 - Sustainability: No single point of failure. Ever.
 - Agency: With you, not for you.
 
 ## Live Tools
-- Grant Acquittal Helper: https://grants-hub.netlify.app
-- Nonna's Knitting Circle: https://nonnas-knitting-circle.netlify.app
-- Outcome Vine Coding: https://vine-o-coding.netlify.app
+- Kamunity.Ai: Public and private community rooms. Find, create, and join conversations. https://kamunity.ai
+- Grant Acquittal Helper: Free grant reporting tool for Australian nonprofits. Step-by-step acquittal process. https://grants-hub.netlify.app
+- Nonna's Knitting Circle: Community board for knitting groups. Share patterns, find groups. https://nonnas-knitting-circle.netlify.app
+- Outcome Vine Coding: Build real tools with AI, step by step. No coding experience needed. https://vine-o-coding.netlify.app
+
+## Community Spotlight
+- The Pack Music (Perth, WA): A music community coordinating events and sharing resources on their own terms. https://www.packmusic.au
+
+## Who It's For
+- Local community groups (sports clubs, gardens, food banks)
+- School P&Cs and parent groups
+- University students starting study groups or clubs
+- Nonprofits and volunteer organisations
+- Aboriginal Community Controlled Organisations
+- Culturally diverse service providers
+- Anyone doing it tough who just needs help getting organised
+
+## Constitution
+Kamunity operates under a community-written constitution. No tracking, no cookies, WCAG 2.1 AA accessibility, high performance. The infrastructure enforces the values — a request to build a surveillance tool gets refused by the system itself, not by a person making a judgement call.
+
+## Location
+Perth, Western Australia. 11% of Western Australians experience digital exclusion. Kamunity exists to close that gap.
 
 ## Contact
-hello@kamunity.org
+mike@kamunityconsulting.com
 https://kamunity.org
+https://kamunity.ai

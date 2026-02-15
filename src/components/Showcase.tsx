@@ -26,7 +26,7 @@ export default function Showcase() {
         emoji="🏕️"
         title="Want something built for your community?"
         description="Tell us what you need. No sales pitch — just a conversation."
-        url="https://kamunity.ai"
+        url="#contact"
       />
     </FadeIn>
   )

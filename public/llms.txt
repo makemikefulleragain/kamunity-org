@@ -1,3 +1,24 @@
 # Kamunity
-> Community-owned digital infrastructure. Free tools communities actually own.
-Content coming soon. See https://kamunity.org for full details.
+> Community-owned digital infrastructure. Digital tools communities actually own.
+
+## What
+Kamunity gives communities their own digital space — chat rooms, events, files, and custom tools — that belongs to them. No ads, no data harvesting, no vendor lock-in.
+
+## How
+Anyone describes what they need in plain language. An AI-powered factory (FactoryK) plans, builds, checks, and delivers working tools. No coding required.
+
+## Live Tools
+- Kamunity.Ai: Public and private community rooms — https://kamunity.ai
+- Grant Acquittal Helper: Free grant reporting for Australian nonprofits — https://grants-hub.netlify.app
+- Nonna's Knitting Circle: Community board for knitting groups — https://nonnas-knitting-circle.netlify.app
+- Outcome Vine Coding: Build with AI, step by step — https://vine-o-coding.netlify.app
+
+## Values
+Sovereignty, Accessibility, Joy, Sustainability, Agency. No surveillance. No dark patterns. Constitution-enforced.
+
+## Built in Perth, Western Australia
+For community organisations, nonprofits, students, and people doing it tough.
+
+## Contact
+mike@kamunityconsulting.com
+https://kamunity.org

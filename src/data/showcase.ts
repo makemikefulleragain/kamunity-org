@@ -11,6 +11,16 @@ export interface ShowcaseItem {
 
 export const showcaseItems: ShowcaseItem[] = [
   {
+    slug: 'kamunity-ai',
+    title: 'Kamunity.Ai',
+    description: 'Find, create, and join public and private rooms for your community. Discover conversations, share resources, and build together — no ads, no data harvesting.',
+    url: 'https://kamunity.ai',
+    thumbGradient: 'from-indigo-200 to-purple-200',
+    thumbEmoji: '🔥',
+    badge: 'Live Tool',
+    tags: ['Community', 'Rooms', 'Discussion'],
+  },
+  {
     slug: 'grants-hub',
     title: 'Grant Acquittal Helper',
     description: 'Free grant reporting tool for Australian nonprofits. Step-by-step acquittal process. Works offline, your data stays local.',

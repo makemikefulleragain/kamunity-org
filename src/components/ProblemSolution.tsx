@@ -4,10 +4,10 @@ export default function ProblemSolution() {
   return (
     <FadeIn className="max-w-[640px] mx-auto">
       <div className="font-sans text-[0.55rem] uppercase tracking-[3px] text-ku mb-2.5 font-semibold">
-        The Problem
+        The Real Problem
       </div>
       <h2 className="font-sans text-[1.6rem] font-bold text-ink mb-3 leading-tight tracking-tight">
-        Community groups deserve better than this.
+        Our Community Groups Deserve Better
       </h2>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mt-6">

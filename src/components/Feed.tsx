@@ -26,7 +26,7 @@ export default function Feed() {
         emoji="💬"
         title="All conversations happen in Kamunity rooms"
         description="Every piece of content links to a room where the community discusses it. No comments section — real conversation."
-        url="https://kamunity.ai"
+        url="https://kamunity.ai/discover"
       />
     </FadeIn>
   )

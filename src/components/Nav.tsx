@@ -43,7 +43,9 @@ export default function Nav() {
             Stories
           </a>
           <a
-            href="#contact"
+            href="https://kamunity.ai"
+            target="_blank"
+            rel="noopener noreferrer"
             className="font-sans text-[0.62rem] text-white bg-ku px-3.5 py-1.5 rounded-md font-semibold uppercase tracking-[1.3px] hover:bg-ku-light transition-colors no-underline"
           >
             Get Started

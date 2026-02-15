@@ -22,7 +22,7 @@ export default function HowItWorks() {
         How It Works
       </div>
       <h2 className="font-sans text-[1.6rem] font-bold text-ink mb-3 leading-tight tracking-tight">
-        Three things, all free.
+        Start with four free things.
       </h2>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mt-5">
