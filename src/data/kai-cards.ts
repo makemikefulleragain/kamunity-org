@@ -1,0 +1,197 @@
+export type CardType = 'quiz' | 'resource' | 'event' | 'connection' | 'insight' | 'constitution';
+
+export interface KaiCard {
+  id: string;
+  type: CardType;
+  title: string;
+  description: string;
+  icon: string;
+  action?: {
+    label: string;
+    url?: string;
+    external?: boolean;
+  };
+  meta?: string;
+}
+
+export const CARD_REGISTRY: Record<string, KaiCard> = {
+  'sovereignty-audit': {
+    id: 'sovereignty-audit',
+    type: 'quiz',
+    title: 'Digital Sovereignty Audit',
+    description: 'Free 2-minute self-assessment. Understand your vendor lock-in, data exposure, and digital costs.',
+    icon: '🧭',
+    action: { label: 'Take the audit', url: 'https://kamunity-audit.netlify.app/', external: true },
+    meta: '2 min · Free · Zero data collection',
+  },
+  'ai-readiness': {
+    id: 'ai-readiness',
+    type: 'quiz',
+    title: 'AI Readiness Assessment',
+    description: 'Map your organisation\'s AI understanding, current use, safety posture, and readiness to act.',
+    icon: '🤖',
+    action: { label: 'Check your readiness', url: 'https://kamunity-ai-readiness.netlify.app/', external: true },
+    meta: '5 min · Free · Includes toolkit',
+  },
+  'constitution': {
+    id: 'constitution',
+    type: 'constitution',
+    title: 'Kai\'s Constitution',
+    description: 'The values that govern how Kai works. Founder\'s Draft — open for your thoughts and amendments.',
+    icon: '📜',
+    action: { label: 'Read the constitution', url: '/constitution', external: false },
+  },
+  'contact-mike': {
+    id: 'contact-mike',
+    type: 'connection',
+    title: 'Talk to Mike',
+    description: 'Have a conversation about what your community needs. No sales pitch — just a yarn.',
+    icon: '🤝',
+    action: { label: 'Send an email', url: 'mailto:mike@kamunityconsulting.com', external: true },
+  },
+  'book-workshop': {
+    id: 'book-workshop',
+    type: 'connection',
+    title: 'Book a Workshop',
+    description: 'AI readiness or digital sovereignty workshops for your team. In-person (Perth) or online.',
+    icon: '🏕️',
+    action: { label: 'Get in touch', url: 'mailto:mike@kamunityconsulting.com?subject=Workshop%20Enquiry', external: true },
+  },
+  'crisis-support': {
+    id: 'crisis-support',
+    type: 'connection',
+    title: 'Human Support Services',
+    description: 'If you or someone you know needs support right now, these services are here for you.',
+    icon: '💛',
+    action: { label: 'Lifeline: 13 11 14', url: 'tel:131114', external: true },
+    meta: 'Lifeline 13 11 14 · Beyond Blue 1300 22 4636',
+  },
+  'toolkit-ai-policy': {
+    id: 'toolkit-ai-policy',
+    type: 'resource',
+    title: 'AI Policy Template',
+    description: 'A plain-language AI policy template designed for community organisations. Adapt it to your context.',
+    icon: '📋',
+    action: { label: 'Get the toolkit', url: 'https://kamunity-ai-readiness.netlify.app/', external: true },
+  },
+  'toolkit-prompt-kit': {
+    id: 'toolkit-prompt-kit',
+    type: 'resource',
+    title: 'Prompt Writing Kit',
+    description: 'Practical prompt templates for NFP workers. Meeting notes, grant writing, comms, reporting.',
+    icon: '✏️',
+    action: { label: 'Get the toolkit', url: 'https://kamunity-ai-readiness.netlify.app/', external: true },
+  },
+  'toolkit-safety-checklist': {
+    id: 'toolkit-safety-checklist',
+    type: 'resource',
+    title: 'AI Safety Checklist',
+    description: 'Before you use an AI tool with community data, run through this checklist first.',
+    icon: '✅',
+    action: { label: 'Get the checklist', url: 'https://kamunity-ai-readiness.netlify.app/', external: true },
+  },
+  'event-infoxchange': {
+    id: 'event-infoxchange',
+    type: 'event',
+    title: 'Infoxchange Conference 2026',
+    description: 'Technology for Social Justice — Australia\'s largest NFP tech conference. 300 delegates, workshops on AI, digital inclusion.',
+    icon: '📅',
+    action: { label: 'Learn more', url: 'https://www.infoxchange.org/', external: true },
+    meta: 'May 6–8, 2026 · Melbourne',
+  },
+  'event-nlnet': {
+    id: 'event-nlnet',
+    type: 'event',
+    title: 'NLnet Grant Deadline',
+    description: 'NGI Zero Commons Fund — funding for open-source community digital infrastructure. €5K–€50K.',
+    icon: '⏰',
+    action: { label: 'Apply', url: 'https://nlnet.nl/commonsfund/', external: true },
+    meta: 'Deadline: April 1, 2026',
+  },
+  'event-solidarity-ai': {
+    id: 'event-solidarity-ai',
+    type: 'event',
+    title: 'Solidarity AI Conference',
+    description: 'Global conference on cooperative and community AI. Bangkok, November 2026.',
+    icon: '🌏',
+    action: { label: 'Learn more', url: 'https://solidarityai.org/', external: true },
+    meta: 'Nov 12–15, 2026 · Bangkok',
+  },
+  'grant-nlnet': {
+    id: 'grant-nlnet',
+    type: 'insight',
+    title: 'NLnet Funding Opportunity',
+    description: 'NGI Zero Commons Fund supports open-source digital commons. €5K–€50K per project. Excellent fit for community infrastructure.',
+    icon: '💰',
+    action: { label: 'See details', url: 'https://nlnet.nl/commonsfund/', external: true },
+    meta: 'Deadline: April 1, 2026',
+  },
+  'ally-bonfire': {
+    id: 'ally-bonfire',
+    type: 'insight',
+    title: 'Bonfire Networks',
+    description: 'Modular federated community platform — philosophically nearest sibling to Kamunity.',
+    icon: '🔥',
+    action: { label: 'Visit Bonfire', url: 'https://bonfirenetworks.org/', external: true },
+  },
+  'ally-hypha': {
+    id: 'ally-hypha',
+    type: 'insight',
+    title: 'Hypha Worker Co-operative',
+    description: 'Toronto-based co-op building RooLLM — a cooperatively governed language model.',
+    icon: '🍄',
+    action: { label: 'Visit Hypha', url: 'https://hypha.coop/', external: true },
+  },
+  'ally-wacoss': {
+    id: 'ally-wacoss',
+    type: 'insight',
+    title: 'WACOSS Digital Inclusion',
+    description: '$3.9M Lotterywest-funded initiative training 1,500 frontline community service workers in Perth.',
+    icon: '🌿',
+    action: { label: 'Visit WACOSS', url: 'https://wacoss.org.au/', external: true },
+  },
+  'kamunity-ai': {
+    id: 'kamunity-ai',
+    type: 'resource',
+    title: 'Kamunity.Ai — Community Rooms',
+    description: 'Public and private community rooms. Find, create, and join conversations. The digital campfire.',
+    icon: '🏕️',
+    action: { label: 'Join the campfire', url: 'https://kamunity.ai', external: true },
+    meta: 'Free · No sign-up required for public rooms',
+  },
+  'factoryk': {
+    id: 'factoryk',
+    type: 'resource',
+    title: 'FactoryK — Community Build System',
+    description: 'Describe what your community needs in plain English. The AI-powered factory plans, builds, and delivers working tools.',
+    icon: '🏗️',
+    action: { label: 'Try FactoryK', url: 'https://factoryk1.netlify.app', external: true },
+    meta: 'No coding required',
+  },
+  'vine-o-coding': {
+    id: 'vine-o-coding',
+    type: 'resource',
+    title: 'Outcome Vine Coding',
+    description: 'Build real tools with AI, step by step. Learn to code with guided AI assistance — no experience needed.',
+    icon: '🌱',
+    action: { label: 'Start building', url: 'https://vine-o-coding.netlify.app', external: true },
+    meta: 'Free · Beginner-friendly',
+  },
+  'nonnas-knitting': {
+    id: 'nonnas-knitting',
+    type: 'resource',
+    title: "Nonna's Knitting Circle",
+    description: 'Community board for knitting groups. A demo of what community-owned tools can look like — cosy and functional.',
+    icon: '🧶',
+    action: { label: 'Visit the circle', url: 'https://nonnas-knitting-circle.netlify.app', external: true },
+  },
+  'grant-acquittal': {
+    id: 'grant-acquittal',
+    type: 'resource',
+    title: 'Grant Acquittal Helper',
+    description: 'Free grant reporting tool for Australian nonprofits. Makes acquittals less painful.',
+    icon: '📊',
+    action: { label: 'Try it free', url: 'https://grants-hub.netlify.app', external: true },
+    meta: 'Free · Built for Australian NFPs',
+  },
+};

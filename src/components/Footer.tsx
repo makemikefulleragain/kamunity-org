@@ -84,11 +84,19 @@ export default function Footer() {
         <LegalModal title="Terms of Service" onClose={() => setModal(null)}>
           <p className="font-semibold text-ku">Plain English version — last updated February 2026</p>
           <p>
-            This is kamunity.org, the public website for the Kamunity project. It&apos;s a static informational site. Here&apos;s what you need to know:
+            This is kamunity.org, the public website for the Kamunity project. Here&apos;s what you need to know:
           </p>
           <p><strong>What this site does</strong></p>
           <p>
-            It tells you about Kamunity — what it is, how it works, and what&apos;s been built. It doesn&apos;t collect data, require sign-up, or run any tracking scripts.
+            It tells you about Kamunity — what it is, how it works, and what&apos;s been built.
+            It includes Kai, an AI encounter interface that helps you navigate the community ecosystem.
+          </p>
+          <p><strong>Kai — the AI encounter interface</strong></p>
+          <p>
+            Kai is powered by a large language model and governed by a public constitution.
+            Kai is not a professional advisor, counsellor, or substitute for human expertise.
+            Conversations with Kai are ephemeral — nothing is stored, logged, or used for training.
+            For important decisions, always speak with a qualified human professional.
           </p>
           <p><strong>No accounts, no data collection</strong></p>
           <p>
@@ -122,6 +130,10 @@ export default function Footer() {
           <p><strong>We collect nothing</strong></p>
           <p>
             This website does not use cookies, analytics, tracking pixels, fingerprinting, or any other method to identify or monitor visitors. Zero. We don&apos;t know you visited, how long you stayed, or what you clicked.
+          </p>
+          <p><strong>Kai conversations are ephemeral</strong></p>
+          <p>
+            When you talk with Kai, your conversation exists only in your browser session. Nothing is stored on our servers, logged, or used to train AI models. When you close the tab, the conversation is gone.
           </p>
           <p><strong>No third-party scripts</strong></p>
           <p>

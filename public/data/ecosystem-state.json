@@ -1,0 +1,163 @@
+{
+  "updated": "2026-02-18",
+  "version": "0.1.0",
+  "curator": "Mike Fuller",
+  "note": "This file is manually updated weekly. It provides Kai's awareness of what's alive in the Kamunity network and the broader community tech sector.",
+
+  "alive_in_network": [
+    {
+      "headline": "Digital Sovereignty Audit now live",
+      "detail": "Free 2-minute self-assessment helping community organisations understand their vendor lock-in, data exposure, and digital costs. Entirely client-side — zero data collection.",
+      "source": "Kamunity",
+      "url": "https://kamunity-audit.netlify.app/",
+      "relevant_to": ["sovereignty", "services"],
+      "date": "2026-02-18"
+    },
+    {
+      "headline": "AI Readiness Assessment launched",
+      "detail": "Free quiz mapping your organisation's AI understanding, current use, safety posture, and readiness to act. Comes with a free toolkit of guides, prompt kits, and safety checklists.",
+      "source": "Kamunity",
+      "url": "https://kamunity-ai-readiness.netlify.app/",
+      "relevant_to": ["ai_readiness"],
+      "date": "2026-02-18"
+    },
+    {
+      "headline": "Kai Constitution — Founder's Draft published",
+      "detail": "The values that govern Kai's behaviour are now public. Read them, challenge them, propose amendments. This is explicitly a founder's draft — the community will rewrite it.",
+      "source": "Kamunity",
+      "url": "/constitution",
+      "relevant_to": ["values"],
+      "date": "2026-02-18"
+    },
+    {
+      "headline": "Kai encounter interface is live on kamunity.org",
+      "detail": "Kai is now the default landing experience — a constitutionally-grounded AI presence that helps visitors navigate the community ecosystem. Conversations are ephemeral, purpose-built for community sector conversations. Desktop slide-out resources panel and mobile inline cards.",
+      "source": "Kamunity",
+      "url": "https://kamunity.org",
+      "relevant_to": ["ai_readiness", "values"],
+      "date": "2026-02-18"
+    },
+    {
+      "headline": "Terms of Service and Privacy Policy published",
+      "detail": "Plain English legal pages now live at /terms and /privacy. Zero data collection, ephemeral conversations, no third-party scripts. Constitutional alignment verified.",
+      "source": "Kamunity",
+      "url": "/terms",
+      "relevant_to": ["values", "sovereignty"],
+      "date": "2026-02-18"
+    }
+  ],
+
+  "sector_news": [
+    {
+      "headline": "11% of Western Australians are highly digitally excluded",
+      "detail": "WACOSS Digital Inclusion Project data shows persistent digital exclusion affecting over 280,000 West Australians, with community service workers on the frontline of digital support.",
+      "source": "WACOSS",
+      "relevant_to": ["sovereignty", "services"],
+      "date": "2025"
+    },
+    {
+      "headline": "86% of Australian NFPs affected by inflation pressures",
+      "detail": "Community organisations facing dual challenge of rising costs and growing demand, with digital transformation both a necessity and a budget challenge.",
+      "source": "ACOSS / Infoxchange",
+      "relevant_to": ["services", "grants"],
+      "date": "2025"
+    },
+    {
+      "headline": "Microsoft Copilot rolling out across NFP Office 365 subscriptions",
+      "detail": "AI features are being embedded in tools community orgs already use — often without the org's knowledge or consent. Understanding what's changing in your tools is increasingly urgent.",
+      "source": "Sector observation",
+      "relevant_to": ["ai_readiness", "sovereignty"],
+      "date": "2026"
+    }
+  ],
+
+  "upcoming_events": [
+    {
+      "name": "NLnet NGI Zero Commons Fund — Application Deadline",
+      "date": "2026-04-01",
+      "location": "Online",
+      "url": "https://nlnet.nl/commonsfund/",
+      "type": "deadline",
+      "relevance": "Funding for open-source community digital infrastructure (€5K–€50K)"
+    },
+    {
+      "name": "Infoxchange Technology for Social Justice Conference",
+      "date": "2026-05-06",
+      "end_date": "2026-05-08",
+      "location": "Melbourne, Australia",
+      "url": "https://www.infoxchange.org/",
+      "type": "conference",
+      "relevance": "Australia's largest NFP tech conference — 300 delegates, workshops on AI readiness, digital inclusion, data planning"
+    },
+    {
+      "name": "Solidarity AI Conference",
+      "date": "2026-11-12",
+      "end_date": "2026-11-15",
+      "location": "Chulalongkorn University, Bangkok",
+      "type": "conference",
+      "relevance": "Global conference on cooperative and community AI — Kamunity's international stage"
+    }
+  ],
+
+  "grant_opportunities": [
+    {
+      "name": "NLnet NGI Zero Commons Fund",
+      "deadline": "2026-04-01",
+      "amount": "€5,000 - €50,000",
+      "url": "https://nlnet.nl/commonsfund/",
+      "fit": "Excellent — funds open-source digital commons infrastructure"
+    },
+    {
+      "name": "Lotterywest Grassroots Community-Led Grants",
+      "deadline": "Rolling (next round TBC mid-2026)",
+      "amount": "$5,000 - $50,000 AUD",
+      "fit": "Good — requires NFP auspicing partner"
+    }
+  ],
+
+  "network_patterns": {
+    "note": "Pattern data will be populated once the network has enough participants to ensure genuine anonymity. We will not present pattern data from fewer than 20 organisations.",
+    "patterns": []
+  },
+
+  "constellation_highlights": [
+    {
+      "name": "Bonfire Networks",
+      "update": "Modular federated community platform — philosophically nearest sibling to Kamunity.",
+      "relevant_to": ["ecosystem"]
+    },
+    {
+      "name": "Hypha Worker Co-operative",
+      "update": "Toronto-based co-op building RooLLM — a cooperatively governed language model.",
+      "relevant_to": ["ecosystem", "ai_readiness"]
+    },
+    {
+      "name": "WACOSS Digital Inclusion Project",
+      "update": "$3.9M Lotterywest-funded initiative in Perth — training 1,500 frontline community service workers. Same city, same mission.",
+      "relevant_to": ["services", "sovereignty"]
+    }
+  ],
+
+  "suggested_starting_points": [
+    {
+      "label": "I'm worried about AI",
+      "description": "Start here if your organisation is navigating AI uncertainty",
+      "leads_to": "ai_readiness"
+    },
+    {
+      "label": "I want to check our digital setup",
+      "description": "Start here if you want to understand your organisation's digital sovereignty",
+      "leads_to": "sovereignty"
+    },
+    {
+      "label": "I need practical help",
+      "description": "Start here if you're looking for workshops, consulting, or hands-on support",
+      "leads_to": "services"
+    },
+    {
+      "label": "Who are you?",
+      "description": "Start here if you want to understand Kai, Kamunity, and the values behind this",
+      "leads_to": "values"
+    }
+  ]
+}

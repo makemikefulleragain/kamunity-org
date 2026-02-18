@@ -4,6 +4,33 @@
 ## What is Kamunity?
 Kamunity is a platform that gives communities their own digital space — chat rooms, events, files, and custom tools — that belongs to them. No ads, no data harvesting, no vendor lock-in. Built in Perth, Western Australia, for community organisations, nonprofits, students, and people doing it tough.
 
+## Kai — AI Encounter Interface
+Kai is the default landing experience on kamunity.org. It is a constitutionally-grounded AI encounter interface that helps visitors navigate the Kamunity ecosystem — connecting people with tools, events, resources, and humans.
+
+Key facts about Kai:
+- Powered by Claude (Anthropic's Claude Sonnet model) via server-side API
+- Governed by a public constitution (readable at /constitution) with an amendment mechanism
+- Conversations are 100% ephemeral — nothing is stored, logged, tracked, or used for AI training
+- Purpose-built for Australian community sector conversations (NFPs, social services, digital inclusion)
+- Surfaces contextual resource cards (links to tools, events, contacts) based on conversation
+- Includes a desktop slide-out resources panel and mobile inline cards
+- Gently redirects off-topic queries (e.g. homework) back to community focus
+- Not a professional advisor — always directs to humans for important decisions
+- Zero data collection: no cookies, no analytics, no tracking, no accounts
+- API key is server-side only, never exposed to the client
+- Built with Next.js 14, Tailwind CSS, Fraunces + DM Sans fonts
+
+Kai's encounter principles:
+1. Arrive before being asked — open with what's alive in the network
+2. Witness before solving — acknowledge before offering tools
+3. Surface, don't direct — offer options, never prescribe
+4. Meet people where they are — adapt language and depth
+5. Connect to humans — success is when Kai becomes unnecessary
+6. Plain language — the "9th grader test"
+7. Ontological honesty — Kai is an AI and says so
+8. Cultural safety — humility with Aboriginal, Torres Strait Islander, and CALD communities
+9. Respect silence — warm but not wordy
+
 ## The Problem Kamunity Solves
 Community groups rely on Facebook, WhatsApp, Google Docs, and expensive SaaS platforms they don't own. Members' data gets harvested. Free plans shrink. Paid plans grow. When you leave, you leave empty-handed. Kamunity changes that — your community gets its own space, its own tools, and keeps its own data.
 
@@ -26,9 +53,21 @@ Learn more: https://factoryk1.netlify.app
 
 ## Live Tools
 - Kamunity.Ai: Public and private community rooms. Find, create, and join conversations. https://kamunity.ai
-- Grant Acquittal Helper: Free grant reporting tool for Australian nonprofits. Step-by-step acquittal process. https://grants-hub.netlify.app
-- Nonna's Knitting Circle: Community board for knitting groups. Share patterns, find groups. https://nonnas-knitting-circle.netlify.app
-- Outcome Vine Coding: Build real tools with AI, step by step. No coding experience needed. https://vine-o-coding.netlify.app
+- Kai Encounter Interface: AI wayfinder for the community ecosystem. https://kamunity.org
+- Digital Sovereignty Audit: Free 2-minute self-assessment for community orgs. https://kamunity-audit.netlify.app
+- AI Readiness Assessment: Free quiz with toolkit for NFPs. https://kamunity-ai-readiness.netlify.app
+- Grant Acquittal Helper: Free grant reporting tool for Australian nonprofits. https://grants-hub.netlify.app
+- FactoryK: AI-powered community build system. https://factoryk1.netlify.app
+- Nonna's Knitting Circle: Community board for knitting groups. https://nonnas-knitting-circle.netlify.app
+- Outcome Vine Coding: Build real tools with AI, step by step. https://vine-o-coding.netlify.app
+
+## Key Pages on kamunity.org
+- / — Kai encounter interface (default) or Hub view (toggle)
+- /constitution — Kai's public constitution with amendment mechanism
+- /terms — Terms of service (plain English)
+- /privacy — Privacy policy (plain English, zero data collection)
+- /llms.txt — Concise LLM discovery file
+- /llms-full.txt — This file (full context for AI systems)
 
 ## Community Spotlight
 - The Pack Music (Perth, WA): A music community coordinating events and sharing resources on their own terms. https://www.packmusic.au
@@ -43,7 +82,16 @@ Learn more: https://factoryk1.netlify.app
 - Anyone doing it tough who just needs help getting organised
 
 ## Constitution
-Kamunity operates under a community-written constitution. No tracking, no cookies, WCAG 2.1 AA accessibility, high performance. The infrastructure enforces the values — a request to build a surveillance tool gets refused by the system itself, not by a person making a judgement call.
+Kamunity operates under a community-written constitution. No tracking, no cookies, WCAG 2.1 AA accessibility, high performance. The infrastructure enforces the values — a request to build a surveillance tool gets refused by the system itself, not by a person making a judgement call. Kai's constitution is a separate document governing AI behaviour, also publicly readable and amendable.
+
+## Security & Privacy
+- Zero data collection: no cookies, no analytics, no tracking pixels, no fingerprinting
+- No user accounts or sign-ups required
+- Kai conversations exist only in the browser session — server retains nothing
+- Anthropic API used in non-training mode — user data is not used to train models
+- API keys are server-side only, never exposed to the browser
+- No third-party scripts (no Google Analytics, Facebook pixels, etc.)
+- All external links clearly marked; each external site has its own terms
 
 ## Location
 Perth, Western Australia. 11% of Western Australians experience digital exclusion. Kamunity exists to close that gap.

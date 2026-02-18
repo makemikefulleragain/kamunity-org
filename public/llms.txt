@@ -4,14 +4,27 @@
 ## What
 Kamunity gives communities their own digital space — chat rooms, events, files, and custom tools — that belongs to them. No ads, no data harvesting, no vendor lock-in.
 
+## Kai — AI Encounter Interface
+Kai is a constitutionally-grounded AI presence on kamunity.org. It helps visitors navigate the community ecosystem — tools, events, resources, and connections. Kai is powered by Claude (Anthropic) and governed by a public constitution. Conversations are ephemeral — nothing is stored, logged, or used for training. Kai is purpose-built for community sector conversations, not general chat.
+
 ## How
 Anyone describes what they need in plain language. An AI-powered factory (FactoryK) plans, builds, checks, and delivers working tools. No coding required.
 
 ## Live Tools
 - Kamunity.Ai: Public and private community rooms — https://kamunity.ai
+- Kai Encounter Interface: AI wayfinder for the community ecosystem — https://kamunity.org
+- Digital Sovereignty Audit: Free 2-min self-assessment — https://kamunity-audit.netlify.app
+- AI Readiness Assessment: Free quiz with toolkit — https://kamunity-ai-readiness.netlify.app
 - Grant Acquittal Helper: Free grant reporting for Australian nonprofits — https://grants-hub.netlify.app
+- FactoryK: AI-powered community build system — https://factoryk1.netlify.app
 - Nonna's Knitting Circle: Community board for knitting groups — https://nonnas-knitting-circle.netlify.app
 - Outcome Vine Coding: Build with AI, step by step — https://vine-o-coding.netlify.app
+
+## Key Pages
+- Kai's Constitution: /constitution
+- Terms of Service: /terms
+- Privacy Policy: /privacy
+- LLM Full Context: /llms-full.txt
 
 ## Values
 Sovereignty, Accessibility, Joy, Sustainability, Agency. No surveillance. No dark patterns. Constitution-enforced.
