@@ -61,10 +61,10 @@ export const CARD_REGISTRY: Record<string, KaiCard> = {
     id: 'crisis-support',
     type: 'connection',
     title: 'Human Support Services',
-    description: 'If you or someone you know needs support right now, these services are here for you.',
+    description: 'Real people, available now — Lifeline: 13 11 14 · Beyond Blue: 1300 22 4636 · Crisis Care WA: 9223 1111 · 1800RESPECT: 1800 737 732',
     icon: '💛',
-    action: { label: 'Lifeline: 13 11 14', url: 'tel:131114', external: true },
-    meta: 'Lifeline 13 11 14 · Beyond Blue 1300 22 4636',
+    action: { label: 'Lifeline Australia ↗', url: 'https://www.lifeline.org.au', external: true },
+    meta: 'Kids Helpline: 1800 55 1800 · 13YARN (Aboriginal & Torres Strait Islander): 13 92 76 · MensLine: 1300 78 99 78 · Emergency: 000',
   },
   'toolkit-ai-policy': {
     id: 'toolkit-ai-policy',
