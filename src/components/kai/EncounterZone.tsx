@@ -272,10 +272,10 @@ export default function EncounterZone() {
           </button>
         </div>
 
-        {/* AI disclaimer */}
+        {/* AI disclaimer — G4 required */}
         <p className="font-dm text-[0.6rem] text-ink-faint/60 text-center mt-2 leading-relaxed max-w-md mx-auto">
-          Kai is an AI presence, not a professional advisor. For important decisions, always speak with a human.
-          Conversations are ephemeral — nothing is stored or tracked.
+          Kai is an AI wayfinder, not a counsellor or professional advisor. Kamunity is a community project, not a certified professional service.
+          For legal, financial, health, or safety matters, consult a qualified professional. Conversations are ephemeral — nothing is stored or tracked.
         </p>
 
         {/* Legal links */}
