@@ -6,317 +6,279 @@ import Link from 'next/link'
 const QUESTIONS = [
   {
     id: 'q1',
-    text: 'Does your organisation use Microsoft 365 (formerly Office 365)?',
-    sub: 'This includes Teams, Outlook, SharePoint, OneDrive, Word, Excel.',
-    opts: [
-      { val: 'yes-paid', label: 'Yes — paid subscription', risk: 3 },
-      { val: 'yes-nfp', label: 'Yes — NFP/charity licence', risk: 4 },
-      { val: 'no', label: 'No — we use Google/other', risk: 0 },
-      { val: 'unsure', label: 'Not sure / some staff do', risk: 3 },
-    ]
+    text: 'Does your organisation use Microsoft 365 (Outlook, Teams, SharePoint, OneDrive)?',
+    sub: 'This determines whether Copilot has access to your environment',
+    options: [
+      { value: 0, label: 'No — we use Google or other tools' },
+      { value: 1, label: 'Yes — some staff use it' },
+      { value: 3, label: 'Yes — it\'s our main platform' },
+    ],
   },
   {
     id: 'q2',
-    text: 'Has anyone in your organisation checked whether Copilot is enabled on your M365 account?',
-    sub: 'Copilot may be enabled by default depending on your licence tier. Check in Microsoft 365 Admin Centre.',
-    opts: [
-      { val: 'yes-off', label: "Yes — we checked, it's off", risk: 0 },
-      { val: 'yes-on', label: "Yes — it's enabled", risk: 5 },
-      { val: 'no', label: 'No — nobody has checked', risk: 5 },
-      { val: 'unsure', label: 'Not sure', risk: 4 },
-    ]
+    text: 'Has Copilot been enabled on your Microsoft 365 tenant (even as a trial)?',
+    sub: 'Check with your IT admin or in Microsoft Admin Centre',
+    options: [
+      { value: 0, label: 'No — not enabled' },
+      { value: 1, label: 'Not sure — nobody\'s checked' },
+      { value: 3, label: 'Yes — it\'s active for some or all staff' },
+    ],
   },
   {
     id: 'q3',
-    text: 'Does your organisation handle sensitive data in Microsoft 365?',
-    sub: 'Sensitive data includes: client case notes, health information, financial records, confidential communications, personal details of service users.',
-    opts: [
-      { val: 'yes-high', label: 'Yes — health/case notes/legal', risk: 6 },
-      { val: 'yes-med', label: 'Yes — financial/personal data', risk: 4 },
-      { val: 'yes-low', label: 'Yes — basic org admin only', risk: 2 },
-      { val: 'no', label: 'No sensitive data in M365', risk: 0 },
-    ]
+    text: 'Does your organisation store sensitive client, health, or personal data in Microsoft 365?',
+    sub: 'Emails, documents, Teams messages, SharePoint files',
+    options: [
+      { value: 0, label: 'No — we keep sensitive data elsewhere' },
+      { value: 2, label: 'Some — mainly internal staff information' },
+      { value: 4, label: 'Yes — client records, case notes, health data' },
+    ],
   },
   {
     id: 'q4',
-    text: 'Do you have a policy governing AI tool use by staff?',
-    sub: 'A policy would specify which AI tools are approved, what data can be used with them, and who approves exceptions.',
-    opts: [
-      { val: 'yes-full', label: 'Yes — written, staff trained', risk: 0 },
-      { val: 'yes-draft', label: 'Draft exists but not finalised', risk: 2 },
-      { val: 'informal', label: 'Informal understanding only', risk: 4 },
-      { val: 'no', label: 'No policy exists', risk: 5 },
-    ]
+    text: 'Has your organisation reviewed Microsoft\'s data processing terms for Copilot?',
+    sub: 'Specifically the EU Data Boundary and data residency commitments',
+    options: [
+      { value: 0, label: 'Yes — we\'ve reviewed and are comfortable' },
+      { value: 2, label: 'No — but we plan to' },
+      { value: 3, label: 'No — and this is the first I\'ve heard of it' },
+    ],
   },
   {
     id: 'q5',
-    text: 'Has your board or leadership been briefed on Microsoft Copilot and what it can access?',
-    sub: 'Board oversight of AI data risk is increasingly expected by funders, regulators, and insurers.',
-    opts: [
-      { val: 'yes-full', label: 'Yes — fully briefed and aware', risk: 0 },
-      { val: 'yes-some', label: 'Partial awareness only', risk: 2 },
-      { val: 'no', label: 'Not yet briefed', risk: 3 },
-      { val: 'na', label: "We're very small / no board", risk: 1 },
-    ]
+    text: 'Do you have a board-approved AI or data governance policy?',
+    sub: 'Covering how AI tools can be used with organisational or client data',
+    options: [
+      { value: 0, label: 'Yes — policy exists and staff know it' },
+      { value: 2, label: 'Partial — something informal exists' },
+      { value: 3, label: 'No — nothing formal in place' },
+    ],
   },
 ]
 
-interface Finding {
-  sev: 'critical' | 'high' | 'medium' | 'low'
-  title: string
-  body: string
+type Risk = 'low' | 'medium' | 'high' | 'critical'
+
+const riskConfig: Record<Risk, { label: string; color: string; bg: string; border: string; bar: string; emoji: string }> = {
+  low:      { label: 'Low Risk',      color: 'text-green-700',  bg: 'bg-green-50',  border: 'border-green-200', bar: 'bg-green-500',  emoji: '✅' },
+  medium:   { label: 'Medium Risk',   color: 'text-amber-700',  bg: 'bg-amber-50',  border: 'border-amber-200', bar: 'bg-amber-500',  emoji: '⚠️' },
+  high:     { label: 'High Risk',     color: 'text-orange-700', bg: 'bg-orange-50', border: 'border-orange-200',bar: 'bg-orange-500', emoji: '🚨' },
+  critical: { label: 'Critical Risk', color: 'text-red-700',    bg: 'bg-red-50',    border: 'border-red-200',   bar: 'bg-red-500',    emoji: '🔴' },
 }
 
-const SEV_STYLES: Record<string, string> = {
-  critical: 'border-l-[#c0392b] bg-[#c0392b]/5',
-  high: 'border-l-fire-orange bg-fire-orange/5',
-  medium: 'border-l-fire-amber bg-fire-amber/5',
-  low: 'border-l-forest bg-forest/5',
-}
+interface Finding { severity: Risk; text: string }
+interface Action  { text: string; timeframe: string }
 
-const RISK_LEVELS = [
-  { max: 20, level: 'low', label: '✅ Low Risk', desc: "Your organisation appears to have reasonable controls in place. Keep monitoring as Microsoft's AI features evolve.", color: '#27ae60' },
-  { max: 45, level: 'medium', label: '⚠️ Medium Risk', desc: 'Some gaps identified. Action recommended before Copilot is widely used by staff.', color: '#f39c12' },
-  { max: 70, level: 'high', label: '🔴 High Risk', desc: 'Significant data governance gaps. Immediate action recommended, especially if you handle sensitive client data.', color: '#e67e22' },
-  { max: 101, level: 'critical', label: '🚨 Critical Risk', desc: 'Urgent attention required. Your sensitive data may already be processed by Copilot without governance, consent, or oversight.', color: '#c0392b' },
-]
-
-export default function CopilotCheckPage() {
-  const [answers, setAnswers] = useState<Record<string, string>>({})
-  const [showResults, setShowResults] = useState(false)
-
-  const selectOpt = (qid: string, val: string) => {
-    setAnswers(prev => ({ ...prev, [qid]: val }))
-  }
-
-  const answered = Object.keys(answers).length
-  const allAnswered = answered === QUESTIONS.length
-
-  const runCheck = () => {
-    if (!allAnswered) return
-    setShowResults(true)
-    setTimeout(() => window.scrollTo({ top: 0, behavior: 'smooth' }), 50)
-  }
-
-  const resetCheck = () => {
-    setAnswers({})
-    setShowResults(false)
-  }
-
-  // Compute results
-  const totalRisk = QUESTIONS.reduce((sum, q) => {
-    const opt = q.opts.find(o => o.val === answers[q.id])
-    return sum + (opt ? opt.risk : 0)
-  }, 0)
-  const maxRisk = QUESTIONS.reduce((sum, q) => sum + Math.max(...q.opts.map(o => o.risk)), 0)
-  const pct = maxRisk > 0 ? Math.round((totalRisk / maxRisk) * 100) : 0
-
-  const riskLevel = RISK_LEVELS.find(r => pct < r.max) || RISK_LEVELS[RISK_LEVELS.length - 1]
+function getResults(answers: Record<string, number>, score: number): { risk: Risk; findings: Finding[]; actions: Action[] } {
+  const risk: Risk = score <= 2 ? 'low' : score <= 6 ? 'medium' : score <= 10 ? 'high' : 'critical'
 
   const findings: Finding[] = []
-  const actions: string[] = []
+  const actions: Action[] = []
 
-  if (showResults) {
-    if (['yes-on', 'no', 'unsure'].includes(answers.q2 || '')) {
-      findings.push({ sev: 'critical', title: 'Copilot status unknown or enabled without review', body: 'If Copilot is enabled and your staff use M365, it may already be processing emails, documents, and Teams conversations. This is happening now, not in the future.' })
-      actions.push('Check Copilot status now: Microsoft 365 Admin Centre → Settings → Copilot. Document what you find.')
-    }
-    if (['yes-high', 'yes-med'].includes(answers.q3 || '') && ['yes-on', 'no', 'unsure'].includes(answers.q2 || '')) {
-      findings.push({ sev: 'critical', title: 'Sensitive data in scope of Copilot processing', body: 'You handle sensitive data (health/case notes or financial/personal) in M365, and Copilot status is unclear or enabled. This creates potential consent, privacy, and regulatory obligations.' })
-      actions.push('Conduct a data mapping exercise: identify which sensitive data lives in M365 (emails, SharePoint, Teams). This is your risk surface.')
-    }
-    if (['no', 'informal'].includes(answers.q4 || '')) {
-      findings.push({ sev: 'high', title: 'No AI governance policy', body: 'Without a policy, staff may use Copilot (and other AI tools) with sensitive data without any guardrails. Funders and regulators are beginning to ask about this.' })
-      actions.push('Draft a one-page AI Use Policy. Minimum: which tools are approved, what data is prohibited, who approves exceptions. Kamunity can help.')
-    }
-    if (['no', 'yes-some'].includes(answers.q5 || '')) {
-      findings.push({ sev: 'medium', title: 'Board not fully informed on Copilot data risk', body: 'Boards are increasingly responsible for AI governance. Informing them is both good governance and funder due diligence protection.' })
-      actions.push('Add a 10-minute AI governance briefing to the next board meeting. Use the Kamunity AI Safety Checklist as the agenda.')
-    }
-    if (answers.q1 === 'no') {
-      findings.push({ sev: 'low', title: 'Not using Microsoft 365 — lower immediate Copilot risk', body: "You're not on M365, so Copilot is not your immediate concern. However, check whether any staff use personal M365 accounts for work purposes." })
-    }
-    if (!findings.length) {
-      findings.push({ sev: 'low', title: 'Good baseline controls in place', body: "Your answers suggest reasonable AI governance awareness. Keep monitoring — Microsoft's AI features evolve rapidly and your risk profile can change." })
-    }
-    actions.push('Take the full Kamunity Digital Sovereignty Audit for a comprehensive assessment of all your digital tools.')
-    actions.push("Review Microsoft's data processing documentation: learn exactly what Copilot accesses on your licence tier.")
+  if (answers.q2 >= 3) {
+    findings.push({ severity: 'critical', text: 'Copilot is active and has access to your Microsoft 365 data — emails, documents, Teams messages, SharePoint files — right now.' })
+    actions.push({ text: 'Review which staff have Copilot enabled and what data they can access through it', timeframe: 'This week' })
   }
 
-  return (
-    <div className="min-h-screen bg-parchment">
-      {/* Header */}
-      <header className="sticky top-0 z-50 bg-parchment/95 backdrop-blur-md border-b border-parchment-edge/50 px-6 py-3 flex items-center justify-between">
-        <Link
-          href="/"
-          className="font-dm text-sm text-ink-faint hover:text-ink transition-colors no-underline flex items-center gap-2"
-        >
-          ← Back to Kai
-        </Link>
-        <span className="font-fraunces text-sm font-semibold text-ink">🪟 Copilot Check</span>
-        <a
-          href="https://kamunity-audit.netlify.app/"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="font-dm text-xs font-semibold text-kai-gold border border-kai-gold/40 px-3 py-1.5 rounded-full hover:bg-kai-glow transition-all hidden sm:block"
-        >
-          Full Audit →
-        </a>
-      </header>
+  if (answers.q3 >= 4 && answers.q2 >= 1) {
+    findings.push({ severity: 'critical', text: 'Sensitive client or health data is stored in Microsoft 365 and may be accessible to Copilot\'s training and processing systems.' })
+    actions.push({ text: 'Conduct an immediate data audit: identify all sensitive data in M365 and assess Copilot\'s access scope', timeframe: 'Urgent — within 2 weeks' })
+  }
 
-      <div className="max-w-2xl mx-auto px-4 sm:px-6 py-8">
-        {/* Intro */}
-        <div className="mb-6">
-          <h1 className="font-fraunces text-2xl sm:text-3xl font-bold text-ink mb-2">
-            Copilot Risk Check
-          </h1>
-          <p className="font-dm text-sm text-ink-light leading-relaxed mb-4">
-            Is Microsoft Copilot putting your organisation&apos;s data at risk? 5 minutes. Free. No sign-up.
-          </p>
-          <div className="bg-gradient-to-br from-fire-amber/10 to-ku/5 border border-parchment-edge rounded-xl p-4 font-dm text-sm text-ink leading-relaxed">
-            <strong>Why this matters:</strong> Microsoft is rolling out Copilot across Microsoft 365 — including to NFP licence holders. Many organisations have it activated without knowing. Copilot processes your emails, documents, meetings, and Teams chats to generate AI responses. Your client data, case notes, and confidential documents may be in scope.
-            <p className="text-xs text-ink-faint mt-2">This check helps you understand your current exposure and what to do about it. Not legal advice — consult your legal team for specific obligations.</p>
+  if (answers.q4 >= 2) {
+    findings.push({ severity: 'high', text: 'Your organisation has not reviewed Microsoft\'s data processing terms for Copilot. You may be operating outside your privacy obligations without knowing it.' })
+    actions.push({ text: 'Download and review Microsoft\'s Data Processing Agreement and EU Data Boundary documentation', timeframe: 'This month' })
+  }
+
+  if (answers.q5 >= 2 && answers.q2 >= 1) {
+    findings.push({ severity: 'high', text: 'No formal AI governance policy exists. Staff are using AI tools without documented guidelines, creating liability and compliance risk.' })
+    actions.push({ text: 'Draft a simple AI Use Policy — Kamunity\'s AI Readiness toolkit has a free template', timeframe: 'This month' })
+  }
+
+  if (answers.q2 === 1) {
+    findings.push({ severity: 'medium', text: 'Uncertainty about Copilot status is itself a risk — you can\'t manage what you don\'t know is active.' })
+    actions.push({ text: 'Ask your IT admin (or Microsoft Partner) to confirm Copilot status in your tenant today', timeframe: 'This week' })
+  }
+
+  if (score === 0) {
+    findings.push({ severity: 'low', text: 'Your current setup appears low risk for Copilot-related data exposure.' })
+    actions.push({ text: 'Continue monitoring — Microsoft regularly changes what Copilot can access with product updates', timeframe: 'Quarterly review' })
+  }
+
+  return { risk, findings, actions }
+}
+
+export default function CopilotCheckPage() {
+  const [answers, setAnswers] = useState<Record<string, number>>({})
+  const [showResult, setShowResult] = useState(false)
+
+  const allAnswered = QUESTIONS.every(q => q.id in answers)
+  const score = Object.values(answers).reduce((s, v) => s + v, 0)
+  const maxScore = QUESTIONS.reduce((s, q) => s + Math.max(...q.options.map(o => o.value)), 0)
+
+  const handleAnswer = (qId: string, value: number) => {
+    setAnswers(prev => ({ ...prev, [qId]: value }))
+    setShowResult(false)
+  }
+
+  const { risk, findings, actions } = showResult ? getResults(answers, score) : { risk: 'low' as Risk, findings: [], actions: [] }
+  const rc = riskConfig[risk]
+
+  return (
+    <main className="min-h-screen bg-[#faf8f4] font-sans">
+      {/* Header */}
+      <div className="border-b border-[#e8e0d0] bg-white/80 backdrop-blur-sm sticky top-0 z-10">
+        <div className="max-w-2xl mx-auto px-6 py-4 flex items-center justify-between">
+          <Link href="/" className="flex items-center gap-2 text-[#8B6914] font-dm font-semibold text-sm no-underline hover:text-[#6B4F10] transition-colors">
+            🔥 Kamunity
+          </Link>
+          <span className="font-dm text-xs text-[#999] uppercase tracking-widest">Copilot Risk Check</span>
+          <Link href="/calculator" className="font-dm text-xs font-semibold text-[#8B6914] no-underline border border-[#8B6914]/30 px-3 py-1 rounded-full hover:bg-[#8B6914]/10 transition-colors">
+            Cost Calculator →
+          </Link>
+        </div>
+      </div>
+
+      <div className="max-w-2xl mx-auto px-6 py-12">
+        {/* Hero */}
+        <div className="text-center mb-10">
+          <div className="inline-flex items-center gap-2 font-dm text-xs bg-blue-50 border border-blue-200 text-blue-700 px-3 py-1 rounded-full mb-6 uppercase tracking-wider font-semibold">
+            🛡️ 5-Question Assessment
           </div>
+          <h1 className="font-fraunces text-3xl sm:text-4xl font-bold text-[#1a1a1a] leading-tight mb-4">
+            Is Microsoft Copilot putting<br />
+            <span className="text-[#3b5fc0]">your data at risk?</span>
+          </h1>
+          <p className="font-dm text-base text-[#666] max-w-md mx-auto leading-relaxed">
+            Five questions. Under 3 minutes. Find out your risk level and what to do about it — before your board asks.
+          </p>
         </div>
 
-        {/* Results view */}
-        {showResults && (
-          <div className="animate-fade-in-up">
-            {/* Risk summary */}
-            <div className="bg-white border border-parchment-edge rounded-xl p-5 mb-5">
-              <div className="flex justify-between items-center mb-2">
-                <span className="font-fraunces text-lg font-bold text-ink">{riskLevel.label}</span>
-                <span className="font-fraunces text-2xl font-bold" style={{ color: riskLevel.color }}>{pct}%</span>
-              </div>
-              <div className="h-3 bg-parchment-dark rounded-full overflow-hidden mb-3">
-                <div
-                  className="h-full rounded-full transition-all duration-700"
-                  style={{ width: `${pct}%`, background: riskLevel.color }}
-                />
-              </div>
-              <p className="font-dm text-sm text-ink-light">{riskLevel.desc}</p>
-            </div>
-
-            {/* Findings */}
-            <h2 className="font-dm text-xs font-semibold text-ink-faint uppercase tracking-wider mb-3">Findings</h2>
-            <div className="space-y-2 mb-5">
-              {findings.map((f, i) => (
-                <div key={i} className={`border-l-4 px-4 py-3 rounded-r-xl ${SEV_STYLES[f.sev]}`}>
-                  <p className="font-dm text-sm font-bold text-ink mb-1">{f.title}</p>
-                  <p className="font-dm text-xs text-ink-light leading-relaxed">{f.body}</p>
+        {/* Questions */}
+        <div className="space-y-5 mb-8">
+          {QUESTIONS.map((q, qi) => (
+            <div key={q.id} className={`bg-white border rounded-2xl p-5 transition-all ${q.id in answers ? 'border-[#8B6914]/30' : 'border-[#e8e0d0]'}`}>
+              <div className="flex items-start gap-3 mb-4">
+                <div className={`w-7 h-7 rounded-full flex items-center justify-center flex-shrink-0 font-dm text-sm font-bold transition-colors ${q.id in answers ? 'bg-[#8B6914] text-white' : 'bg-[#f0ece0] text-[#999]'}`}>
+                  {q.id in answers ? '✓' : qi + 1}
                 </div>
-              ))}
-            </div>
-
-            {/* Actions */}
-            <h2 className="font-dm text-xs font-semibold text-ink-faint uppercase tracking-wider mb-3">Recommended Actions</h2>
-            <div className="bg-white border border-parchment-edge rounded-xl p-4 mb-5">
-              <div className="space-y-3">
-                {actions.map((a, i) => (
-                  <div key={i} className="flex gap-3 items-start font-dm text-sm text-ink">
-                    <span className="flex-shrink-0 w-6 h-6 rounded-full bg-kai-gold text-white text-xs flex items-center justify-center font-bold mt-0.5">{i + 1}</span>
-                    <span className="leading-relaxed text-ink-light">{a}</span>
-                  </div>
+                <div>
+                  <div className="font-dm text-sm font-semibold text-[#1a1a1a] leading-snug">{q.text}</div>
+                  <div className="font-dm text-xs text-[#999] mt-1">{q.sub}</div>
+                </div>
+              </div>
+              <div className="space-y-2 pl-10">
+                {q.options.map(opt => (
+                  <button
+                    key={opt.value}
+                    onClick={() => handleAnswer(q.id, opt.value)}
+                    className={`w-full text-left font-dm text-sm px-4 py-3 rounded-xl border transition-all ${
+                      answers[q.id] === opt.value
+                        ? 'border-[#8B6914] bg-amber-50 text-[#8B6914] font-semibold'
+                        : 'border-[#e8e0d0] text-[#444] hover:border-[#8B6914]/40 hover:bg-[#faf8f4]'
+                    }`}
+                  >
+                    {opt.label}
+                  </button>
                 ))}
               </div>
             </div>
+          ))}
+        </div>
 
-            {/* CTAs */}
-            <div className="flex flex-wrap gap-3 mb-6">
-              <a
-                href="https://kamunity-audit.netlify.app/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 font-dm text-sm font-semibold bg-kai-gold text-white px-5 py-2.5 rounded-full hover:bg-kai-gold-dark transition-colors"
-              >
-                Take the Full Sovereignty Audit →
-              </a>
-              <button
-                onClick={resetCheck}
-                className="inline-flex items-center gap-2 font-dm text-sm font-semibold text-ink border border-parchment-edge px-5 py-2.5 rounded-full hover:border-kai-gold hover:text-kai-gold transition-colors bg-white"
-              >
-                Start Over
-              </button>
-            </div>
-
-            {/* Disclaimer */}
-            <div className="bg-white border border-parchment-edge rounded-xl p-4 mb-6 font-dm text-xs text-ink-faint leading-relaxed">
-              <strong className="text-ink-light">Disclaimer:</strong> This assessment is for awareness purposes only. Findings are based on your answers and general knowledge of Microsoft Copilot&apos;s data handling practices as of early 2026. Microsoft&apos;s data processing terms change frequently. For legally binding advice about your data obligations, consult a qualified legal professional. Built by Kamunity — <Link href="/constitution" className="text-kai-gold hover:text-kai-gold-dark no-underline">kamunity.org/constitution</Link> (Principle 10: Ontological Honesty).
-            </div>
+        {/* Run check button */}
+        {allAnswered && !showResult && (
+          <div className="flex justify-center mb-8">
+            <button
+              onClick={() => setShowResult(true)}
+              className="font-dm font-bold text-sm bg-[#3b5fc0] text-white px-8 py-3 rounded-full hover:bg-[#2d4fa8] transition-colors shadow-md"
+            >
+              Run Copilot Check →
+            </button>
           </div>
         )}
 
-        {/* Questions view */}
-        {!showResults && (
-          <div>
-            <h2 className="font-dm text-xs font-semibold text-ink-faint uppercase tracking-wider mb-4">
-              Answer these 5 questions
-            </h2>
-            <div className="space-y-4">
-              {QUESTIONS.map((q, qi) => (
-                <div key={q.id} className="bg-white border border-parchment-edge rounded-xl p-4">
-                  <p className="font-dm text-sm font-semibold text-ink mb-1">
-                    <span className="text-kai-gold mr-2">{qi + 1}.</span>{q.text}
-                  </p>
-                  <p className="font-dm text-xs text-ink-faint mb-3 leading-relaxed">{q.sub}</p>
-                  <div className="flex flex-col gap-2">
-                    {q.opts.map(o => (
-                      <button
-                        key={o.val}
-                        onClick={() => selectOpt(q.id, o.val)}
-                        className={`text-left px-3 py-2 rounded-lg border-2 font-dm text-sm transition-all ${
-                          answers[q.id] === o.val
-                            ? 'border-kai-gold bg-kai-glow/40 font-semibold text-ink'
-                            : 'border-parchment-edge text-ink-light hover:border-ku/30 hover:bg-parchment/50'
-                        }`}
-                      >
-                        {o.label}
-                      </button>
-                    ))}
-                  </div>
+        {/* Results */}
+        {showResult && (
+          <div className="animate-fade-in-up space-y-5">
+            {/* Risk score */}
+            <div className={`${rc.bg} ${rc.border} border rounded-2xl p-6 text-center`}>
+              <div className="text-3xl mb-2">{rc.emoji}</div>
+              <div className={`font-sans text-2xl font-bold ${rc.color} mb-1`}>{rc.label}</div>
+              <div className="font-dm text-sm text-[#666] mb-4">Score: {score} / {maxScore}</div>
+              <div className="h-3 bg-white/60 rounded-full overflow-hidden max-w-xs mx-auto">
+                <div
+                  className={`h-full rounded-full transition-all duration-700 ${rc.bar}`}
+                  style={{ width: `${(score / maxScore) * 100}%` }}
+                />
+              </div>
+            </div>
+
+            {/* Findings */}
+            {findings.length > 0 && (
+              <div className="bg-white border border-[#e8e0d0] rounded-2xl p-5">
+                <div className="font-dm text-sm font-bold text-[#1a1a1a] mb-4">Findings</div>
+                <div className="space-y-3">
+                  {findings.map((f, i) => {
+                    const fc = riskConfig[f.severity]
+                    return (
+                      <div key={i} className={`${fc.bg} ${fc.border} border-l-4 rounded-r-xl px-4 py-3`}>
+                        <div className={`font-dm text-xs font-bold ${fc.color} uppercase tracking-wider mb-1`}>{fc.label}</div>
+                        <div className="font-dm text-sm text-[#444] leading-relaxed">{f.text}</div>
+                      </div>
+                    )
+                  })}
                 </div>
-              ))}
-            </div>
+              </div>
+            )}
 
-            <div className="mt-6">
-              <button
-                onClick={runCheck}
-                disabled={!allAnswered}
-                className="w-full font-dm text-sm font-semibold bg-kai-gold text-white py-3 rounded-xl hover:bg-kai-gold-dark disabled:opacity-40 disabled:cursor-not-allowed transition-colors shadow-sm"
-              >
-                {allAnswered ? 'Run Copilot Check →' : `Answer all questions (${QUESTIONS.length - answered} remaining)`}
-              </button>
+            {/* Recommended actions */}
+            {actions.length > 0 && (
+              <div className="bg-white border border-[#e8e0d0] rounded-2xl p-5">
+                <div className="font-dm text-sm font-bold text-[#1a1a1a] mb-4">Recommended actions</div>
+                <div className="space-y-3">
+                  {actions.map((a, i) => (
+                    <div key={i} className="flex items-start gap-3">
+                      <div className="w-6 h-6 rounded-full bg-[#8B6914]/10 text-[#8B6914] font-dm font-bold text-xs flex items-center justify-center flex-shrink-0 mt-0.5">
+                        {i + 1}
+                      </div>
+                      <div>
+                        <div className="font-dm text-sm text-[#1a1a1a] leading-relaxed">{a.text}</div>
+                        <div className="font-dm text-xs text-[#8B6914] font-semibold mt-1">{a.timeframe}</div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* CTA */}
+            <div className="bg-gradient-to-br from-amber-50 to-orange-50 border border-amber-200 rounded-2xl p-6 text-center">
+              <div className="font-dm text-sm font-bold text-[#8B6914] mb-2">Want a full sovereignty review?</div>
+              <p className="font-dm text-sm text-[#666] mb-4 max-w-sm mx-auto">
+                The full Digital Sovereignty Audit covers all your tools — not just Copilot. Free, 2 minutes, no sign-up.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-3 justify-center">
+                <a href="https://kamunity-audit.netlify.app" target="_blank" rel="noopener noreferrer"
+                  className="font-dm text-sm font-bold bg-[#8B6914] text-white px-6 py-2.5 rounded-full no-underline hover:bg-[#6B4F10] transition-colors">
+                  Take the full audit ↗
+                </a>
+                <button onClick={() => { setAnswers({}); setShowResult(false) }}
+                  className="font-dm text-sm font-semibold border border-[#8B6914]/30 text-[#8B6914] px-6 py-2.5 rounded-full bg-white hover:bg-amber-50 transition-colors">
+                  Start over
+                </button>
+              </div>
             </div>
           </div>
         )}
+      </div>
 
-        {/* Footer cross-links */}
-        <div className="pt-6 border-t border-parchment-edge text-center space-y-3">
-          <p className="font-dm text-xs text-ink-faint">
-            Part of the <a href="https://kamunity.org" className="text-kai-gold hover:text-kai-gold-dark no-underline">Kamunity</a> ecosystem of free community tools.
-          </p>
-          <div className="flex items-center justify-center gap-4 flex-wrap">
-            <Link href="/" className="font-dm text-[0.6rem] text-ink-faint hover:text-kai-gold transition-colors no-underline uppercase tracking-wider">
-              ← Kai
-            </Link>
-            <span className="text-ink-faint/30 text-[0.5rem]">·</span>
-            <Link href="/calculator" className="font-dm text-[0.6rem] text-ink-faint hover:text-kai-gold transition-colors no-underline uppercase tracking-wider">
-              Sovereignty Calculator
-            </Link>
-            <span className="text-ink-faint/30 text-[0.5rem]">·</span>
-            <Link href="/constitution" className="font-dm text-[0.6rem] text-ink-faint hover:text-kai-gold transition-colors no-underline uppercase tracking-wider">
-              Constitution
-            </Link>
-            <span className="text-ink-faint/30 text-[0.5rem]">·</span>
-            <a href="https://kamunity-audit.netlify.app/" target="_blank" rel="noopener noreferrer" className="font-dm text-[0.6rem] text-ink-faint hover:text-kai-gold transition-colors no-underline uppercase tracking-wider">
-              Full Audit ↗
-            </a>
-          </div>
-          <p className="font-dm text-[0.55rem] text-ink-faint/50 italic">
-            Built on Whadjuk Noongar boodja. Sovereignty was never ceded.
-          </p>
+      {/* Footer */}
+      <div className="border-t border-[#e8e0d0] mt-12 py-6">
+        <div className="max-w-2xl mx-auto px-6 flex items-center justify-between flex-wrap gap-2">
+          <Link href="/" className="font-dm text-xs text-[#999] no-underline hover:text-[#8B6914] transition-colors">← Back to Kamunity</Link>
+          <span className="font-dm text-xs text-[#bbb]">No data collected · Free forever · Built on Whadjuk Noongar boodja</span>
         </div>
       </div>
-    </div>
+    </main>
   )
 }

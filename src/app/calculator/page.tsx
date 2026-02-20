@@ -4,301 +4,296 @@ import { useState } from 'react'
 import Link from 'next/link'
 
 const TOOLS = [
-  {
-    id: 'google-workspace', name: 'Google Workspace', icon: '🔵', cat: 'Productivity',
-    cost: { free: 'Free tier', monthly: 14, trigger: 'Storage & advanced features' },
-    lockIn: { score: 8, ease: 'Hard', time: '80+ hrs', alts: ['Microsoft 365', 'Zoho', 'Nextcloud'], why: 'Docs/Sheets format lock, email/calendar/contacts are separate migrations' },
-    dataEx: { annual: 180, types: ['Email content', 'Document content', 'Search queries', 'Usage patterns'], why: "Google is an advertising company. Your org's data trains their models." }
-  },
-  {
-    id: 'microsoft-365', name: 'Microsoft 365', icon: '🪟', cat: 'Productivity',
-    cost: { free: 'NFP discount available', monthly: 12, trigger: 'Teams, advanced security, storage' },
-    lockIn: { score: 8, ease: 'Hard', time: '60–100 hrs', alts: ['Google Workspace', 'Zoho', 'Nextcloud'], why: 'Outlook, Word, Excel, Teams all interlinked. Copilot is being added silently.' },
-    dataEx: { annual: 160, types: ['Email content', 'Documents', 'Teams chats', 'Meeting recordings', 'Copilot queries'], why: 'Microsoft Copilot is now embedded in M365 and processes your emails, docs, and meetings by default.' }
-  },
-  {
-    id: 'slack', name: 'Slack', icon: '🟣', cat: 'Communication',
-    cost: { free: 'Free (90-day history)', monthly: 12, trigger: '90-day message limit forces upgrade' },
-    lockIn: { score: 7, ease: 'Medium', time: '20–40 hrs', alts: ['Mattermost', 'Element/Matrix', 'Zulip'], why: 'Message history export requires paid plan. Integrations need rebuilding.' },
-    dataEx: { annual: 120, types: ['Message content', 'File content', 'User behaviour', 'Network graph'], why: 'Slack (Salesforce) analyses your conversations for product improvement.' }
-  },
-  {
-    id: 'canva', name: 'Canva', icon: '🎨', cat: 'Design',
-    cost: { free: 'Free tier', monthly: 20, trigger: 'Premium templates, brand kit, team features' },
-    lockIn: { score: 5, ease: 'Medium', time: '10–20 hrs', alts: ['GIMP', 'Inkscape', 'Adobe Express'], why: 'Designs in Canva format, export quality limited on free tier.' },
-    dataEx: { annual: 60, types: ['Design content', 'Brand assets', 'Usage patterns'], why: 'Your designs and brand assets are processed by Canva AI systems.' }
-  },
-  {
-    id: 'eventbrite', name: 'Eventbrite', icon: '🎟️', cat: 'Events',
-    cost: { free: 'Free for free events', monthly: 0, trigger: '3.7% + $1.79 per paid ticket' },
-    lockIn: { score: 4, ease: 'Medium', time: '5–10 hrs', alts: ['Humanitix', 'TryBooking', 'Stripe'], why: 'Attendee data export available but manual process.' },
-    dataEx: { annual: 90, types: ['Attendee data', 'Event content', 'Transaction data', 'Behaviour analytics'], why: 'Eventbrite sells attendee data insights to the event industry.' }
-  },
-  {
-    id: 'facebook-groups', name: 'Facebook Groups', icon: '📘', cat: 'Community',
-    cost: { free: 'Free', monthly: 0, trigger: 'Free until Meta changes policy' },
-    lockIn: { score: 9, ease: 'Hard', time: '60–100 hrs', alts: ['Discord', 'Element/Matrix', 'Mighty Networks'], why: 'No data export for posts, comments, or member lists. Community is trapped.' },
-    dataEx: { annual: 240, types: ['Posts', 'Comments', 'Reactions', 'Member behaviour', 'Network graph', 'Content analysis'], why: "Facebook is the world's largest ad platform. Your community is the product." }
-  },
-  {
-    id: 'whatsapp', name: 'WhatsApp', icon: '📱', cat: 'Communication',
-    cost: { free: 'Free', monthly: 0, trigger: 'Free (Meta subsidises via data)' },
-    lockIn: { score: 8, ease: 'Hard', time: '30–50 hrs', alts: ['Signal', 'Element/Matrix', 'Telegram'], why: 'No useful group history export. Contacts trapped in Meta ecosystem.' },
-    dataEx: { annual: 200, types: ['Metadata', 'Contact graphs', 'Usage patterns', 'Message content (from 2024 policy)'], why: 'Meta now uses WhatsApp data for AI training by default (opt-out required).' }
-  },
-  {
-    id: 'zoom', name: 'Zoom', icon: '📹', cat: 'Video',
-    cost: { free: 'Free (40-min limit)', monthly: 22, trigger: '40-min limit forces upgrade for any real meeting' },
-    lockIn: { score: 4, ease: 'Easy', time: '2–5 hrs', alts: ['Jitsi Meet', 'BigBlueButton', 'Google Meet'], why: 'Easy to switch — recordings download, no persistent community.' },
-    dataEx: { annual: 80, types: ['Meeting content', 'Transcripts', 'Usage patterns', 'Participant data'], why: 'Zoom uses meeting data including transcripts for AI model training.' }
-  },
-  {
-    id: 'mailchimp', name: 'Mailchimp', icon: '🐒', cat: 'Email',
-    cost: { free: 'Free (500 contacts)', monthly: 35, trigger: 'Contact limits hit fast for active orgs' },
-    lockIn: { score: 6, ease: 'Medium', time: '15–30 hrs', alts: ['Brevo', 'Mautic', 'Listmonk'], why: 'List export available but automations, templates, analytics stay on Mailchimp.' },
-    dataEx: { annual: 100, types: ['Contact data', 'Email engagement', 'Open/click behaviour', 'Revenue attribution'], why: 'Mailchimp (Intuit) sells aggregate insights and uses data for product improvement.' }
-  },
-  {
-    id: 'trello', name: 'Trello', icon: '📋', cat: 'Project',
-    cost: { free: 'Free tier', monthly: 10, trigger: 'View limits, automation limits, file sizes' },
-    lockIn: { score: 4, ease: 'Easy', time: '5–10 hrs', alts: ['Wekan', 'Planka', 'Nextcloud Deck'], why: 'JSON export available, some migration tools exist.' },
-    dataEx: { annual: 40, types: ['Board content', 'Task data', 'User behaviour'], why: 'Atlassian (Trello) uses product data for improvement. Lower risk than social tools.' }
-  },
-  {
-    id: 'discord', name: 'Discord', icon: '🎮', cat: 'Community',
-    cost: { free: 'Free', monthly: 0, trigger: 'Free (Discord monetises via Nitro)' },
-    lockIn: { score: 7, ease: 'Hard', time: '30–60 hrs', alts: ['Element/Matrix', 'Mattermost', 'Zulip'], why: 'No server data export. Message history stays on Discord.' },
-    dataEx: { annual: 150, types: ['Message content', 'Voice usage', 'Server activity', 'User behaviour'], why: 'Discord uses all platform data including voice for product improvement and AI.' }
-  },
+  { id: 'office365',  name: 'Microsoft 365',       cat: 'Productivity', icon: '🏢', monthly: 12.50, timeCost: 80,  dataValue: 45,  switchCost: 2800, lock: 85 },
+  { id: 'teams',      name: 'Microsoft Teams',      cat: 'Comms',        icon: '💬', monthly: 0,     timeCost: 60,  dataValue: 55,  switchCost: 1900, lock: 88 },
+  { id: 'sharepoint', name: 'SharePoint',           cat: 'Storage',      icon: '📁', monthly: 0,     timeCost: 90,  dataValue: 40,  switchCost: 3200, lock: 92 },
+  { id: 'copilot',    name: 'Microsoft Copilot',    cat: 'AI',           icon: '🤖', monthly: 30,    timeCost: 20,  dataValue: 120, switchCost: 1200, lock: 90 },
+  { id: 'googlews',   name: 'Google Workspace',     cat: 'Productivity', icon: '🔵', monthly: 10,    timeCost: 60,  dataValue: 80,  switchCost: 2200, lock: 80 },
+  { id: 'slack',      name: 'Slack',                cat: 'Comms',        icon: '⚡', monthly: 8.75,  timeCost: 50,  dataValue: 35,  switchCost: 1400, lock: 72 },
+  { id: 'dropbox',    name: 'Dropbox',              cat: 'Storage',      icon: '📦', monthly: 15,    timeCost: 20,  dataValue: 25,  switchCost: 800,  lock: 60 },
+  { id: 'zoom',       name: 'Zoom',                 cat: 'Comms',        icon: '📹', monthly: 16.99, timeCost: 30,  dataValue: 20,  switchCost: 600,  lock: 55 },
+  { id: 'canva',      name: 'Canva',                cat: 'Design',       icon: '🎨', monthly: 17,    timeCost: 20,  dataValue: 15,  switchCost: 400,  lock: 50 },
+  { id: 'mailchimp',  name: 'Mailchimp',            cat: 'Comms',        icon: '📧', monthly: 13,    timeCost: 30,  dataValue: 60,  switchCost: 1800, lock: 78 },
+  { id: 'salesforce', name: 'Salesforce / CRM',     cat: 'Ops',          icon: '☁️', monthly: 25,    timeCost: 120, dataValue: 90,  switchCost: 8000, lock: 95 },
+  { id: 'hubspot',    name: 'HubSpot',              cat: 'Ops',          icon: '🧡', monthly: 15,    timeCost: 80,  dataValue: 70,  switchCost: 3000, lock: 82 },
+  { id: 'notion',     name: 'Notion',               cat: 'Productivity', icon: '📓', monthly: 8,     timeCost: 40,  dataValue: 30,  switchCost: 600,  lock: 58 },
+  { id: 'asana',      name: 'Asana / Monday',       cat: 'Ops',          icon: '✅', monthly: 11,    timeCost: 50,  dataValue: 25,  switchCost: 900,  lock: 65 },
+  { id: 'chatgpt',    name: 'ChatGPT Plus',         cat: 'AI',           icon: '🧠', monthly: 20,    timeCost: 20,  dataValue: 50,  switchCost: 200,  lock: 40 },
+  { id: 'xero',       name: 'Xero / MYOB',          cat: 'Finance',      icon: '💳', monthly: 35,    timeCost: 40,  dataValue: 40,  switchCost: 4000, lock: 88 },
 ]
 
-function lockInColor(score: number): string {
-  if (score <= 3) return '#27ae60'
-  if (score <= 6) return '#f39c12'
-  return '#c0392b'
+const USERS = [5, 10, 15, 20, 30, 50]
+
+const lockLabel = (score: number) => {
+  if (score >= 85) return { label: 'Critical lock-in', color: 'text-red-600', bg: 'bg-red-100' }
+  if (score >= 70) return { label: 'High lock-in', color: 'text-orange-600', bg: 'bg-orange-100' }
+  if (score >= 50) return { label: 'Moderate lock-in', color: 'text-amber-600', bg: 'bg-amber-100' }
+  return { label: 'Manageable', color: 'text-green-600', bg: 'bg-green-100' }
 }
 
 export default function CalculatorPage() {
   const [selected, setSelected] = useState<Set<string>>(new Set())
+  const [users, setUsers] = useState(15)
+  const [showResult, setShowResult] = useState(false)
 
   const toggle = (id: string) => {
     setSelected(prev => {
       const next = new Set(prev)
-      if (next.has(id)) next.delete(id)
-      else next.add(id)
+      next.has(id) ? next.delete(id) : next.add(id)
       return next
     })
+    setShowResult(false)
   }
 
   const selectedTools = TOOLS.filter(t => selected.has(t.id))
-  const totalMonthly = selectedTools.reduce((s, t) => s + t.cost.monthly, 0)
-  const totalDataEx = selectedTools.reduce((s, t) => s + t.dataEx.annual, 0)
-  const totalMigrationHrs = selectedTools.map(t => {
-    const match = t.lockIn.time.match(/(\d+)/)
-    return match ? parseInt(match[1]) : 10
-  }).reduce((s, v) => s + v, 0)
-  const switchingCost = Math.round(totalMigrationHrs * 75)
-  const avgLockIn = selectedTools.length
-    ? Math.round(selectedTools.reduce((s, t) => s + t.lockIn.score, 0) / selectedTools.length)
+
+  const directMonthly = selectedTools.reduce((s, t) => s + t.monthly * users, 0)
+  const directAnnual = directMonthly * 12
+  const hiddenTimeCost = selectedTools.reduce((s, t) => s + (t.timeCost / 60) * users * 35 / 12, 0)
+  const dataValue = selectedTools.reduce((s, t) => s + t.dataValue * users / 12, 0)
+  const switchCostTotal = selectedTools.reduce((s, t) => s + t.switchCost, 0)
+  const avgLock = selectedTools.length
+    ? Math.round(selectedTools.reduce((s, t) => s + t.lock, 0) / selectedTools.length)
     : 0
-  const trueCost = Math.round(totalMonthly * 12 + totalDataEx + switchingCost / 5)
+  const totalMonthly = directMonthly + hiddenTimeCost + dataValue
+
+  const fmt = (n: number) => `$${Math.round(n).toLocaleString()}`
 
   return (
-    <div className="min-h-screen bg-parchment">
+    <main className="min-h-screen bg-[#faf8f4] font-sans">
       {/* Header */}
-      <header className="sticky top-0 z-50 bg-parchment/95 backdrop-blur-md border-b border-parchment-edge/50 px-6 py-3 flex items-center justify-between">
-        <Link
-          href="/"
-          className="font-dm text-sm text-ink-faint hover:text-ink transition-colors no-underline flex items-center gap-2"
-        >
-          ← Back to Kai
-        </Link>
-        <span className="font-fraunces text-sm font-semibold text-ink">💰 Sovereignty Calculator</span>
-        <a
-          href="https://kamunity-audit.netlify.app/"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="font-dm text-xs font-semibold text-kai-gold border border-kai-gold/40 px-3 py-1.5 rounded-full hover:bg-kai-glow transition-all hidden sm:block"
-        >
-          Full Audit →
-        </a>
-      </header>
+      <div className="border-b border-[#e8e0d0] bg-white/80 backdrop-blur-sm sticky top-0 z-10">
+        <div className="max-w-3xl mx-auto px-6 py-4 flex items-center justify-between">
+          <Link href="/" className="flex items-center gap-2 text-[#8B6914] font-dm font-semibold text-sm no-underline hover:text-[#6B4F10] transition-colors">
+            🔥 Kamunity
+          </Link>
+          <span className="font-dm text-xs text-[#999] uppercase tracking-widest">Sovereignty Calculator</span>
+          <a href="https://kamunity-audit.netlify.app" target="_blank" rel="noopener noreferrer" className="font-dm text-xs font-semibold text-[#8B6914] no-underline border border-[#8B6914]/30 px-3 py-1 rounded-full hover:bg-[#8B6914]/10 transition-colors">
+            Full Audit ↗
+          </a>
+        </div>
+      </div>
 
-      <div className="max-w-3xl mx-auto px-4 sm:px-6 py-8">
-        {/* Intro */}
-        <div className="mb-8">
-          <h1 className="font-fraunces text-2xl sm:text-3xl font-bold text-ink mb-2">
-            The True Cost of "Free"
+      <div className="max-w-3xl mx-auto px-6 py-12">
+        {/* Hero */}
+        <div className="text-center mb-10">
+          <div className="inline-flex items-center gap-2 font-dm text-xs bg-amber-50 border border-amber-200 text-amber-700 px-3 py-1 rounded-full mb-6 uppercase tracking-wider font-semibold">
+            💰 True Cost Calculator
+          </div>
+          <h1 className="font-fraunces text-3xl sm:text-4xl font-bold text-[#1a1a1a] leading-tight mb-4">
+            What are your &ldquo;free&rdquo; tools<br />
+            <span className="text-[#8B6914]">actually costing you?</span>
           </h1>
-          <p className="font-dm text-sm text-ink-light leading-relaxed">
-            Select the tools your organisation uses. See what they actually cost — in money, data, and lock-in.
+          <p className="font-dm text-base text-[#666] max-w-xl mx-auto leading-relaxed">
+            Select the tools your organisation uses. We&apos;ll show you the direct cost, hidden time cost, data extraction value, and what it would cost to leave — the number that changes conversations.
           </p>
         </div>
 
-        {/* Tool grid */}
-        <section className="mb-8">
-          <h2 className="font-dm text-xs font-semibold text-ink-faint uppercase tracking-wider mb-3">
-            1. Select your tools
-          </h2>
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2 sm:gap-3">
-            {TOOLS.map(t => (
+        {/* Users selector */}
+        <div className="bg-white border border-[#e8e0d0] rounded-2xl p-5 mb-6">
+          <div className="flex items-center justify-between mb-3">
+            <span className="font-dm text-sm font-semibold text-[#1a1a1a]">Team size (staff + regular volunteers)</span>
+            <span className="font-dm text-sm font-bold text-[#8B6914]">{users} people</span>
+          </div>
+          <div className="flex gap-2 flex-wrap">
+            {USERS.map(u => (
               <button
-                key={t.id}
-                onClick={() => toggle(t.id)}
-                className={`flex flex-col items-center text-center p-3 rounded-xl border-2 transition-all cursor-pointer ${
-                  selected.has(t.id)
-                    ? 'border-kai-gold bg-kai-glow/40 shadow-sm'
-                    : 'border-parchment-edge bg-white hover:border-ku/40 hover:shadow-sm'
+                key={u}
+                onClick={() => { setUsers(u); setShowResult(false) }}
+                className={`font-dm text-sm px-4 py-2 rounded-full border transition-all ${
+                  users === u
+                    ? 'bg-[#8B6914] text-white border-[#8B6914]'
+                    : 'border-[#e8e0d0] text-[#666] hover:border-[#8B6914]/50 hover:text-[#8B6914]'
                 }`}
               >
-                <span className="text-2xl mb-1">{t.icon}</span>
-                <span className="font-dm text-xs font-semibold text-ink leading-tight">{t.name}</span>
-                <span className="font-dm text-[0.6rem] text-ink-faint mt-0.5">{t.cat}</span>
+                {u}
               </button>
             ))}
           </div>
-        </section>
+        </div>
 
-        {/* Empty state */}
-        {selected.size === 0 && (
-          <div className="text-center py-12 text-ink-faint">
-            <div className="text-3xl mb-3">💰</div>
-            <p className="font-dm text-sm">Select tools above to see the true cost of "free"</p>
+        {/* Tool grid */}
+        <div className="mb-6">
+          <p className="font-dm text-sm text-[#999] mb-3 uppercase tracking-wider font-semibold">Select your tools</p>
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+            {TOOLS.map(tool => {
+              const isSelected = selected.has(tool.id)
+              const { label: lockLbl, color: lockColor } = lockLabel(tool.lock)
+              return (
+                <button
+                  key={tool.id}
+                  onClick={() => toggle(tool.id)}
+                  className={`text-left p-4 rounded-xl border transition-all ${
+                    isSelected
+                      ? 'border-[#8B6914] bg-amber-50 shadow-sm'
+                      : 'border-[#e8e0d0] bg-white hover:border-[#8B6914]/40'
+                  }`}
+                >
+                  <div className="flex items-start justify-between mb-1">
+                    <span className="text-xl">{tool.icon}</span>
+                    {isSelected && <span className="text-[#8B6914] text-xs">✓</span>}
+                  </div>
+                  <div className="font-dm text-sm font-semibold text-[#1a1a1a] leading-snug">{tool.name}</div>
+                  <div className={`font-dm text-[0.65rem] mt-1 ${lockColor} font-medium`}>{lockLbl}</div>
+                  <div className="font-dm text-[0.65rem] text-[#999] mt-0.5">{tool.cat}</div>
+                </button>
+              )
+            })}
           </div>
+        </div>
+
+        {/* Calculate button */}
+        {selected.size > 0 && (
+          <div className="flex justify-center mb-8">
+            <button
+              onClick={() => setShowResult(true)}
+              className="font-dm font-bold text-sm bg-[#8B6914] text-white px-8 py-3 rounded-full hover:bg-[#6B4F10] transition-colors shadow-md"
+            >
+              Calculate my real costs →
+            </button>
+          </div>
+        )}
+
+        {selected.size === 0 && (
+          <div className="text-center text-[#bbb] font-dm text-sm py-4">Select at least one tool to see your costs</div>
         )}
 
         {/* Results */}
-        {selected.size > 0 && (
-          <>
-            {/* Holy shit box */}
-            <div className="mb-6 bg-gradient-to-br from-fire-amber/10 to-ku/5 border-2 border-kai-gold rounded-2xl p-6 text-center animate-fade-in-up">
-              <p className="font-dm text-sm text-ink-light mb-2">
-                Your {selected.size} {selected.size === 1 ? 'tool' : 'tools'} actually cost your org:
-              </p>
-              <p className="font-fraunces text-4xl sm:text-5xl font-bold text-kai-gold">
-                ${trueCost.toLocaleString()}
-              </p>
-              <p className="font-dm text-xs text-ink-faint mt-2">
-                estimated annual true cost (direct + data extraction + amortised switching risk)
-              </p>
+        {showResult && selectedTools.length > 0 && (
+          <div className="animate-fade-in-up">
+            {/* Holy shit number */}
+            <div className="bg-[#1a1a1a] text-white rounded-2xl p-8 mb-6 text-center">
+              <div className="font-dm text-xs uppercase tracking-widest text-amber-400 mb-2">True monthly cost to your organisation</div>
+              <div className="font-sans text-5xl font-bold text-amber-400 mb-1">{fmt(totalMonthly)}</div>
+              <div className="font-dm text-sm text-white/60">per month · {fmt(totalMonthly * 12)} per year</div>
+              {totalMonthly > directMonthly * 1.5 && (
+                <div className="mt-4 font-dm text-sm text-amber-300">
+                  That&apos;s {Math.round((totalMonthly / Math.max(directMonthly, 1) - 1) * 100)}% more than what you think you&apos;re paying
+                </div>
+              )}
             </div>
 
-            {/* Summary */}
-            <section className="mb-6">
-              <h2 className="font-dm text-xs font-semibold text-ink-faint uppercase tracking-wider mb-3">
-                2. Summary
-              </h2>
-              <div className="bg-white border border-parchment-edge rounded-xl overflow-hidden">
-                {[
-                  { label: 'Direct annual cost (likely spend)', value: `$${(totalMonthly * 12).toLocaleString()}/yr` },
-                  { label: 'Estimated data extraction value', value: `$${totalDataEx.toLocaleString()}/yr` },
-                  { label: 'Migration time if you needed to switch', value: `${totalMigrationHrs}+ hours` },
-                  { label: 'Switching cost estimate (@ $75/hr)', value: `$${switchingCost.toLocaleString()}` },
-                  { label: 'Average lock-in score', value: `${avgLockIn}/10 — ${avgLockIn <= 3 ? 'Low' : avgLockIn <= 6 ? 'Medium' : 'High'} risk` },
-                ].map((row, i) => (
-                  <div key={i} className={`flex justify-between items-center px-4 py-3 font-dm text-sm ${i < 4 ? 'border-b border-parchment-edge' : 'font-semibold text-kai-gold'}`}>
-                    <span className="text-ink-light">{row.label}</span>
-                    <span className="font-semibold text-ink">{row.value}</span>
-                  </div>
-                ))}
+            {/* Breakdown */}
+            <div className="grid sm:grid-cols-2 gap-4 mb-6">
+              <div className="bg-white border border-[#e8e0d0] rounded-xl p-5">
+                <div className="font-dm text-xs text-[#999] uppercase tracking-wider mb-1">Direct cost</div>
+                <div className="font-sans text-2xl font-bold text-[#1a1a1a]">{fmt(directMonthly)}<span className="text-sm font-normal text-[#999]">/mo</span></div>
+                <div className="font-dm text-xs text-[#999] mt-1">{fmt(directAnnual)} per year · {fmt(directMonthly / users)} per person</div>
               </div>
-            </section>
-
-            {/* Tool breakdown */}
-            <section className="mb-8">
-              <h2 className="font-dm text-xs font-semibold text-ink-faint uppercase tracking-wider mb-3">
-                3. Tool breakdown
-              </h2>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                {selectedTools.map(t => (
-                  <div key={t.id} className="bg-white border border-parchment-edge rounded-xl p-4">
-                    <div className="flex items-center gap-2 mb-3">
-                      <span className="text-xl">{t.icon}</span>
-                      <span className="font-dm text-sm font-bold text-ink">{t.name}</span>
-                    </div>
-
-                    <div className="space-y-2 text-xs">
-                      <div className="flex justify-between">
-                        <span className="text-ink-faint">Direct cost</span>
-                        <span className={`font-semibold ${t.cost.monthly === 0 ? 'text-forest' : 'text-kai-gold'}`}>
-                          {t.cost.monthly === 0 ? '$0 + fees' : `$${t.cost.monthly}/mo`}
-                        </span>
-                      </div>
-                      <p className="text-ink-faint text-[0.65rem]">⚠️ {t.cost.trigger}</p>
-
-                      <div className="flex justify-between mt-1">
-                        <span className="text-ink-faint">Lock-in score</span>
-                        <span className="font-semibold" style={{ color: lockInColor(t.lockIn.score) }}>
-                          {t.lockIn.score}/10 · {t.lockIn.ease}
-                        </span>
-                      </div>
-                      <div className="h-1.5 bg-parchment-dark rounded-full overflow-hidden">
-                        <div
-                          className="h-full rounded-full transition-all duration-500"
-                          style={{ width: `${t.lockIn.score * 10}%`, background: lockInColor(t.lockIn.score) }}
-                        />
-                      </div>
-                      <p className="text-ink-faint text-[0.65rem]">
-                        Migration: {t.lockIn.time} · Alternatives: {t.lockIn.alts.slice(0, 2).join(', ')}
-                      </p>
-
-                      <div className="flex justify-between mt-1">
-                        <span className="text-ink-faint">Data extraction value</span>
-                        <span className="font-semibold text-fire-orange">~${t.dataEx.annual}/yr</span>
-                      </div>
-                      <p className="text-ink-faint text-[0.65rem]">{t.dataEx.why}</p>
-                    </div>
-                  </div>
-                ))}
+              <div className="bg-white border border-[#e8e0d0] rounded-xl p-5">
+                <div className="font-dm text-xs text-[#999] uppercase tracking-wider mb-1">Hidden time cost</div>
+                <div className="font-sans text-2xl font-bold text-orange-600">{fmt(hiddenTimeCost)}<span className="text-sm font-normal text-[#999]">/mo</span></div>
+                <div className="font-dm text-xs text-[#999] mt-1">Staff time spent on tool overhead, at $35/hr avg</div>
               </div>
-            </section>
+              <div className="bg-white border border-[#e8e0d0] rounded-xl p-5">
+                <div className="font-dm text-xs text-[#999] uppercase tracking-wider mb-1">Data extraction value</div>
+                <div className="font-sans text-2xl font-bold text-red-600">{fmt(dataValue)}<span className="text-sm font-normal text-[#999]">/mo</span></div>
+                <div className="font-dm text-xs text-[#999] mt-1">Estimated value of your data to these vendors</div>
+              </div>
+              <div className="bg-white border border-[#e8e0d0] rounded-xl p-5">
+                <div className="font-dm text-xs text-[#999] uppercase tracking-wider mb-1">Cost to leave (all tools)</div>
+                <div className="font-sans text-2xl font-bold text-purple-600">{fmt(switchCostTotal)}</div>
+                <div className="font-dm text-xs text-[#999] mt-1">Migration, training, and transition costs combined</div>
+              </div>
+            </div>
 
-            {/* Methodology note */}
-            <div className="bg-white border border-parchment-edge rounded-xl p-4 mb-6 font-dm text-xs text-ink-faint leading-relaxed">
-              <strong className="text-ink-light">Methodology:</strong> Direct costs reflect typical organisational spend including likely upgrade triggers. Lock-in scores assess migration difficulty (1=easy, 10=trapped). Data extraction values are estimates based on publicly available ARPU data and platform business models. These are illustrative figures — real values vary by organisation size and usage. This tool is for awareness, not legal or financial advice.
+            {/* Lock-in score */}
+            <div className="bg-white border border-[#e8e0d0] rounded-xl p-5 mb-6">
+              <div className="flex items-center justify-between mb-3">
+                <span className="font-dm text-sm font-semibold text-[#1a1a1a]">Average lock-in score</span>
+                <span className={`font-dm text-sm font-bold ${lockLabel(avgLock).color} ${lockLabel(avgLock).bg} px-2 py-0.5 rounded-full`}>
+                  {lockLabel(avgLock).label} ({avgLock}/100)
+                </span>
+              </div>
+              <div className="h-3 bg-[#f0ece0] rounded-full overflow-hidden">
+                <div
+                  className={`h-full rounded-full transition-all duration-700 ${
+                    avgLock >= 85 ? 'bg-red-500' : avgLock >= 70 ? 'bg-orange-500' : avgLock >= 50 ? 'bg-amber-500' : 'bg-green-500'
+                  }`}
+                  style={{ width: `${avgLock}%` }}
+                />
+              </div>
+              <div className="flex justify-between font-dm text-[0.6rem] text-[#bbb] mt-1">
+                <span>Sovereign</span>
+                <span>Locked in</span>
+              </div>
+            </div>
+
+            {/* Per-tool breakdown */}
+            <div className="bg-white border border-[#e8e0d0] rounded-xl p-5 mb-6">
+              <div className="font-dm text-sm font-semibold text-[#1a1a1a] mb-4">Your tools, ranked by lock-in</div>
+              <div className="space-y-3">
+                {[...selectedTools].sort((a, b) => b.lock - a.lock).map(tool => {
+                  const { label: lbl, color: lc, bg } = lockLabel(tool.lock)
+                  return (
+                    <div key={tool.id} className="flex items-center gap-3">
+                      <span className="text-lg w-8 flex-shrink-0">{tool.icon}</span>
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-center justify-between mb-1">
+                          <span className="font-dm text-sm text-[#1a1a1a]">{tool.name}</span>
+                          <span className={`font-dm text-[0.65rem] font-semibold ${lc} ${bg} px-1.5 py-0.5 rounded`}>{lbl}</span>
+                        </div>
+                        <div className="h-1.5 bg-[#f0ece0] rounded-full overflow-hidden">
+                          <div
+                            className={`h-full rounded-full ${tool.lock >= 85 ? 'bg-red-400' : tool.lock >= 70 ? 'bg-orange-400' : tool.lock >= 50 ? 'bg-amber-400' : 'bg-green-400'}`}
+                            style={{ width: `${tool.lock}%` }}
+                          />
+                        </div>
+                      </div>
+                      <span className="font-dm text-xs text-[#999] w-14 text-right flex-shrink-0">{fmt(tool.monthly * users)}/mo</span>
+                    </div>
+                  )
+                })}
+              </div>
             </div>
 
             {/* CTA */}
-            <div className="text-center mb-8">
-              <a
-                href="https://kamunity-audit.netlify.app/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 font-dm text-sm font-semibold bg-kai-gold text-white px-6 py-3 rounded-full hover:bg-kai-gold-dark transition-colors shadow-sm"
-              >
-                Take the full Digital Sovereignty Audit →
-              </a>
+            <div className="bg-gradient-to-br from-amber-50 to-orange-50 border border-amber-200 rounded-2xl p-6 text-center">
+              <div className="font-dm text-sm font-bold text-[#8B6914] mb-2">Want the full picture?</div>
+              <p className="font-dm text-sm text-[#666] mb-4 max-w-md mx-auto">
+                The free Digital Sovereignty Audit assesses your full vendor risk — not just cost, but data exposure, governance gaps, and a practical path to better options.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-3 justify-center">
+                <a
+                  href="https://kamunity-audit.netlify.app"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-dm text-sm font-bold bg-[#8B6914] text-white px-6 py-2.5 rounded-full no-underline hover:bg-[#6B4F10] transition-colors"
+                >
+                  Take the full audit ↗
+                </a>
+                <a
+                  href="mailto:mike@kamunityconsulting.com?subject=Sovereignty%20Calculator%20results"
+                  className="font-dm text-sm font-semibold border border-[#8B6914]/30 text-[#8B6914] px-6 py-2.5 rounded-full no-underline hover:bg-amber-50 transition-colors"
+                >
+                  Talk to Mike about this
+                </a>
+              </div>
             </div>
-          </>
-        )}
 
-        {/* Footer cross-links */}
-        <div className="pt-6 border-t border-parchment-edge text-center space-y-3">
-          <p className="font-dm text-xs text-ink-faint">
-            Part of the <a href="https://kamunity.org" className="text-kai-gold hover:text-kai-gold-dark no-underline">Kamunity</a> ecosystem of free community tools.
-          </p>
-          <div className="flex items-center justify-center gap-4 flex-wrap">
-            <Link href="/" className="font-dm text-[0.6rem] text-ink-faint hover:text-kai-gold transition-colors no-underline uppercase tracking-wider">
-              ← Kai
-            </Link>
-            <span className="text-ink-faint/30 text-[0.5rem]">·</span>
-            <Link href="/copilot-check" className="font-dm text-[0.6rem] text-ink-faint hover:text-kai-gold transition-colors no-underline uppercase tracking-wider">
-              Copilot Check
-            </Link>
-            <span className="text-ink-faint/30 text-[0.5rem]">·</span>
-            <Link href="/constitution" className="font-dm text-[0.6rem] text-ink-faint hover:text-kai-gold transition-colors no-underline uppercase tracking-wider">
-              Constitution
-            </Link>
-            <span className="text-ink-faint/30 text-[0.5rem]">·</span>
-            <a href="https://kamunity-audit.netlify.app/" target="_blank" rel="noopener noreferrer" className="font-dm text-[0.6rem] text-ink-faint hover:text-kai-gold transition-colors no-underline uppercase tracking-wider">
-              Full Audit ↗
-            </a>
+            {/* Methodology */}
+            <details className="mt-6 bg-white border border-[#e8e0d0] rounded-xl p-5">
+              <summary className="font-dm text-xs text-[#999] cursor-pointer uppercase tracking-wider font-semibold">About these numbers</summary>
+              <div className="font-dm text-xs text-[#999] leading-relaxed mt-3 space-y-2">
+                <p><strong>Direct cost:</strong> Published pricing for standard plans, multiplied by team size.</p>
+                <p><strong>Hidden time cost:</strong> Industry estimates for tool overhead (onboarding, admin, troubleshooting), at $35/hr average community sector rate.</p>
+                <p><strong>Data extraction value:</strong> Estimated monthly value of behavioural, content, and metadata your organisation generates for each vendor. Based on published ad-tech and data broker market rates.</p>
+                <p><strong>Lock-in score:</strong> Composite of: data portability, API openness, migration difficulty, feature dependency, and network effects. 0 = fully portable, 100 = impossible to leave.</p>
+                <p><strong>Switching cost:</strong> Estimated one-time cost to migrate away — data export, staff retraining, new tool setup, productivity loss during transition.</p>
+                <p>These are estimates for illustration. Your actual costs will vary. Use them to start the conversation, not to invoice someone.</p>
+              </div>
+            </details>
           </div>
-          <p className="font-dm text-[0.55rem] text-ink-faint/50 italic">
-            Built on Whadjuk Noongar boodja. Sovereignty was never ceded.
-          </p>
+        )}
+      </div>
+
+      {/* Footer */}
+      <div className="border-t border-[#e8e0d0] mt-12 py-6">
+        <div className="max-w-3xl mx-auto px-6 flex items-center justify-between">
+          <Link href="/" className="font-dm text-xs text-[#999] no-underline hover:text-[#8B6914] transition-colors">← Back to Kamunity</Link>
+          <span className="font-dm text-xs text-[#bbb]">Free forever · No data collected · Built on Whadjuk Noongar boodja</span>
         </div>
       </div>
-    </div>
+    </main>
   )
 }
