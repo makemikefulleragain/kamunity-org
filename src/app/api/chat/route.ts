@@ -147,7 +147,7 @@ AFTER ALL 6, output this formatted foundation pack exactly:
 **Must never:** [Q5 answer]
 **Phase 1 scope:** [Q6 answer]
 
-**Your next step:** Open Windsurf at windsurfai.com (it's free), start a new project, and paste this:
+**Your next step:** Open Windsurf at windsurf.com (it's free), start a new project, and paste this:
 "I want to build [tool name]. Here's my foundation: [paste the above]. Please read this before you write a single line of code."
 ---
 

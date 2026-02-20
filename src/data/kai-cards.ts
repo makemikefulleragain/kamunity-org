@@ -15,24 +15,6 @@ export interface KaiCard {
 }
 
 export const CARD_REGISTRY: Record<string, KaiCard> = {
-  'sovereignty-calculator': {
-    id: 'sovereignty-calculator',
-    type: 'tool',
-    title: 'Sovereignty Calculator',
-    description: 'See the true annual cost of your "free" tools — direct spend, data extraction value, lock-in scores, and switching costs.',
-    icon: '💰',
-    action: { label: 'Calculate your true cost', url: '/calculator', external: false },
-    meta: '3 min · Free · No sign-up',
-  },
-  'copilot-check': {
-    id: 'copilot-check',
-    type: 'tool',
-    title: 'Copilot Risk Check',
-    description: 'Is Microsoft Copilot processing your sensitive data without governance? 5 questions, risk level + action steps.',
-    icon: '🪟',
-    action: { label: 'Check your Copilot risk', url: '/copilot-check', external: false },
-    meta: '5 min · Free · Specific action steps',
-  },
   'sovereignty-audit': {
     id: 'sovereignty-audit',
     type: 'quiz',
