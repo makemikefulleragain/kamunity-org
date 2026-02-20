@@ -56,6 +56,8 @@ Learn more: https://factoryk1.netlify.app
 - Kai Encounter Interface: AI wayfinder for the community ecosystem. https://kamunity.org
 - Digital Sovereignty Audit: Free 2-minute self-assessment for community orgs. https://kamunity-audit.netlify.app
 - AI Readiness Assessment: Free quiz with toolkit for NFPs. https://kamunity-ai-readiness.netlify.app
+- Sovereignty Calculator: See the true annual cost of "free" corporate tools — direct spend, data extraction value, lock-in scores. https://kamunity.org/calculator
+- Copilot Risk Check: Is Microsoft Copilot putting your org's data at risk? 5 questions, risk level, action steps. https://kamunity.org/copilot-check
 - Grant Acquittal Helper: Free grant reporting tool for Australian nonprofits. https://grants-hub.netlify.app
 - FactoryK: AI-powered community build system. https://factoryk1.netlify.app
 - Nonna's Knitting Circle: Community board for knitting groups. https://nonnas-knitting-circle.netlify.app
@@ -63,6 +65,8 @@ Learn more: https://factoryk1.netlify.app
 
 ## Key Pages on kamunity.org
 - / — Kai encounter interface (default) or Hub view (toggle)
+- /calculator — Sovereignty Calculator: true cost of corporate tools
+- /copilot-check — Copilot Risk Check: Microsoft Copilot data risk assessment
 - /constitution — Kai's public constitution with amendment mechanism
 - /terms — Terms of service (plain English)
 - /privacy — Privacy policy (plain English, zero data collection)

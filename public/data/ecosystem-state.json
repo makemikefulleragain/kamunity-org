@@ -1,10 +1,115 @@
 {
-  "updated": "2026-02-18",
-  "version": "0.1.0",
+  "updated": "2026-02-20",
+  "version": "0.2.0",
   "curator": "Mike Fuller",
   "note": "This file is manually updated weekly. It provides Kai's awareness of what's alive in the Kamunity network and the broader community tech sector.",
 
+  "full_site_registry": [
+    {
+      "name": "Kai — Encounter Interface",
+      "url": "https://kamunity.org",
+      "description": "The main Kamunity website. Kai is a constitutionally-grounded AI encounter interface that helps community organisations navigate digital tools, sovereignty, AI readiness, grants, and connections. Free. Ephemeral conversations — nothing stored.",
+      "category": "ai_interface",
+      "status": "live"
+    },
+    {
+      "name": "Kamunity.Ai — Community Rooms",
+      "url": "https://kamunity.ai",
+      "description": "Public and private digital community rooms. Find, create, and join conversations. A community-owned campfire — no ads, no data harvesting. The digital commons.",
+      "category": "community",
+      "status": "live"
+    },
+    {
+      "name": "Digital Sovereignty Audit",
+      "url": "https://kamunity-audit.netlify.app/",
+      "description": "Free 2-minute self-assessment for community organisations. Maps vendor lock-in, data exposure, and digital costs across your tools. Completely client-side — zero data collection.",
+      "category": "tool",
+      "status": "live",
+      "time": "2 min",
+      "cost": "Free"
+    },
+    {
+      "name": "AI Readiness Assessment",
+      "url": "https://kamunity-ai-readiness.netlify.app/",
+      "description": "Free 5-question quiz that maps your organisation's AI understanding, current use, safety posture, and readiness to act. Includes a free toolkit: AI policy template, prompt writing kit, AI safety checklist.",
+      "category": "tool",
+      "status": "live",
+      "time": "5 min",
+      "cost": "Free"
+    },
+    {
+      "name": "Sovereignty Calculator",
+      "url": "https://kamunity.org/calculator",
+      "description": "See the true cost of 'free' corporate tools. Select the tools your organisation uses (Google Workspace, Slack, Facebook, Microsoft 365, WhatsApp, etc) and see direct costs, data extraction value, lock-in scores, and switching costs. The 'holy shit moment' for understanding digital dependency.",
+      "category": "tool",
+      "status": "live",
+      "time": "3 min",
+      "cost": "Free"
+    },
+    {
+      "name": "Copilot Risk Check",
+      "url": "https://kamunity.org/copilot-check",
+      "description": "Is Microsoft Copilot putting your organisation's data at risk? 5 questions covering M365 status, sensitive data exposure, AI governance policy, and board awareness. Produces a risk level (Low/Medium/High/Critical) with specific findings and action steps.",
+      "category": "tool",
+      "status": "live",
+      "time": "5 min",
+      "cost": "Free"
+    },
+    {
+      "name": "Grant Acquittal Helper",
+      "url": "https://grants-hub.netlify.app",
+      "description": "Free grant reporting tool for Australian nonprofits. Step-by-step acquittal process. Works offline, all data stays local. Built for the unique needs of Australian NFP grant reporting.",
+      "category": "tool",
+      "status": "live",
+      "cost": "Free"
+    },
+    {
+      "name": "FactoryK — Community Build System",
+      "url": "https://factoryk1.netlify.app",
+      "description": "Describe what your community needs in plain English. The AI-powered factory plans, builds, checks its own work, and delivers a working tool. No coding required. Constitutional guardrails — no surveillance, no dark patterns.",
+      "category": "platform",
+      "status": "live"
+    },
+    {
+      "name": "Outcome Vine Coding",
+      "url": "https://vine-o-coding.netlify.app",
+      "description": "A guided methodology for building tools with AI. Describe your idea, get a structured plan, build step by step. No coding experience needed. Open-source methodology.",
+      "category": "method",
+      "status": "live"
+    },
+    {
+      "name": "Nonna's Knitting Circle",
+      "url": "https://nonnas-knitting-circle.netlify.app",
+      "description": "Community board for knitting groups — share patterns, find groups, save resources. A proof-of-concept showing what community-owned tools can look like. Built using Outcome Vine Coding.",
+      "category": "demo",
+      "status": "live"
+    },
+    {
+      "name": "Kai Constitution",
+      "url": "https://kamunity.org/constitution",
+      "description": "The public, readable, amendable values that govern how Kai works. Founder's Draft — open for community thoughts, reactions, and amendment proposals. The democratic governance layer of the AI.",
+      "category": "governance",
+      "status": "live"
+    }
+  ],
+
   "alive_in_network": [
+    {
+      "headline": "Sovereignty Calculator now live on kamunity.org/calculator",
+      "detail": "The holy shit moment tool is live. Select your tools and see the true annual cost — direct spend, data extraction value, lock-in score, and switching cost. Built for the ALIKE meeting demo.",
+      "source": "Kamunity",
+      "url": "https://kamunity.org/calculator",
+      "relevant_to": ["sovereignty", "services"],
+      "date": "2026-02-20"
+    },
+    {
+      "headline": "Copilot Risk Check now live on kamunity.org/copilot-check",
+      "detail": "5-question Microsoft Copilot risk assessment for community orgs. Covers M365 status, sensitive data scope, governance policy, and board awareness. Produces risk level + action steps.",
+      "source": "Kamunity",
+      "url": "https://kamunity.org/copilot-check",
+      "relevant_to": ["ai_readiness", "sovereignty"],
+      "date": "2026-02-20"
+    },
     {
       "headline": "Digital Sovereignty Audit now live",
       "detail": "Free 2-minute self-assessment helping community organisations understand their vendor lock-in, data exposure, and digital costs. Entirely client-side — zero data collection.",
@@ -27,22 +132,6 @@
       "source": "Kamunity",
       "url": "/constitution",
       "relevant_to": ["values"],
-      "date": "2026-02-18"
-    },
-    {
-      "headline": "Kai encounter interface is live on kamunity.org",
-      "detail": "Kai is now the default landing experience — a constitutionally-grounded AI presence that helps visitors navigate the community ecosystem. Conversations are ephemeral, purpose-built for community sector conversations. Desktop slide-out resources panel and mobile inline cards.",
-      "source": "Kamunity",
-      "url": "https://kamunity.org",
-      "relevant_to": ["ai_readiness", "values"],
-      "date": "2026-02-18"
-    },
-    {
-      "headline": "Terms of Service and Privacy Policy published",
-      "detail": "Plain English legal pages now live at /terms and /privacy. Zero data collection, ephemeral conversations, no third-party scripts. Constitutional alignment verified.",
-      "source": "Kamunity",
-      "url": "/terms",
-      "relevant_to": ["values", "sovereignty"],
       "date": "2026-02-18"
     }
   ],
