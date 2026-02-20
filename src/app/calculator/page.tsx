@@ -68,9 +68,9 @@ export default function CalculatorPage() {
             🔥 Kamunity
           </Link>
           <span className="font-dm text-xs text-[#999] uppercase tracking-widest">Sovereignty Calculator</span>
-          <Link href="https://kamunity-audit.netlify.app" target="_blank" className="font-dm text-xs font-semibold text-[#8B6914] no-underline border border-[#8B6914]/30 px-3 py-1 rounded-full hover:bg-[#8B6914]/10 transition-colors">
+          <a href="https://kamunity-audit.netlify.app" target="_blank" rel="noopener noreferrer" className="font-dm text-xs font-semibold text-[#8B6914] no-underline border border-[#8B6914]/30 px-3 py-1 rounded-full hover:bg-[#8B6914]/10 transition-colors">
             Full Audit ↗
-          </Link>
+          </a>
         </div>
       </div>
 
@@ -80,7 +80,7 @@ export default function CalculatorPage() {
           <div className="inline-flex items-center gap-2 font-dm text-xs bg-amber-50 border border-amber-200 text-amber-700 px-3 py-1 rounded-full mb-6 uppercase tracking-wider font-semibold">
             💰 True Cost Calculator
           </div>
-          <h1 className="font-sans text-3xl sm:text-4xl font-bold text-[#1a1a1a] leading-tight mb-4">
+          <h1 className="font-fraunces text-3xl sm:text-4xl font-bold text-[#1a1a1a] leading-tight mb-4">
             What are your &ldquo;free&rdquo; tools<br />
             <span className="text-[#8B6914]">actually costing you?</span>
           </h1>
@@ -160,7 +160,7 @@ export default function CalculatorPage() {
 
         {/* Results */}
         {showResult && selectedTools.length > 0 && (
-          <div className="animate-fade-in">
+          <div className="animate-fade-in-up">
             {/* Holy shit number */}
             <div className="bg-[#1a1a1a] text-white rounded-2xl p-8 mb-6 text-center">
               <div className="font-dm text-xs uppercase tracking-widest text-amber-400 mb-2">True monthly cost to your organisation</div>

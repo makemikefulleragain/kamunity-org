@@ -144,7 +144,7 @@ export default function CopilotCheckPage() {
           <div className="inline-flex items-center gap-2 font-dm text-xs bg-blue-50 border border-blue-200 text-blue-700 px-3 py-1 rounded-full mb-6 uppercase tracking-wider font-semibold">
             🛡️ 5-Question Assessment
           </div>
-          <h1 className="font-sans text-3xl sm:text-4xl font-bold text-[#1a1a1a] leading-tight mb-4">
+          <h1 className="font-fraunces text-3xl sm:text-4xl font-bold text-[#1a1a1a] leading-tight mb-4">
             Is Microsoft Copilot putting<br />
             <span className="text-[#3b5fc0]">your data at risk?</span>
           </h1>
@@ -199,7 +199,7 @@ export default function CopilotCheckPage() {
 
         {/* Results */}
         {showResult && (
-          <div className="animate-fade-in space-y-5">
+          <div className="animate-fade-in-up space-y-5">
             {/* Risk score */}
             <div className={`${rc.bg} ${rc.border} border rounded-2xl p-6 text-center`}>
               <div className="text-3xl mb-2">{rc.emoji}</div>
