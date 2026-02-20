@@ -1,6 +1,6 @@
 {
   "updated": "2026-02-20",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "curator": "Mike Fuller",
   "note": "This file is manually updated weekly. It provides Kai's awareness of what's alive in the Kamunity network and the broader community tech sector.",
 
@@ -203,6 +203,82 @@
       "fit": "Good — requires NFP auspicing partner"
     }
   ],
+
+  "perth_community_context": {
+    "note": "Key organisations in the Perth/WA community sector that Kai should know about and be able to refer people to.",
+    "organisations": [
+      {
+        "name": "WACOSS — WA Council of Social Service",
+        "url": "https://wacoss.org.au",
+        "description": "The peak body for community services in Western Australia. Represents 300+ member organisations across the social services sector. Running a $3.9M Lotterywest-funded Digital Inclusion Project — training 1,500 frontline community service workers to support Western Australians experiencing digital exclusion.",
+        "contact": "digitalinclusion@wacoss.org.au",
+        "relevance": ["digital_inclusion", "community_services", "training"],
+        "tags": ["peak-body", "perth", "digital-inclusion"]
+      },
+      {
+        "name": "Linkwest — Neighbourhood Houses WA",
+        "url": "https://linkwest.org.au",
+        "description": "Network of 140+ neighbourhood and community houses across Western Australia serving 34,000+ people per week. Neighbourhood houses are community-governed, accessible local spaces offering programs, support, and connection. Frontline digital inclusion touchpoints for many vulnerable community members.",
+        "relevance": ["community_access", "digital_inclusion", "neighbourhood_houses"],
+        "tags": ["peak-body", "perth", "neighbourhood-houses"]
+      },
+      {
+        "name": "ALIKE WA",
+        "url": "https://alike.org.au",
+        "description": "Peak body for people with disability in Western Australia. Advocates for the rights and inclusion of people with disability. Deeply engaged with NDIS, digital accessibility, and ensuring technology serves — not excludes — disabled community members. WCAG 2.1 AA accessibility is a constitutional requirement for all Kamunity tools.",
+        "relevance": ["disability", "accessibility", "inclusion", "NDIS"],
+        "tags": ["peak-body", "perth", "disability"]
+      },
+      {
+        "name": "Spacecubed",
+        "url": "https://spacecubed.com",
+        "description": "Perth's leading innovation hub. Operates 170+ Meshpoints (coworking spaces) across WA and runs the Spacecubed Foundation which provides Impact Scholarships and the Innovative Society Fund for community-focused projects. Workshop hosting and innovation community for community organisations.",
+        "relevance": ["innovation", "workshop_space", "grants", "coworking"],
+        "tags": ["innovation-hub", "perth", "grants"]
+      },
+      {
+        "name": "Activate Mental Health",
+        "url": "https://activatemh.org.au",
+        "description": "Mental health peak body and service provider in Western Australia. Works across prevention, early intervention, and community wellbeing. Part of the mental health ecosystem that Kamunity's crisis protocol is designed to connect people to.",
+        "relevance": ["mental_health", "community_wellbeing", "crisis_support"],
+        "tags": ["peak-body", "perth", "mental-health"]
+      },
+      {
+        "name": "Infoxchange",
+        "url": "https://www.infoxchange.org",
+        "description": "Australia's largest tech-for-justice organisation. Runs the annual Technology for Social Justice conference (May 2026, Melbourne — 300 delegates). Develops and maintains tools used by thousands of Australian community organisations including Ask Izzy (homelessness and social services directory) and Service Seeker.",
+        "relevance": ["community_tech", "conference", "directory_services"],
+        "tags": ["national", "tech-for-justice", "conference"]
+      },
+      {
+        "name": "Shelter WA",
+        "url": "https://shelterwa.org.au",
+        "description": "Peak body for homelessness and affordable housing in Western Australia. Advocates for people experiencing or at risk of homelessness. Housing access is one of the 13 life domains the Perth Community Services Directory will cover.",
+        "relevance": ["housing", "homelessness", "advocacy"],
+        "tags": ["peak-body", "perth", "housing"]
+      },
+      {
+        "name": "WALGA — WA Local Government Association",
+        "url": "https://walga.asn.au",
+        "description": "Representative body for all 139 local governments in Western Australia. Active consulting engagement with Kamunity Consulting. Local governments are major funders and deliverers of community services — digital sovereignty matters at the council level too.",
+        "relevance": ["local_government", "community_services", "consulting"],
+        "tags": ["government", "perth", "local-government"]
+      },
+      {
+        "name": "Life Without Barriers",
+        "url": "https://lwb.org.au",
+        "description": "Australia's largest non-denominational provider of community support services. Works with people experiencing disability, homelessness, mental health challenges, domestic violence, and youth homelessness. Operating across all Australian states and territories.",
+        "relevance": ["disability", "homelessness", "mental_health", "community_support"],
+        "tags": ["national", "community-services", "disability"]
+      }
+    ],
+    "digital_inclusion_context": {
+      "headline": "11% of Western Australians are highly digitally excluded",
+      "detail": "WACOSS Digital Inclusion data: 280,000+ West Australians are highly digitally excluded. A further significant proportion have low digital capability. Frontline community service workers are the main bridge between excluded community members and digital tools — which is why worker training and tool accessibility are both critical.",
+      "source": "WACOSS Digital Inclusion Project / Australian Digital Inclusion Index",
+      "implications_for_kai": "Many people Kai serves will have low digital literacy. Kai should never assume technical knowledge. Plain language and simple next steps are constitutional requirements, not preferences."
+    }
+  },
 
   "network_patterns": {
     "note": "Pattern data will be populated once the network has enough participants to ensure genuine anonymity. We will not present pattern data from fewer than 20 organisations.",
