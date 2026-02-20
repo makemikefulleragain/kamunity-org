@@ -194,4 +194,22 @@ export const CARD_REGISTRY: Record<string, KaiCard> = {
     action: { label: 'Try it free', url: 'https://grants-hub.netlify.app', external: true },
     meta: 'Free · Built for Australian NFPs',
   },
+  'sovereignty-calculator': {
+    id: 'sovereignty-calculator',
+    type: 'quiz',
+    title: 'Sovereignty Calculator',
+    description: 'See the true cost of the "free" tools your organisation uses — direct cost, hidden time cost, data extraction value, and switching cost. The number might surprise you.',
+    icon: '💰',
+    action: { label: 'See your real costs', url: '/calculator', external: false },
+    meta: '5 min · Free · No sign-up',
+  },
+  'copilot-check': {
+    id: 'copilot-check',
+    type: 'quiz',
+    title: 'Copilot Risk Check',
+    description: '5 questions to assess whether Microsoft Copilot is putting your organisation\'s data at risk. Get a risk rating, findings, and recommended actions.',
+    icon: '🛡️',
+    action: { label: 'Check your risk', url: '/copilot-check', external: false },
+    meta: '3 min · Free · For Microsoft 365 users',
+  },
 };
