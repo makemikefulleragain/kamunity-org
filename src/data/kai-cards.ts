@@ -212,4 +212,13 @@ export const CARD_REGISTRY: Record<string, KaiCard> = {
     action: { label: 'Check your risk', url: '/copilot-check', external: false },
     meta: '3 min · Free · For Microsoft 365 users',
   },
+  'kamunity-consulting': {
+    id: 'kamunity-consulting',
+    type: 'resource',
+    title: 'Kamunity Consulting',
+    description: 'Mike Fuller\'s consulting practice for WA community organisations. Fix broken systems (QA, improvement, strategy) or do the impossible thing (innovation, AI, design sprints).',
+    icon: '🚪',
+    action: { label: 'Visit kamunityconsulting.com', url: 'https://kamunityconsulting.com', external: true },
+    meta: 'Built by Kamunity · Perth, WA',
+  },
 };

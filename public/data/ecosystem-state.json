@@ -1,6 +1,6 @@
 {
-  "updated": "2026-02-20",
-  "version": "0.3.0",
+  "updated": "2026-02-21",
+  "version": "0.4.0",
   "curator": "Mike Fuller",
   "note": "This file is manually updated weekly. It provides Kai's awareness of what's alive in the Kamunity network and the broader community tech sector.",
 
@@ -89,6 +89,13 @@
       "url": "https://kamunity.org/constitution",
       "description": "The public, readable, amendable values that govern how Kai works. Founder's Draft — open for community thoughts, reactions, and amendment proposals. The democratic governance layer of the AI.",
       "category": "governance",
+      "status": "live"
+    },
+    {
+      "name": "Kamunity Consulting",
+      "url": "https://kamunityconsulting.com",
+      "description": "Mike Fuller's consulting practice for WA community organisations and nonprofits. Two service rooms: 'Fix the shit things' (QA, process improvement, system design, team turnarounds, strategy) and 'Do the impossible thing' (innovation sprints, AI integration, human-centred design, hackathons). Perth-based. Built by Kamunity.",
+      "category": "consulting",
       "status": "live"
     }
   ],

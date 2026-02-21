@@ -62,6 +62,7 @@ Learn more: https://factoryk1.netlify.app
 - FactoryK: AI-powered community build system. https://factoryk1.netlify.app
 - Nonna's Knitting Circle: Community board for knitting groups. https://nonnas-knitting-circle.netlify.app
 - Outcome Vine Coding: Build real tools with AI, step by step. https://vine-o-coding.netlify.app
+- Kamunity Consulting: Mike Fuller's consulting practice for WA community and nonprofit organisations. Two service rooms: Fix (QA/improvement/strategy) and Impossible (innovation/AI/design sprints). Built by Kamunity. https://kamunityconsulting.com
 
 ## Key Pages on kamunity.org
 - / — Kai encounter interface (default) or Hub view (toggle)

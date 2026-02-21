@@ -70,4 +70,14 @@ export const showcaseItems: ShowcaseItem[] = [
     badge: 'Live Tool',
     tags: ['Sovereignty', 'Microsoft', 'AI Risk'],
   },
+  {
+    slug: 'kamunity-consulting',
+    title: 'Kamunity Consulting',
+    description: 'Built by Kamunity. Mike Fuller\'s consulting practice for the WA community sector — QA, process improvement, innovation sprints, AI integration, human-centred design. Two doors. One conversation.',
+    url: 'https://kamunityconsulting.com',
+    thumbGradient: 'from-amber-100 to-red-100',
+    thumbEmoji: '🚪',
+    badge: 'Live Tool',
+    tags: ['Consulting', 'Perth', 'Built by Kamunity'],
+  },
 ]
