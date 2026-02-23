@@ -3,6 +3,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { readFileSync } from 'fs';
 import { join } from 'path';
 import { CARD_REGISTRY } from '@/data/kai-cards';
+import { PERTH_DIRECTORY } from '@/data/perth-directory';
 
 const anthropic = new Anthropic({
   apiKey: process.env.ANTHROPIC_API_KEY || 'placeholder-key',
@@ -81,6 +82,16 @@ You can suggest cards to surface by including a JSON block at the END of your re
 
 Available cards:
 ${Object.values(CARD_REGISTRY).map(card => `- "${card.id}" — ${card.title}${card.description ? ` (${card.description})` : ''}`).join('\n')}
+
+[PERTH COMMUNITY SERVICES DIRECTORY]
+Here are verified community services in WA. Use this to help people find support. Only surface these if they are relevant to the conversation.
+${PERTH_DIRECTORY.map(s => `
+ORG: ${s.org}
+DOMAIN: ${s.domain.join(', ')}
+WHAT IT IS: ${s.description}
+ELIGIBILITY: ${s.eligibility}
+LOCATION: ${s.location}
+CONTACT: ${s.contact}`).join('\n')}
 
 [DESCRIBING ECOSYSTEM SITES — t28]
 When someone asks "what tools do you have?", "what sites does Kamunity run?", "what is [tool name]?", or needs help finding something:
@@ -248,7 +259,7 @@ export async function POST(request: NextRequest) {
     const systemPrompt = buildSystemPrompt();
 
     const response = await anthropic.messages.create({
-      model: 'claude-sonnet-4-20250514',
+      model: 'claude-3-haiku-20240307',
       max_tokens: 1800,
       system: systemPrompt,
       messages: messages.map((m: { role: string; content: string }) => ({
