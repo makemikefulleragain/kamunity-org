@@ -5,6 +5,8 @@ import { join } from 'path';
 import { CARD_REGISTRY } from '@/data/kai-cards';
 import { PERTH_DIRECTORY } from '@/data/perth-directory';
 
+export const maxDuration = 30;
+
 const anthropic = new Anthropic({
   apiKey: process.env.ANTHROPIC_API_KEY || 'placeholder-key',
 });
@@ -34,12 +36,16 @@ function loadSiteKnowledge(): string {
   }
 }
 
+let _cachedSystemPrompt: string | null = null;
+
 function buildSystemPrompt(): string {
+  if (_cachedSystemPrompt) return _cachedSystemPrompt;
+
   const constitution = loadConstitution();
   const ecosystemState = loadEcosystemState();
   const siteKnowledge = loadSiteKnowledge();
 
-  return `[CONSTITUTION]
+  _cachedSystemPrompt = `[CONSTITUTION]
 ${constitution}
 
 [KAMUNITY ECOSYSTEM — SITES & TOOLS]
@@ -237,6 +243,8 @@ At the end of your response, include a JSON object with card IDs to surface. Onl
 
 Example: If someone asks about AI readiness, you might end with:
 {"surface": ["ai-readiness", "toolkit-ai-policy"]}`;
+
+  return _cachedSystemPrompt;
 }
 
 export async function POST(request: NextRequest) {
@@ -258,11 +266,14 @@ export async function POST(request: NextRequest) {
 
     const systemPrompt = buildSystemPrompt();
 
+    const MAX_HISTORY = 10;
+    const trimmedMessages = messages.slice(-MAX_HISTORY);
+
     const response = await anthropic.messages.create({
       model: 'claude-sonnet-4-5-20250929',
       max_tokens: 1800,
       system: systemPrompt,
-      messages: messages.map((m: { role: string; content: string }) => ({
+      messages: trimmedMessages.map((m: { role: string; content: string }) => ({
         role: m.role as 'user' | 'assistant',
         content: m.content,
       })),
@@ -287,11 +298,23 @@ export async function POST(request: NextRequest) {
     }
 
     return NextResponse.json({ content: cleanText, cards });
-  } catch (error) {
-    console.error('Kai API error:', error);
+  } catch (error: unknown) {
+    const err = error as { status?: number; message?: string; code?: string };
+    console.error('Kai API error:', {
+      status: err?.status,
+      message: err?.message,
+      code: err?.code,
+    });
+    const isTimeout = err?.message?.includes('timeout') || err?.code === 'ETIMEDOUT';
+    const isRateLimit = err?.status === 429;
+    const userMessage = isRateLimit
+      ? 'Kai is a bit busy right now — try again in a moment.'
+      : isTimeout
+      ? 'That took a bit long. Try a shorter message or start fresh.'
+      : 'Something went wrong. Kai is having a quiet moment.';
     return NextResponse.json(
-      { error: 'Something went wrong. Kai is having a quiet moment.' },
-      { status: 500 }
+      { error: userMessage },
+      { status: err?.status || 500 }
     );
   }
 }

@@ -77,7 +77,8 @@ export default function EncounterZone() {
           setActiveCards(data.cards.slice(0, 3))
         }
       }
-    } catch {
+    } catch (err) {
+      console.error('Kai fetch error:', err)
       setMessages([...newMessages, {
         role: 'assistant',
         content: "I'm having trouble connecting right now. The campfire's still warm — try again in a moment.",
