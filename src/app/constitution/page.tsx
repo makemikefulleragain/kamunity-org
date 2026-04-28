@@ -83,8 +83,6 @@ export default function ConstitutionPage() {
   // Legal Document styling for constitution
   const renderMarkdown = (md: string) => {
     const blocks = md.split('\n\n')
-    let currentArticle: string | null = null
-    let clauseCounter = 0
 
     return blocks
       .map((block, i) => {
@@ -112,7 +110,6 @@ export default function ConstitutionPage() {
         // Article headers (h2) — sticky with gold accent
         if (trimmed.startsWith('## ')) {
           const title = trimmed.replace('## ', '')
-          currentArticle = title
           const sectionLabel = getSectionLabel(title)
           
           return (
@@ -146,7 +143,6 @@ export default function ConstitutionPage() {
         // Clause paragraphs (**X.X** format)
         if (trimmed.startsWith('**') && trimmed.includes('**')) {
           const clause = parseClause(trimmed)
-          clauseCounter++
           
           if (clause) {
             return (
