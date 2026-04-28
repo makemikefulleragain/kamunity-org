@@ -42,14 +42,6 @@ export default function Nav() {
           <a href="#feed" className="font-sans text-[0.62rem] text-ink-faint no-underline uppercase tracking-[1.3px] hover:text-ink transition-colors hidden sm:inline">
             Stories
           </a>
-          <a
-            href="https://kamunity.ai"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="font-sans text-[0.62rem] text-white bg-ku px-3.5 py-1.5 rounded-md font-semibold uppercase tracking-[1.3px] hover:bg-ku-light transition-colors no-underline"
-          >
-            Get Started
-          </a>
         </div>
       </nav>
     </>

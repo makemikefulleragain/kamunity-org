@@ -20,15 +20,7 @@ export default function Hero() {
         real data control — with no coding, no contracts, and no catch.
       </p>
 
-      <div className="flex gap-3 justify-center flex-wrap mb-10">
-        <a
-          href="https://kamunity.ai"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex items-center gap-1.5 bg-ku text-white font-sans text-[0.82rem] font-semibold px-6 py-3 rounded-lg shadow-[0_4px_12px_rgba(99,102,241,0.2)] hover:bg-ku-light hover:-translate-y-px hover:shadow-[0_6px_20px_rgba(99,102,241,0.25)] transition-all no-underline"
-        >
-          Get your community started →
-        </a>
+      <div className="flex justify-center mb-10">
         <a
           href="#showcase"
           className="inline-flex items-center gap-1.5 bg-white text-ku font-sans text-[0.82rem] font-semibold px-6 py-3 rounded-lg border-2 border-ku/20 hover:border-ku hover:bg-ku-bg transition-all no-underline"
