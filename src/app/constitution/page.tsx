@@ -56,60 +56,148 @@ export default function ConstitutionPage() {
     window.open(`mailto:mike@kamunityconsulting.com?subject=${subject}&body=${body}`, '_blank')
   }
 
-  // Simple markdown-to-HTML for the constitution
+  // Get section label based on article number
+  const getSectionLabel = (articleTitle: string): string | null => {
+    if (articleTitle.includes('Article 2')) return '🔒 Inviolable Principles'
+    if (articleTitle.includes('Article 3')) return '🌿 Encounter Principles'
+    if (articleTitle.includes('Article 4')) return '📚 Knowledge Framework'
+    if (articleTitle.includes('Article 5')) return '🔄 Evolution Process'
+    return null
+  }
+
+  // Parse clause number and text from bold markdown
+  const parseClause = (text: string): { number: string; title: string; body: string } | null => {
+    // Match patterns like "**2.1** No Surveillance. Kai will..."
+    const match = text.match(/^\*\*(\d+\.\d+)\*\*\s*(.+?)(?:\.\s*)(.+)$/)
+    if (match) {
+      return { number: match[1], title: match[2], body: match[3] }
+    }
+    // Match patterns like "**5.1** Founder's Draft..."
+    const simpleMatch = text.match(/^\*\*(\d+\.\d+)\*\*\s*(.+)$/)
+    if (simpleMatch) {
+      return { number: simpleMatch[1], title: '', body: simpleMatch[2] }
+    }
+    return null
+  }
+
+  // Legal Document styling for constitution
   const renderMarkdown = (md: string) => {
-    return md
-      .split('\n\n')
+    const blocks = md.split('\n\n')
+    let currentArticle: string | null = null
+    let clauseCounter = 0
+
+    return blocks
       .map((block, i) => {
         const trimmed = block.trim()
         if (!trimmed) return null
 
+        // Title (h1)
         if (trimmed.startsWith('# ')) {
           return (
-            <h1 key={i} className="font-fraunces text-2xl sm:text-3xl font-bold text-ink mb-2 mt-10">
-              {trimmed.replace('# ', '')}
-            </h1>
+            <div key={i} className="mb-8">
+              <div className="inline-flex items-center gap-2 bg-kai-gold/10 px-4 py-2 rounded-full mb-4">
+                <span className="text-xl">📜</span>
+                <span className="font-dm text-xs font-semibold text-kai-gold-dark uppercase tracking-wider">Founder&apos;s Draft — February 2026</span>
+              </div>
+              <h1 className="font-fraunces text-3xl sm:text-4xl font-bold text-ink mb-3">
+                {trimmed.replace('# ', '')}
+              </h1>
+              <p className="font-dm text-sm text-ink-light italic">
+                Written by Mike Fuller, Kamunity. This document will be superseded by one created through community deliberative process.
+              </p>
+            </div>
           )
         }
+
+        // Article headers (h2) — sticky with gold accent
         if (trimmed.startsWith('## ')) {
+          const title = trimmed.replace('## ', '')
+          currentArticle = title
+          const sectionLabel = getSectionLabel(title)
+          
           return (
-            <h2 key={i} className="font-fraunces text-xl sm:text-2xl font-semibold text-ink mb-2 mt-8 border-b border-parchment-edge pb-2">
-              {trimmed.replace('## ', '')}
-            </h2>
+            <div key={i} className="sticky top-14 z-30 bg-kai-cream/95 backdrop-blur-sm border-l-4 border-kai-gold pl-4 py-3 my-8 -mx-4 shadow-sm">
+              {sectionLabel && (
+                <span className="font-dm text-[0.65rem] font-semibold text-kai-gold uppercase tracking-wider">
+                  {sectionLabel}
+                </span>
+              )}
+              <h2 className="font-fraunces text-xl sm:text-2xl font-bold text-ink">
+                {title}
+              </h2>
+            </div>
           )
         }
+
+        // Horizontal rule — subtle divider
         if (trimmed === '---') {
-          return <hr key={i} className="border-parchment-edge my-6" />
+          return <hr key={i} className="border-parchment-edge/50 my-8" />
         }
+
+        // Italic intro text
         if (trimmed.startsWith('*') && trimmed.endsWith('*') && !trimmed.startsWith('**')) {
           return (
-            <p key={i} className="font-dm text-sm text-ink-faint italic leading-relaxed mb-3">
+            <p key={i} className="font-fraunces text-base text-ink-light italic leading-relaxed mb-6 pl-4 border-l-2 border-parchment-edge">
               {trimmed.replace(/^\*|\*$/g, '')}
             </p>
           )
         }
+
+        // Clause paragraphs (**X.X** format)
         if (trimmed.startsWith('**') && trimmed.includes('**')) {
-          // Bold-starting paragraphs (article items)
+          const clause = parseClause(trimmed)
+          clauseCounter++
+          
+          if (clause) {
+            return (
+              <div key={i} className="mb-5 group">
+                <div className="flex items-start gap-3">
+                  {/* Clause number badge */}
+                  <div className="flex-shrink-0 w-12 h-12 flex items-center justify-center bg-white border-2 border-kai-gold/30 rounded-lg shadow-sm group-hover:border-kai-gold/50 transition-colors">
+                    <span className="font-dm text-sm font-bold text-kai-gold">{clause.number}</span>
+                  </div>
+                  
+                  {/* Clause content */}
+                  <div className="flex-1 pt-1">
+                    {clause.title && (
+                      <h3 className="font-fraunces text-base font-semibold text-ink mb-1">
+                        {clause.title}
+                      </h3>
+                    )}
+                    <p className="font-dm text-sm text-ink-light leading-relaxed">
+                      {clause.body}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            )
+          }
+          
+          // Fallback for non-clause bold text
           const parts = trimmed.split('**')
           return (
-            <p key={i} className="font-dm text-sm text-ink leading-relaxed mb-3 pl-2 border-l-2 border-kai-gold/30">
-              <strong className="text-ink font-semibold">{parts[1]}</strong>
+            <p key={i} className="font-dm text-sm text-ink leading-relaxed mb-4 pl-4">
+              <strong className="font-semibold text-ink">{parts[1]}</strong>
               {parts[2]}
             </p>
           )
         }
+
+        // List items
         if (trimmed.startsWith('- ')) {
           const items = trimmed.split('\n').filter((l) => l.startsWith('- '))
           return (
-            <ul key={i} className="font-dm text-sm text-ink leading-relaxed mb-3 list-disc list-inside space-y-1">
+            <ul key={i} className="font-dm text-sm text-ink-light leading-relaxed mb-4 list-disc list-inside space-y-2 pl-4">
               {items.map((item, j) => (
                 <li key={j}>{item.replace('- ', '')}</li>
               ))}
             </ul>
           )
         }
+
+        // Default paragraphs
         return (
-          <p key={i} className="font-dm text-sm text-ink leading-relaxed mb-3">
+          <p key={i} className="font-dm text-sm text-ink-light leading-relaxed mb-4 pl-4">
             {trimmed}
           </p>
         )
@@ -140,7 +228,7 @@ export default function ConstitutionPage() {
 
       {/* Form submissions handled via fetch POST + mailto fallback */}
 
-      <div className="max-w-2xl mx-auto px-6 py-8">
+      <div className="max-w-3xl mx-auto px-6 py-8">
         {/* Amendment Form */}
         {showAmendForm && (
           <div className="mb-8 bg-white border border-parchment-edge rounded-xl p-5 animate-fade-in-up">
