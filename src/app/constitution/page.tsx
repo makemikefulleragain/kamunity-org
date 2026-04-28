@@ -66,139 +66,136 @@ export default function ConstitutionPage() {
   }
 
   // Parse clause number and text from bold markdown
+  // Format: "**2.1 No Surveillance.** Kai will never monitor..."
   const parseClause = (text: string): { number: string; title: string; body: string } | null => {
-    // Match patterns like "**2.1** No Surveillance. Kai will..."
-    const match = text.match(/^\*\*(\d+\.\d+)\*\*\s*(.+?)(?:\.\s*)(.+)$/)
+    // Match **X.X Title.** followed by body
+    const match = text.match(/^\*\*(\d+\.\d+)\s+(.+?)\.\*\*\s*(.+)$/)
     if (match) {
       return { number: match[1], title: match[2], body: match[3] }
-    }
-    // Match patterns like "**5.1** Founder's Draft..."
-    const simpleMatch = text.match(/^\*\*(\d+\.\d+)\*\*\s*(.+)$/)
-    if (simpleMatch) {
-      return { number: simpleMatch[1], title: '', body: simpleMatch[2] }
     }
     return null
   }
 
   // Legal Document styling for constitution
+  // Parse line by line to handle single-newline markdown
   const renderMarkdown = (md: string) => {
-    const blocks = md.split('\n\n')
+    const lines = md.split('\n')
+    const elements: JSX.Element[] = []
+    let keyCounter = 0
+    let i = 0
 
-    return blocks
-      .map((block, i) => {
-        const trimmed = block.trim()
-        if (!trimmed) return null
+    const getKey = () => `block-${keyCounter++}`
 
-        // Title (h1)
-        if (trimmed.startsWith('# ')) {
-          return (
-            <div key={i} className="mb-8">
-              <div className="inline-flex items-center gap-2 bg-kai-gold/10 px-4 py-2 rounded-full mb-4">
-                <span className="text-xl">📜</span>
-                <span className="font-dm text-xs font-semibold text-kai-gold-dark uppercase tracking-wider">Founder&apos;s Draft — February 2026</span>
-              </div>
-              <h1 className="font-fraunces text-3xl sm:text-4xl font-bold text-ink mb-3">
-                {trimmed.replace('# ', '')}
-              </h1>
-              <p className="font-dm text-sm text-ink-light italic">
-                Written by Mike Fuller, Kamunity. This document will be superseded by one created through community deliberative process.
-              </p>
+    while (i < lines.length) {
+      const line = lines[i].trim()
+      
+      // Skip empty lines
+      if (!line) {
+        i++
+        continue
+      }
+
+      // Title (h1)
+      if (line.startsWith('# ')) {
+        elements.push(
+          <div key={getKey()} className="mb-8">
+            <div className="inline-flex items-center gap-2 bg-kai-gold/10 px-4 py-2 rounded-full mb-4">
+              <span className="text-xl">📜</span>
+              <span className="font-dm text-xs font-semibold text-kai-gold-dark uppercase tracking-wider">Founder&apos;s Draft — February 2026</span>
             </div>
-          )
-        }
-
-        // Article headers (h2) — sticky with gold accent
-        if (trimmed.startsWith('## ')) {
-          const title = trimmed.replace('## ', '')
-          const sectionLabel = getSectionLabel(title)
-          
-          return (
-            <div key={i} className="sticky top-14 z-30 bg-kai-cream/95 backdrop-blur-sm border-l-4 border-kai-gold pl-4 py-3 my-8 -mx-4 shadow-sm">
-              {sectionLabel && (
-                <span className="font-dm text-[0.65rem] font-semibold text-kai-gold uppercase tracking-wider">
-                  {sectionLabel}
-                </span>
-              )}
-              <h2 className="font-fraunces text-xl sm:text-2xl font-bold text-ink">
-                {title}
-              </h2>
-            </div>
-          )
-        }
-
-        // Horizontal rule — subtle divider
-        if (trimmed === '---') {
-          return <hr key={i} className="border-parchment-edge/50 my-8" />
-        }
-
-        // Italic intro text
-        if (trimmed.startsWith('*') && trimmed.endsWith('*') && !trimmed.startsWith('**')) {
-          return (
-            <p key={i} className="font-fraunces text-base text-ink-light italic leading-relaxed mb-6 pl-4 border-l-2 border-parchment-edge">
-              {trimmed.replace(/^\*|\*$/g, '')}
+            <h1 className="font-fraunces text-3xl sm:text-4xl font-bold text-ink mb-3">
+              {line.replace('# ', '')}
+            </h1>
+            <p className="font-dm text-sm text-ink-light italic">
+              Written by Mike Fuller, Kamunity. This document will be superseded by one created through community deliberative process.
             </p>
-          )
-        }
+          </div>
+        )
+        i++
+        continue
+      }
 
-        // Clause paragraphs (**X.X** format)
-        if (trimmed.startsWith('**') && trimmed.includes('**')) {
-          const clause = parseClause(trimmed)
-          
-          if (clause) {
-            return (
-              <div key={i} className="mb-5 group">
-                <div className="flex items-start gap-3">
-                  {/* Clause number badge */}
-                  <div className="flex-shrink-0 w-12 h-12 flex items-center justify-center bg-white border-2 border-kai-gold/30 rounded-lg shadow-sm group-hover:border-kai-gold/50 transition-colors">
-                    <span className="font-dm text-sm font-bold text-kai-gold">{clause.number}</span>
-                  </div>
-                  
-                  {/* Clause content */}
-                  <div className="flex-1 pt-1">
-                    {clause.title && (
-                      <h3 className="font-fraunces text-base font-semibold text-ink mb-1">
-                        {clause.title}
-                      </h3>
-                    )}
-                    <p className="font-dm text-sm text-ink-light leading-relaxed">
-                      {clause.body}
-                    </p>
-                  </div>
-                </div>
-              </div>
-            )
-          }
-          
-          // Fallback for non-clause bold text
-          const parts = trimmed.split('**')
-          return (
-            <p key={i} className="font-dm text-sm text-ink leading-relaxed mb-4 pl-4">
-              <strong className="font-semibold text-ink">{parts[1]}</strong>
-              {parts[2]}
-            </p>
-          )
-        }
+      // Article headers (h2) — sticky with gold accent
+      if (line.startsWith('## ')) {
+        const title = line.replace('## ', '')
+        const sectionLabel = getSectionLabel(title)
+        
+        elements.push(
+          <div key={getKey()} className="sticky top-14 z-30 bg-kai-cream/95 backdrop-blur-sm border-l-4 border-kai-gold pl-4 py-3 my-8 -mx-4 shadow-sm">
+            {sectionLabel && (
+              <span className="font-dm text-[0.65rem] font-semibold text-kai-gold uppercase tracking-wider">
+                {sectionLabel}
+              </span>
+            )}
+            <h2 className="font-fraunces text-xl sm:text-2xl font-bold text-ink">
+              {title}
+            </h2>
+          </div>
+        )
+        i++
+        continue
+      }
 
-        // List items
-        if (trimmed.startsWith('- ')) {
-          const items = trimmed.split('\n').filter((l) => l.startsWith('- '))
-          return (
-            <ul key={i} className="font-dm text-sm text-ink-light leading-relaxed mb-4 list-disc list-inside space-y-2 pl-4">
-              {items.map((item, j) => (
-                <li key={j}>{item.replace('- ', '')}</li>
-              ))}
-            </ul>
-          )
-        }
+      // Horizontal rule
+      if (line === '---') {
+        elements.push(<hr key={getKey()} className="border-parchment-edge/50 my-8" />)
+        i++
+        continue
+      }
 
-        // Default paragraphs
-        return (
-          <p key={i} className="font-dm text-sm text-ink-light leading-relaxed mb-4 pl-4">
-            {trimmed}
+      // Italic single line (*text*)
+      if (line.startsWith('*') && line.endsWith('*') && !line.startsWith('**') && line.length > 2) {
+        elements.push(
+          <p key={getKey()} className="font-fraunces text-base text-ink-light italic leading-relaxed mb-2 pl-4 border-l-2 border-parchment-edge">
+            {line.replace(/^\*|\*$/g, '')}
           </p>
         )
-      })
-      .filter(Boolean)
+        i++
+        continue
+      }
+
+      // Clause paragraphs (**X.X Title.** body)
+      if (line.startsWith('**')) {
+        const clause = parseClause(line)
+        
+        if (clause) {
+          elements.push(
+            <div key={getKey()} className="mb-5 group">
+              <div className="flex items-start gap-3">
+                {/* Clause number badge */}
+                <div className="flex-shrink-0 w-12 h-12 flex items-center justify-center bg-white border-2 border-kai-gold/30 rounded-lg shadow-sm group-hover:border-kai-gold/50 transition-colors">
+                  <span className="font-dm text-sm font-bold text-kai-gold">{clause.number}</span>
+                </div>
+                
+                {/* Clause content */}
+                <div className="flex-1 pt-1">
+                  {clause.title && (
+                    <h3 className="font-fraunces text-base font-semibold text-ink mb-1">
+                      {clause.title}
+                    </h3>
+                  )}
+                  <p className="font-dm text-sm text-ink-light leading-relaxed">
+                    {clause.body}
+                  </p>
+                </div>
+              </div>
+            </div>
+          )
+          i++
+          continue
+        }
+      }
+
+      // Default paragraph
+      elements.push(
+        <p key={getKey()} className="font-dm text-sm text-ink-light leading-relaxed mb-4 pl-4">
+          {line}
+        </p>
+      )
+      i++
+    }
+
+    return elements
   }
 
   const REACTION_EMOJIS = ['🔥', '💛', '🤔', '✊', '🌱', '📜', '💡', '🙏', '⚡']
