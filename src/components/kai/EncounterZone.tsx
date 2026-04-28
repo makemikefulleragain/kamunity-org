@@ -22,15 +22,28 @@ export default function EncounterZone() {
   const [showStarting, setShowStarting] = useState(true)
   const [panelOpen, setPanelOpen] = useState(false)
   const messagesEndRef = useRef<HTMLDivElement>(null)
+  const lastAssistantRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLTextAreaElement>(null)
+  const prevMessageCount = useRef<number>(0)
 
-  const scrollToBottom = useCallback(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
-  }, [])
-
+  // Scroll to top of new assistant message when it first appears
   useEffect(() => {
-    scrollToBottom()
-  }, [messages, scrollToBottom])
+    const assistantMessages = messages.filter(m => m.role === 'assistant')
+    const lastAssistantIndex = messages.findLastIndex(m => m.role === 'assistant')
+    
+    // Only scroll when a NEW assistant message was just added
+    if (assistantMessages.length > prevMessageCount.current && lastAssistantIndex !== -1) {
+      // Small delay to ensure DOM is ready
+      setTimeout(() => {
+        const element = document.getElementById(`assistant-msg-${lastAssistantIndex}`)
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth', block: 'start' })
+        }
+      }, 50)
+    }
+    
+    prevMessageCount.current = assistantMessages.length
+  }, [messages])
 
   const sendMessage = async (text: string) => {
     if (!text.trim() || loading) return
@@ -157,6 +170,7 @@ export default function EncounterZone() {
         {messages.map((message, index) => (
           <div
             key={index}
+            id={message.role === 'assistant' ? `assistant-msg-${index}` : undefined}
             className={`mb-4 animate-fade-in-up ${
               message.role === 'user' ? 'flex justify-end' : 'flex justify-start'
             }`}

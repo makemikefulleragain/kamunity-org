@@ -97,8 +97,8 @@ function KaiModal({ open, onClose }: { open: boolean; onClose: () => void }) {
           </svg>
         </button>
 
-        {/* Modal content wrapper - constrains fixed elements */}
-        <div className="relative w-full h-full bg-kai-cream rounded-2xl overflow-hidden shadow-2xl">
+        {/* Modal content wrapper - constrains fixed elements, enables scroll */}
+        <div className="relative w-full h-full bg-kai-cream rounded-2xl overflow-auto shadow-2xl">
           <KaiLanding />
         </div>
       </div>
