@@ -71,7 +71,7 @@ function KaiModal({ open, onClose }: { open: boolean; onClose: () => void }) {
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center"
+      className="fixed inset-0 z-50 flex items-center justify-center pt-20 pb-6 px-4 sm:pt-24 sm:pb-12 sm:px-12"
       role="dialog"
       aria-modal="true"
       aria-label="Kai chat"
@@ -83,8 +83,8 @@ function KaiModal({ open, onClose }: { open: boolean; onClose: () => void }) {
         aria-hidden="true"
       />
 
-      {/* Modal Container - responsive padding */}
-      <div className="relative w-full h-full sm:h-auto sm:max-h-[calc(100vh-4rem)] sm:max-w-4xl sm:m-8 animate-fade-in-up">
+      {/* Modal Container */}
+      <div className="relative w-full h-full max-w-3xl max-h-[700px] animate-fade-in-up">
         {/* Close button */}
         <button
           onClick={onClose}
@@ -98,7 +98,7 @@ function KaiModal({ open, onClose }: { open: boolean; onClose: () => void }) {
         </button>
 
         {/* Modal content wrapper - constrains fixed elements */}
-        <div className="relative w-full h-full sm:h-[calc(100vh-4rem)] sm:max-h-[800px] bg-kai-cream sm:rounded-2xl overflow-hidden shadow-2xl isolation-auto">
+        <div className="relative w-full h-full bg-kai-cream rounded-2xl overflow-hidden shadow-2xl">
           <KaiLanding />
         </div>
       </div>
