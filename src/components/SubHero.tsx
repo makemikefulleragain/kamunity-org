@@ -89,16 +89,6 @@ export default function SubHero() {
         </div>
       </FadeIn>
 
-      {/* Campfire text below block 1 */}
-      <FadeIn className="mb-16 max-w-[640px]">
-        <p className="text-[0.88rem] text-ink mb-3 leading-relaxed">
-          This is what <a href="https://kamunity.ai" target="_blank" rel="noopener noreferrer" className="text-ku font-semibold no-underline hover:text-ku-light">Kamunity</a> is — the campfire where communities gather. A place to speak your needs, share ideas, and find others who&apos;ve solved similar problems.
-        </p>
-        <p className="text-[0.88rem] text-ink leading-relaxed">
-          It&apos;s not a product pitch. It&apos;s a circle. You sit down, you say what you need, and the community responds — sometimes with advice, sometimes with a tool that already exists, and sometimes by building something new.
-        </p>
-      </FadeIn>
-
       {/* Block 2: Text left, Callout box right */}
       <FadeIn>
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-10 items-start">
