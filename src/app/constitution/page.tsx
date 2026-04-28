@@ -66,13 +66,21 @@ export default function ConstitutionPage() {
   }
 
   // Parse clause number and text from bold markdown
-  // Format: "**2.1 No Surveillance.** Kai will never monitor..."
+  // Format 1: "**2.1 No Surveillance.** Kai will never monitor..." (with title)
+  // Format 2: "**1.1** Kai is a wayfinder..." (number only, no title)
   const parseClause = (text: string): { number: string; title: string; body: string } | null => {
-    // Match **X.X Title.** followed by body
-    const match = text.match(/^\*\*(\d+\.\d+)\s+(.+?)\.\*\*\s*(.+)$/)
-    if (match) {
-      return { number: match[1], title: match[2], body: match[3] }
+    // Try Format 1: **X.X Title.** Body
+    const matchWithTitle = text.match(/^\*\*(\d+\.\d+)\s+(.+?)\.\*\*\s*(.+)$/)
+    if (matchWithTitle) {
+      return { number: matchWithTitle[1], title: matchWithTitle[2], body: matchWithTitle[3] }
     }
+    
+    // Try Format 2: **X.X** Body
+    const matchNumberOnly = text.match(/^\*\*(\d+\.\d+)\*\*\s*(.+)$/)
+    if (matchNumberOnly) {
+      return { number: matchNumberOnly[1], title: '', body: matchNumberOnly[2] }
+    }
+    
     return null
   }
 
