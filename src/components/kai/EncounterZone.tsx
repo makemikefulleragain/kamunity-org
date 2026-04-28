@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useRef, useEffect, useCallback } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import Typewriter from './Typewriter'
 import StartingPoints from './StartingPoints'
 import SurfaceZone from './SurfaceZone'
@@ -21,8 +21,6 @@ export default function EncounterZone() {
   const [activeCards, setActiveCards] = useState<string[]>([])
   const [showStarting, setShowStarting] = useState(true)
   const [panelOpen, setPanelOpen] = useState(false)
-  const messagesEndRef = useRef<HTMLDivElement>(null)
-  const lastAssistantRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLTextAreaElement>(null)
   const prevMessageCount = useRef<number>(0)
 
@@ -222,8 +220,6 @@ export default function EncounterZone() {
             </div>
           </div>
         )}
-
-        <div ref={messagesEndRef} />
       </div>
 
       {/* Surfaced card links — centered pills above input */}
