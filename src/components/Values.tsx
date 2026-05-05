@@ -10,7 +10,7 @@ const values = [
 
 export default function Values() {
   return (
-    <FadeIn id="values">
+    <FadeIn className="max-w-[640px] mx-auto" id="how">
       <div className="font-sans text-[0.55rem] uppercase tracking-[3px] text-ku mb-2.5 font-semibold">
         What We Stand For
       </div>

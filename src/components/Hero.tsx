@@ -17,7 +17,7 @@ export default function Hero() {
 
       <p className="text-[1.05rem] text-ink-light max-w-[520px] mx-auto mb-8 leading-relaxed">
         Stop renting from big tech. Kamunity gives your community its own space, custom tools, and
-        real data control — with no coding, no contracts, and no catch.
+        real data control. No ads, no contracts, and no catch.
       </p>
 
       <div className="flex justify-center mb-10">

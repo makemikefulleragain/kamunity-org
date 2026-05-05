@@ -74,11 +74,11 @@ export default function SubHero() {
             </div>
 
             <p className="text-[0.88rem] text-ink mb-4 leading-relaxed">
-              In most communities, that need stays a need. There&apos;s no time to find the right tool. No budget or developer on just waiting. No capacity to learn to code. The need is very real but the tools you need aren&apos;t.
+              In most communities, that need stays a need. There&apos;s no time to find the right tool. No budget or developer just waiting. No capacity to learn to code. The need is very real but the tools you need aren&apos;t, so you make do.
             </p>
 
             <p className="text-[0.88rem] text-ink-light leading-relaxed">
-              So the need sits, and festers. And we keep using spreadsheets, emails, group chats, or just keeping all in your heads.
+              The need sits, and festers. We keep using spreadsheets, emails, group chats, or just keep all in our heads and hope.
             </p>
           </div>
 
@@ -98,15 +98,15 @@ export default function SubHero() {
             </h3>
 
             <p className="text-[0.88rem] text-ink mb-4 leading-relaxed">
-              Not a company. Not a platform. Not a product you sign up for and hope they don&apos;t change the pricing.
+              Not a company. Not a platform. Not a product you sign up for and hope they don&apos;t change the pricing. A Community Digital Tool Factory. 
             </p>
 
             <p className="text-[0.88rem] text-ink mb-4 leading-relaxed">
-              A Community Digital Tool Factory. Owned by the community. Running on the community&apos;s terms of service. 
+              Owned by the community. Running on the community&apos;s terms of service. 
             </p>  
 
             <p className="text-[0.88rem] text-ink mb-4 leading-relaxed">
-              Now when someone in the community speaks a need the factory listens, plans, builds, and delivers something that actually works today. Learns from your feedback to make it better. Shares it with anyone that has the same needs.
+              Now when someone ishares a need the factory listens. It plans, builds, and delivers something that actually works today. Learns from your feedback to make it better. Shares it with anyone that has the same needs.
             </p>
 
             <p className="text-[0.88rem] text-ink-light leading-relaxed">
