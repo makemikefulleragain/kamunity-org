@@ -18,7 +18,7 @@ export default function Values() {
         Five rules baked into every line of code.
       </h2>
       <p className="text-ink-light text-[0.88rem] max-w-[640px] mx-auto mb-5">
-        These aren&apos;t marketing. They&apos;re enforced by the system itself. Our AI factory literally can&apos;t build surveillance tools. The Terms of Service won&apos;t allow it.
+        These aren&apos;t marketing. They&apos;re enforced by the system itself. Our AI factory literally can&apos;t build surveillance tools. The Terms of Service won&apos;t let it.
       </p>
 
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2.5 mt-5">

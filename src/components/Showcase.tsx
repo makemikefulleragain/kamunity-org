@@ -13,7 +13,7 @@ export default function Showcase() {
         Real tools, built for real communities.
       </h2>
       <p className="text-ink-light text-[0.88rem] max-w-[640px] mb-6">
-        Every tool below is live, free, and community-owned. Built using methods anyone can learn — no coding experience needed.
+        Every tool below is live, free, and community-owned. Built using methods anyone can learn, no coding experience needed. (but if you want to play check out Vine Outcome Coding below)
       </p>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
