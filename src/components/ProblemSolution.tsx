@@ -7,7 +7,7 @@ export default function ProblemSolution() {
         The Real Problem
       </div>
       <h2 className="font-sans text-[1.6rem] font-bold text-ink mb-3 leading-tight tracking-tight">
-        Our Community Groups Deserve Better
+        Our Community, Our Families, Our People. We Deserve Better
       </h2>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mt-6">
@@ -17,20 +17,26 @@ export default function ProblemSolution() {
             Your group uses Facebook, WhatsApp, Google Docs, maybe a $200/month platform you barely use.
           </p>
           <p className="text-[0.78rem] text-ink-light mb-1.5 leading-relaxed">
-            You don&apos;t own any of it. Your members&apos; data gets harvested. The free plan shrinks. The paid plan grows.
+            You don&apos;t own any of it. Your members&apos; data gets harvested.
+          </p>
+          <p className="text-[0.78rem] text-ink-light mb-1.5 leading-relaxed">
+            The free plan shrinks. The paid plan grows.
           </p>
           <p className="text-[0.78rem] text-ink-light leading-relaxed">
-            When you leave, you leave empty-handed.
+            When you finally leave, you leave empty-handed.
           </p>
         </div>
 
         <div className="p-5 rounded-[10px] bg-[#f0fdf0] border border-[#c8e6c8]">
           <h3 className="font-sans text-[0.78rem] font-bold text-forest mb-2">What could happen instead</h3>
           <p className="text-[0.78rem] text-ink-light mb-1.5 leading-relaxed">
-            Your community gets its own digital space — chat, events, files, tools — that belongs to you.
+            Your community gets its own digital space for chat, events, files and tools you actually own.
           </p>
           <p className="text-[0.78rem] text-ink-light mb-1.5 leading-relaxed">
-            Need a volunteer roster? A grant tracker? An event board? Just describe it. It gets built.
+            Need a volunteer roster? A grant tracker? An event board?
+          </p>
+            <p className="text-[0.78rem] text-ink-light mb-1.5 leading-relaxed">
+            Just describe it. It gets built, just for you.
           </p>
           <p className="text-[0.78rem] text-ink-light leading-relaxed">
             Your data is yours. Portable. Deletable. Never sold.
