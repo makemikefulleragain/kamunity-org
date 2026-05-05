@@ -103,7 +103,7 @@ export default function SubHero() {
             </p>
 
             <p className="text-[0.88rem] text-ink-light leading-relaxed">
-              The people at campfire, the kitchen table, the water cooler, on the long drive home. The people building the factory. We're the same people, the same community. We always come together, eventually, to get it done, because who else will, right?
+              The people at campfire, the kitchen table, the water cooler, on the long drive home. The people building the factory. We&apos;re the same people, the same community. We always come together, eventually, to get it done, because who else will, right?
             </p>
           </div>
 
