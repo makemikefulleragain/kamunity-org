@@ -28,7 +28,7 @@ export default function BuildLoop() {
   return (
     <div className="flex flex-col items-center">
       <div className="font-sans text-[0.5rem] uppercase tracking-[2px] text-ink-faint mb-3 font-semibold">
-        The Build Loop
+        The Kamunity Digital Build Loop
       </div>
       <div className="relative w-[300px] h-[280px]">
         <svg

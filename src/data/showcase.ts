@@ -12,7 +12,7 @@ export interface ShowcaseItem {
 export const showcaseItems: ShowcaseItem[] = [
   {
     slug: 'kamunity-ai',
-    title: 'Kamunity - find yours, create impact',
+    title: 'Kamunity Rooms - find yours, create impact',
     description: 'START HERE! Find, create, and join public and private rooms for your community. Discover conversations, share resources, and build together.No ads, no data harvesting.',
     url: 'https://kamunity.ai',
     thumbGradient: 'from-indigo-200 to-purple-200',

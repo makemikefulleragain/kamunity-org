@@ -5,11 +5,11 @@ import FadeIn from './FadeIn'
 import BuildLoop from './BuildLoop'
 
 const quotes = [
-  'I need a way to track our community garden \u2014 what\u2019s planted, when to water, what\u2019s ready to harvest.',
-  'Our local footy club runs off one person\u2019s phone. If they leave, we lose everything \u2014 the roster, the contacts, the finances.',
+  'I need a way to track our community garden. What\u2019s planted, when to water, what\u2019s ready to harvest.',
+  'Our local footy club runs off one person\u2019s phone. If they leave, we lose everything; the roster, the contacts, the finances.',
   'I\u2019m a uni student trying to start a study group but there\u2019s no free tool that isn\u2019t harvesting our data or shoving ads at us.',
   'I volunteer at a food bank. We coordinate with sticky notes and a whiteboard. There has to be a better way.',
-  'My school P&C needs a place parents can actually find \u2014 not buried in a Facebook group nobody checks.',
+  'My school P&C needs a place parents can actually find, not buried in a Facebook group nobody checks.',
 ]
 
 export default function SubHero() {
@@ -74,9 +74,11 @@ export default function SubHero() {
             </div>
 
             <p className="text-[0.88rem] text-ink mb-4 leading-relaxed">
-              In most communities, that need stays a need. There&apos;s no time to find the right tool. No budget or developer just waiting. No capacity to learn to code. The need is very real but the tools you need aren&apos;t, so you make do.
+              In most communities, that need stays a need. There&apos;s no time to find the right tool. No budget or developer just waiting. No capacity to learn to code.
             </p>
-
+            <p className="text-[0.88rem] text-ink mb-4 leading-relaxed">
+              The need is very real but the tools and support you need aren&apos;t, so you make do, again.
+            </p>
             <p className="text-[0.88rem] text-ink-light leading-relaxed">
               The need sits, and festers. We keep using spreadsheets, emails, group chats, or just keep all in our heads and hope.
             </p>
@@ -106,27 +108,27 @@ export default function SubHero() {
             </p>  
 
             <p className="text-[0.88rem] text-ink mb-4 leading-relaxed">
-              Now when someone ishares a need the factory listens. It plans, builds, and delivers something that actually works today. Learns from your feedback to make it better. Shares it with anyone that has the same needs.
+              Now when someone shares a need the factory listens. It plans, builds, and delivers something that actually works today. Then shares it with anyone that has the same needs.
             </p>
 
             <p className="text-[0.88rem] text-ink-light leading-relaxed">
-              The people at campfire, the kitchen table, the water cooler, on the long drive home. The people building the factory. We&apos;re the same people, the same community. We always come together, eventually, to get it done, because who else will, right?
+              The people at campfire, the kitchen table, the water cooler, on the long drive home. The people building the factory. We&apos;re the same people, the same community. We&apos;re in this together.
             </p>
           </div>
 
           {/* Callout box on the right */}
           <div className="bg-white border border-parchment-edge rounded-xl p-5 shadow-sm">
             <div className="font-sans text-[0.5rem] uppercase tracking-[2px] text-ku mb-3 font-semibold">
-              The Community Factory Terms of Service and Built-in Guardrails
+              The Community Factory Terms of Service!
             </div>
             <p className="text-[0.75rem] text-ink-light mb-3 leading-relaxed">
-              The factory has rules it cannot break based on a constitution written by the community. 
+              The factory and AI has rules it cannot break based on a constitution written by you, the community. 
             </p>
              <p className="text-[0.75rem] text-ink-light mb-3 leading-relaxed">
-              No surveillance. No dark patterns. No vendor lock-in. No extracting data from people without their knowledge.
+              No surveillance. No dark patterns. No vendor lock-in. No extracting data from people without their informed consent and payment.
             </p>
             <p className="text-[0.75rem] text-ink-light mb-4 leading-relaxed">
-              A request to build a user-tracking tool gets refused. Not by a person making a judgement call. By the factory itself. Our values are structural, not aspirational.
+              For example: a request to build a user-tracking tool gets refused. Not by a person making a judgement call. By the factory itself. Community values are structural, not aspirational.
             </p>
 
           </div>
