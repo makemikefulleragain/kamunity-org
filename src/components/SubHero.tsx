@@ -38,7 +38,7 @@ export default function SubHero() {
           The Journey
         </div>
         <h2 className="font-sans text-[1.8rem] font-bold text-ku mb-10 leading-tight tracking-tight max-w-[640px]">
-          How a community builds its own tools
+          How does a community builds its own digital tools
         </h2>
       </FadeIn>
 
@@ -47,7 +47,7 @@ export default function SubHero() {
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-10 items-start">
           <div>
             <h3 className="font-serif text-[1.5rem] italic text-fire-red/80 mb-6 leading-snug">
-              Someone at the fire speaks.
+              Someone at the campfire speaks, or more likely now, at the kitchen table...
             </h3>
 
             <div
@@ -74,11 +74,36 @@ export default function SubHero() {
             </div>
 
             <p className="text-[0.88rem] text-ink mb-4 leading-relaxed">
-              In most communities, that idea stays an idea. There&apos;s no developer on call. No budget for software. No time to learn to code. The need is real but the tools aren&apos;t.
+              In most communities, that need stays a need. There&apos;s no time to find the right tool. No budget or developer on just waiting. No capacity to learn to code. The need is very real but the tools you need aren&apos;t.
             </p>
 
             <p className="text-[0.88rem] text-ink-light leading-relaxed">
-              So the need sits. And the community keeps using spreadsheets, or group chats, or nothing.
+              So the need sits, and festers. And we keep using spreadsheets, emails, group chats, or just keeping all in your heads.
+            </p>
+          </div>
+
+      {/* Block 2: Text left, Callout box right */}
+      <FadeIn>
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-10 items-start">
+          <div>
+            <h3 className="font-serif text-[1.5rem] italic text-fire-red/80 mb-6 leading-snug">
+              What if the campfire could hear and build the tools your community needs?
+            </h3>
+
+            <p className="text-[0.88rem] text-ink mb-4 leading-relaxed">
+              Not a company. Not a platform. Not a product you sign up for and hope they don&apos;t change the pricing.
+            </p>
+
+            <p className="text-[0.88rem] text-ink mb-4 leading-relaxed">
+              A Community Digital Tool Factory. Owned by the community. Running on the community&apos;s terms of service. 
+            </p>  
+
+            <p className="text-[0.88rem] text-ink mb-4 leading-relaxed">
+              Now when someone in the community speaks a need the factory listens, plans, builds, and delivers something that actually works today. Learns from your feedback to make it better. Shares it with anyone that has the same needs.
+            </p>
+
+            <p className="text-[0.88rem] text-ink-light leading-relaxed">
+              The people at campfire, the kitchen table, the water cooler, on the long drive home. The people building the factory. We're the same people, the same community. We always come together, eventually, to get it done, because who else will, right?
             </p>
           </div>
 
@@ -89,46 +114,21 @@ export default function SubHero() {
         </div>
       </FadeIn>
 
-      {/* Block 2: Text left, Callout box right */}
-      <FadeIn>
-        <div className="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-10 items-start">
-          <div>
-            <h3 className="font-serif text-[1.5rem] italic text-fire-red/80 mb-6 leading-snug">
-              What if the fire could build it?
-            </h3>
-
-            <p className="text-[0.88rem] text-ink mb-4 leading-relaxed">
-              Not a company. Not a platform. Not a product you sign up for and hope they don&apos;t change the pricing.
-            </p>
-
-            <p className="text-[0.88rem] text-ink mb-4 leading-relaxed">
-              A factory. Owned by the community. Running on the community&apos;s terms. When someone speaks a need, the factory listens, plans, builds, checks its own work, and delivers something that actually runs. Then it learns from what it built, so the next thing is better.
-            </p>
-
-            <p className="text-[0.88rem] text-ink-light leading-relaxed">
-              People around the campfire. People in the factory. The same people — your community — pulling together to get the thing done.
-            </p>
-          </div>
-
           {/* Callout box on the right */}
           <div className="bg-white border border-parchment-edge rounded-xl p-5 shadow-sm">
             <div className="font-sans text-[0.5rem] uppercase tracking-[2px] text-ku mb-3 font-semibold">
-              Built-in Guardrails
+              The Community Factory Terms of Service and Built-in Guardrails
             </div>
             <p className="text-[0.75rem] text-ink-light mb-3 leading-relaxed">
-              The factory has rules it cannot break — a constitution written by the community. No surveillance. No dark patterns. No vendor lock-in. No extracting data from people without their knowledge.
+              The factory has rules it cannot break based on a constitution written by the community. 
+            </p>
+             <p className="text-[0.75rem] text-ink-light mb-3 leading-relaxed">
+              No surveillance. No dark patterns. No vendor lock-in. No extracting data from people without their knowledge.
             </p>
             <p className="text-[0.75rem] text-ink-light mb-4 leading-relaxed">
-              A request to build a user-tracking tool gets refused. Not by a person making a judgement call. By the infrastructure itself. The values are structural, not aspirational.
+              A request to build a user-tracking tool gets refused. Not by a person making a judgement call. By the factory itself. Our values are structural, not aspirational.
             </p>
-            <a
-              href="https://factoryk1.netlify.app/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-1 text-ku font-sans text-[0.72rem] font-semibold no-underline hover:text-ku-light transition-colors"
-            >
-              See the factory at work →
-            </a>
+
           </div>
         </div>
       </FadeIn>
