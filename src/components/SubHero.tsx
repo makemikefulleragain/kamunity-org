@@ -82,6 +82,13 @@ export default function SubHero() {
             </p>
           </div>
 
+          {/* Build Loop on the right */}
+          <div className="flex items-start justify-center pt-4">
+            <BuildLoop />
+          </div>
+        </div>
+      </FadeIn>
+
       {/* Block 2: Text left, Callout box right */}
       <FadeIn>
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-10 items-start">
@@ -106,13 +113,6 @@ export default function SubHero() {
               The people at campfire, the kitchen table, the water cooler, on the long drive home. The people building the factory. We&apos;re the same people, the same community. We always come together, eventually, to get it done, because who else will, right?
             </p>
           </div>
-
-          {/* Build Loop on the right */}
-          <div className="flex items-start justify-center pt-4">
-            <BuildLoop />
-          </div>
-        </div>
-      </FadeIn>
 
           {/* Callout box on the right */}
           <div className="bg-white border border-parchment-edge rounded-xl p-5 shadow-sm">
