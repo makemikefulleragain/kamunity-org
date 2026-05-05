@@ -1,10 +1,10 @@
 import FadeIn from './FadeIn'
 
 const cards = [
-  { ico: '🏠', title: 'Your own community space; public or private', desc: 'Your community gets its own Kamunity Rooms. Like Facebook or Doscord but it is yours. Plus access to the shared commons where communities meet and discover each other.' },
+  { ico: '🏠', title: 'Your own spaces; public & private', desc: 'Your community gets its own Kamunity Rooms. Like Facebook or Doscord but it is yours. Plus a shared commons where people meet and support each other.' },
   { ico: '🔨', title: 'Tools built with you, not for you', desc: 'Describe what you need in plain English. Our AI-powered factory plans, builds, and delivers it. No coding. No consultants. No six-month timeline.' },
   { ico: '🔗', title: 'Connected by, not dependent on, the tech', desc: 'Built on simple and safe tech you can leave and take anytime, or stay, and find other communities. Your data and tools stay yours forever.' },
-  { ico: '🤖', title: 'Support from a community AI you control', desc: 'Kai helps organise, summarise, and suggest. Kai never decides for you. An assistant, not a boss. Because you get to decide the Terms of Service it has to follow' },
+  { ico: '🤖', title: 'Support from a community AI you control', desc: 'Kai helps organise, summarise, and suggest. Kai never decides for you. An assistant, not a boss. Because it signs up for your Terms of Service' },
 ]
 
 export default function HowItWorks() {
