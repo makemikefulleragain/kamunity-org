@@ -17,7 +17,7 @@ const dmSans = DM_Sans({
 export const metadata: Metadata = {
   title: "Kamunity — Free digital tools your community actually owns",
   description:
-    "Stop renting from big tech. Kamunity gives your community its own space, custom tools, and real data control — with no coding, no contracts, and no catch.",
+    "Kamunity helps your community create your own spaces and custom tools, with real data control.",
   metadataBase: new URL("https://kamunity.org"),
   openGraph: {
     title: "Kamunity — Free digital tools your community actually owns",
